@@ -1,9 +1,9 @@
 package com.naver.jihyunboard.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.naver.jihyunboard.dto.BoardDTO;
 
 public interface BoardDAO {
-	public ArrayList<BoardDTO> listAll() throws Exception;
+	public List<BoardDTO> listAll() throws Exception;
 }

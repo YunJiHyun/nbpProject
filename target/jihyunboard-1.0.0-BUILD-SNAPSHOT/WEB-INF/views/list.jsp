@@ -9,8 +9,7 @@
 
 </head>
 <body>
-list.jsp파일
-<%-- <h2>게시글 목록</h2>
+ <h2>게시글 목록</h2>
 <button type="button" id="btnWrite">글쓰기</button>
 <table border="1" width="600px">
     <tr>
@@ -20,7 +19,7 @@ list.jsp파일
         <th>내용</th>
         <th>분류</th>
     </tr>
-    <c:forEach var="row" items="${list}">
+	<c:forEach var="row" items="${boardList}">
     <tr>
         <td>${row.boardNum}</td>
         <td>${row.boardUserId}</td>
@@ -28,7 +27,7 @@ list.jsp파일
     	<td>${row.boardContent}</td>
         <td>${row.boardCategory}</td>
     </tr>    
-    </c:forEach>
-</table> --%>
+    </c:forEach> 
+</table> 
 </body>
 </html>

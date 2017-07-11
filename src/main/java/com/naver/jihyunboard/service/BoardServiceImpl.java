@@ -1,6 +1,6 @@
 package com.naver.jihyunboard.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,7 +16,7 @@ public class BoardServiceImpl implements BoardService{
     BoardDAO boardDao;
 
 	@Override
-	public ArrayList<BoardDTO> listAll() throws Exception {
+	public List<BoardDTO> listAll() throws Exception {
 		  return boardDao.listAll();
 	
 	}
