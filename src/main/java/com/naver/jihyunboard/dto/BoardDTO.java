@@ -12,20 +12,6 @@ public class BoardDTO {
 	private int boardReadCount;
 	
 	
-	
-	
-	public BoardDTO(int boardNum, int boardUserId, String boardTitle, String boardContent, String boardCategory,
-			Timestamp boardDate, int boardReadCount) {
-		super();
-		this.boardNum = boardNum;
-		this.boardUserId = boardUserId;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.boardCategory = boardCategory;
-		this.boardDate = boardDate;
-		this.boardReadCount = boardReadCount;
-	} //constructor
-	
 	public int getBoardNum() {
 		return boardNum;
 	}
