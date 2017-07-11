@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.naver.jihyunboard.dao.IDAO">
+	<select id="listDAO" resultType="com.naver.jihyunboard.dto.BoardDTO">
+		SELECT * FROM BOARD ORDER BY BOARDNUM DESC
+	</select>
+</mapper>
