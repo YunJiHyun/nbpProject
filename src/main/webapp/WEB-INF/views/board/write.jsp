@@ -36,7 +36,7 @@
 </head>
 <body>
 	<h1>새 글 작성하기</h1>
-	<form name="boardWriteForm" method="post" action="${path}/board/insert">
+	<form name="boardWriteForm" method="post" action="/board/insert">
 	    <div>
 	        	제목 <input name="title" id="title" size="80" placeholder="제목을 입력해주세요">
 	    </div>

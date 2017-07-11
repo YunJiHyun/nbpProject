@@ -18,7 +18,7 @@ public class BoardController {
     BoardService boardService;
 	   
 	   //게시글 리스트
-	   @RequestMapping("/board/list")
+	   @RequestMapping("/list")
 	    public String list(Model model) throws Exception{
 		   model.addAttribute("boardList", boardService.listAll());
 		   return "/board/list";		
