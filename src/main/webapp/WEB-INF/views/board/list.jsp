@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 목록</title>
-<script src="../js/jquery-3.2.1.min.js"></script>
+<%@ include file="board_header.jsp" %>
 <script>
     $(document).ready(function(){
         $("#btnWrite").click(function(){
             // 페이지 주소 변경(이동)
-            location.href = "${pageContext.request.contextPath}/board/write";
+            location.href = "${path}/board/write";
         });
     });
 </script>
@@ -25,7 +24,9 @@
         <th>작성자</th>
         <th>제목</th>
         <th>내용</th>
-        <th>분류</th>
+        <th>카테고리</th>
+        <th>날짜</th>
+        <th>조회수</th>
     </tr>
 	<c:forEach var="row" items="${boardList}">
     <tr>
@@ -34,6 +35,8 @@
         <td>${row.boardTitle}</td>
     	<td>${row.boardContent}</td>
         <td>${row.boardCategory}</td>
+        <td>${row.boardDate}</td>
+        <td>${row.boardReadCount}</td>
     </tr>    
     </c:forEach> 
 </table> 

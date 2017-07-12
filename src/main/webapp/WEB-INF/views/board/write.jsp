@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 작성</title>
-<script src="../js/jquery-3.2.1.min.js"></script>
+<%@ include file="board_header.jsp" %>
 <script>
     $(document).ready(function(){
         $("#btnSave").click(function(){
@@ -29,7 +29,10 @@
                 return;
             }
         
-            document.boardWriteForm.submit();//서버로 전송
+        });
+        
+        $("#btnBack").click(function(){
+        	location.href = "${path}/board/list";
         });
     });
 </script>
@@ -62,7 +65,7 @@
 	    <div style="width:650px; text-align: center;">
 	        <button type="submit" id="btnSave">작성완료</button>
 	        <button type="reset">다시 작성</button>
-	        <button type="button">돌아가기</button>
+	        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
 	</form>
 </body>
