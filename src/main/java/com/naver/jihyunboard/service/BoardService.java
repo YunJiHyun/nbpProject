@@ -7,4 +7,5 @@ import com.naver.jihyunboard.dto.BoardDTO;
 public interface BoardService {
 	//게시글 전체 목록
 	public List<BoardDTO> listAll() throws Exception;
+	public void insertBoard(BoardDTO dto) throws Exception;
 }

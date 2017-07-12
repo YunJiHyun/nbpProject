@@ -5,9 +5,11 @@ package com.naver.jihyunboard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.naver.jihyunboard.dto.BoardDTO;
 import com.naver.jihyunboard.service.BoardService;
 
 @Controller
@@ -29,6 +31,17 @@ public class BoardController {
 	    public String write(){
 	        return "/board/write"; 
 	    }
+	   
+	   @RequestMapping(method=RequestMethod.POST, value="/insert")
+	   public String insert(@ModelAttribute BoardDTO dto) throws Exception{
+		 boardService.insertBoard(dto);
+		  
+		   return "redirect:list";
+	   }
 
+	   
+	   
+	   
+	   
 	   
 }

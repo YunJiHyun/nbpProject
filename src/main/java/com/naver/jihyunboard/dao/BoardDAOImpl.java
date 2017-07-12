@@ -22,4 +22,10 @@ public class BoardDAOImpl implements BoardDAO {
 		
 	}
 
+	@Override
+	public int insertBoard(BoardDTO dto) throws Exception {
+		return SqlSession.insert(namespace + ".insert", dto);
+		
+	}
+
 }

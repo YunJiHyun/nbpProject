@@ -21,4 +21,17 @@ public class BoardServiceImpl implements BoardService{
 	
 	}
 
+	@Override
+	public void insertBoard(BoardDTO dto) throws Exception {
+		String title= dto.getBoardTitle();
+		String content = dto.getBoardContent();
+		String category = dto.getBoardCategory();
+		
+		dto.setBoardTitle(title);
+		dto.setBoardContent(content);
+		dto.setBoardCategory(category);
+		boardDao.insertBoard(dto);
+		
+	}
+
 }

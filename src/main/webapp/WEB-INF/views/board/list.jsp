@@ -5,11 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 목록</title>
+<script src="../js/jquery-3.2.1.min.js"></script>
 <script>
     $(document).ready(function(){
         $("#btnWrite").click(function(){
             // 페이지 주소 변경(이동)
-            location.href = "${path}/board/write";
+            location.href = "${pageContext.request.contextPath}/board/write";
         });
     });
 </script>
