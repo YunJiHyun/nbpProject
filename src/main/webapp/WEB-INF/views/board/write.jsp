@@ -43,11 +43,11 @@
 	    <div>
 	        	카테고리 <select name="boardCategory">
 	        				<option value="checking">--선택해주세요--</option>
-	        				<option value="1">공지</option>
-	        				<option value="2">학사</option>
-	        				<option value="3">장학</option>
-	        				<option value="4">졸업</option>
-	        				<option value="5">모집</option>
+	        				<option value="공지">공지</option>
+	        				<option value="학사">학사</option>
+	        				<option value="장학">장학</option>
+	        				<option value="졸업">졸업</option>
+	        				<option value="모집">모집</option>
 	        		  </select>
 	    </div>
 	    <div>
