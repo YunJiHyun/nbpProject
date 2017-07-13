@@ -27,8 +27,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardDTO viewBoard(String content) throws Exception{
-		return boardDao.viewBoard(content);
+	public BoardDTO viewBoard(int boardNum) throws Exception{
+		return boardDao.viewBoard(boardNum);
 		
 	}
 

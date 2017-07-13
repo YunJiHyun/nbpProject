@@ -29,8 +29,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public BoardDTO viewBoard(String content) throws Exception {
-		return SqlSession.selectOne(namespace + ".viewBoard", content);
+	public BoardDTO viewBoard(int boardNum) throws Exception {
+		return SqlSession.selectOne(namespace + ".viewBoard", boardNum);
 	}
 
 }

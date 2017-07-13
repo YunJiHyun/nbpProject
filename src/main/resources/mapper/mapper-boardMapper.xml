@@ -27,7 +27,7 @@
      <select id="viewBoard" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
      	SELECT boardUserid, boardTitle, boardContent, boardCategory, boardDate
      	FROM board
-     	WHERE boardContent = #{content} 
+     	WHERE boardNum = #{boardNum} 
      </select>
 
 </mapper>

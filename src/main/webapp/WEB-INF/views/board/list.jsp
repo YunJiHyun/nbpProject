@@ -36,7 +36,7 @@
         <td>${row.boardDate}</td>
         <td>${row.boardReadCount}</td>
     </tr>    
-    </c:forEach> 
+    </c:forEach>
 </table> 
 </body>
 </html>

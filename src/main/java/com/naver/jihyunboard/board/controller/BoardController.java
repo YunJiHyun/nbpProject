@@ -2,14 +2,13 @@ package com.naver.jihyunboard.board.controller;
 
 
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.naver.jihyunboard.board.dto.BoardDTO;
 import com.naver.jihyunboard.board.service.BoardService;
@@ -41,14 +40,8 @@ public class BoardController {
 	   }
 	   
 	   @RequestMapping("/view")
-	   public String boardView(HttpServletRequest request, Model model) throws Exception{
-		   String title = request.getParameter("boardTitle");
-		   String content = request.getParameter("boardContent");
-		   String category = request.getParameter("boardCategory");
-		   System.out.println("제목" + title);
-		   System.out.println("내용" + content);
-		   System.out.println("분류" + category);
-		   model.addAttribute("BoardDTO",boardService.viewBoard(title));
+	   public String boardView(@RequestParam("boardNum") int boardNum, Model model) throws Exception{
+		   model.addAttribute("BoardDTO",boardService.viewBoard(boardNum));
 		   return "/board/board_view";
 	   }
 	   

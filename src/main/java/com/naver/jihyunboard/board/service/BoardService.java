@@ -8,5 +8,5 @@ public interface BoardService {
 	//게시글 전체 목록
 	public List<BoardDTO> listAll() throws Exception;
 	public void insertBoard(BoardDTO dto) throws Exception;
-	public BoardDTO viewBoard(String content) throws Exception;
+	public BoardDTO viewBoard(int boardNum) throws Exception;
 }
