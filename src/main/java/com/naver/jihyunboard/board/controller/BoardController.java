@@ -40,12 +40,23 @@ public class BoardController {
 	   }
 	   
 	   @RequestMapping("/view")
-	   public String boardView(@RequestParam("boardNum") int boardNum, Model model) throws Exception{
+	   public String view(@RequestParam("boardNum") int boardNum, Model model) throws Exception{
 		   model.addAttribute("BoardDTO",boardService.viewBoard(boardNum));
 		   return "/board/board_view";
 	   }
 	   
+	   @RequestMapping("/update")
+	   public String update(@RequestParam("boardNum") int boardNum) throws Exception{
+		   boardService.updateBoard(boardNum);
+		   return "/board/update";
+	   }
 	   
+	   
+	   @RequestMapping("/delete")
+	   public String delete(@RequestParam("boardNum") int boardNum) throws Exception{
+		   boardService.deleteBoard(boardNum);
+		   return "redirect:list";
+	   }
 	   
 	   
 }

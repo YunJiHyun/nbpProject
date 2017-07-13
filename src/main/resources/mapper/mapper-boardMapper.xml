@@ -25,9 +25,14 @@
     
     <!-- 선택한 게시글 보기  -->
      <select id="viewBoard" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
-     	SELECT boardUserid, boardTitle, boardContent, boardCategory, boardDate
+     	SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory, boardDate
      	FROM board
      	WHERE boardNum = #{boardNum} 
      </select>
-
+	
+	  <delete id="deleteBoard">
+        DELETE FROM board
+        WHERE boardNum = #{boardNum}
+    </delete>
+	
 </mapper>

@@ -33,4 +33,16 @@ public class BoardDAOImpl implements BoardDAO {
 		return SqlSession.selectOne(namespace + ".viewBoard", boardNum);
 	}
 
+	@Override
+	public void updateBoard(int boardNum) throws Exception {
+		SqlSession.update(namespace + ".updateBoard", boardNum);
+		
+	}
+	
+	@Override
+	public void deleteBoard(int boardNum) throws Exception {
+		SqlSession.delete(namespace + ".deleteBoard", boardNum);
+		
+	}
+
 }

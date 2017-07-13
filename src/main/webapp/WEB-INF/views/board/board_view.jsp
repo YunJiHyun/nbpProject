@@ -32,37 +32,21 @@
 		}
 				
 	</style>
-	<script>
-		$(document).ready(function(){
-			  $("#btnUpdate").click(function(){
-		            // 페이지 주소 변경(이동)
-		            location.href = "${path}/board/modify";
-		      });
-			  
-			  $("#btnDelete").click(function(){
-		            // 페이지 주소 변경(이동)
-		            if(confirm("삭제하시겠습니까?")){
-		            	location.href = "${path}/board/list";
-		            }
-		      });
-		});
-	</script>
 </head>
 <body>
-	<div id="boardHeader">
-		<span id="title">${BoardDTO.boardTitle }</span>
-		<span id="categoryAndDate">${BoardDTO.boardCategory } | ${BoardDTO.boardDate }</span>
-	</div>
-	<hr/><br/><br/>
-    <div id="boardBody">
-    	${BoardDTO.boardContent }
-    </div>	
-    <div id="updateAndDelete">
-    	<input type="button" value="수정하기" id="btnUpdate"/>&nbsp;&nbsp;
-    	<input type="button" value="삭제하기" id="btnDelete"/>
-    </div>
-    <br/>
-    <div>
-    	<input type="button" value="목록"/>
-    </div>
+	
+		<div id="boardHeader">
+			<span id="title">${BoardDTO.boardTitle }</span>
+			<span id="categoryAndDate">${BoardDTO.boardCategory } | ${BoardDTO.boardDate }</span>
+		</div>
+		<hr/><br/><br/>
+	    <div id="boardBody">
+	    	${BoardDTO.boardContent }
+	    </div>		   
+	    	<a href="${path }/board/update?boardNum=${BoardDTO.boardNum}">수정하기</a>&nbsp;&nbsp;	
+			<a href="${path }/board/delete?boardNum=${BoardDTO.boardNum}">삭제하기</a> 	
+	    <br/>
+	    <div>
+	    	<input type="button" value="목록"/>
+	    </div>
 </html>
