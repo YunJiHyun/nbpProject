@@ -39,7 +39,7 @@
 </head>
 <body>
 	<h1>새 글 작성하기</h1>
-	<form name="boardWriteForm" method="post" action="${pageContext.request.contextPath}/board/insert">
+	<form name="boardWriteForm" method="post" action="${path}/board/insert">
 	    <div>
 	        	제목 <input name="boardTitle" id="boardTitle" size="80" placeholder="제목을 입력해주세요">
 	    </div>

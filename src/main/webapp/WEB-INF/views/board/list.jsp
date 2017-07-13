@@ -23,7 +23,6 @@
         <th>번호</th>
         <th>작성자</th>
         <th>제목</th>
-        <th>내용</th>
         <th>카테고리</th>
         <th>날짜</th>
         <th>조회수</th>
@@ -32,8 +31,7 @@
     <tr>
         <td>${row.boardNum}</td>
         <td>${row.boardUserId}</td>
-        <td>${row.boardTitle}</td>
-    	<td>${row.boardContent}</td>
+        <td><a href="${path}/board/view?boardNum=${row.boardNum }">${row.boardTitle}</a></td>
         <td>${row.boardCategory}</td>
         <td>${row.boardDate}</td>
         <td>${row.boardReadCount}</td>
