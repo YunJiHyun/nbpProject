@@ -18,7 +18,7 @@
 <body>
  <h2>게시글 목록</h2>
 <button type="button" id="btnWrite">글쓰기</button>
-<table border="1" width="600px">
+<table border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
     <tr>
         <th>번호</th>
         <th>작성자</th>

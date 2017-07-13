@@ -4,11 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시글 작성</title>
+<title>글 수정</title>
 <%@ include file="board_header.jsp" %>
 <script>
     $(document).ready(function(){
-        $("#btnSave").click(function(){
+    	$("select[name='boardCategory']").val('${BoardDTO.boardCategory}');
+    	 
+    	$("#btnSave").click(function(){
             var boardTitle = $("#boardTitle").val();
             var boardCategory = $("select[name='boardCategory']").val();
             var boardContent = $("#boardContent").val();
@@ -32,16 +34,16 @@
         });
         
         $("#btnBack").click(function(){
-        	location.href = "${path}/board/list";
+        	location.href = "${path}/board/view?boardNum=${BoardDTO.boardNum}";
         });
     });
 </script>
 </head>
 <body>
-	<h1>새 글 작성하기</h1>
-	<form name="boardWriteForm" method="post" action="${path}/board/insert">
+	<h1>글 수정하기</h1>
+	<form name="boardUpdateForm" method="post" action="${path}/board/update">
 	    <div>
-	        	제목 <input typed="text" name="boardTitle" id="boardTitle" size="80" placeholder="제목을 입력해주세요">
+	        	제목 <input type="text" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >
 	    </div>
 	    <div>
 	        	카테고리 <select name="boardCategory">
@@ -54,7 +56,7 @@
 	        		  </select>
 	    </div>
 	    <div>
-	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" placeholder="내용을 입력해주세요"></textarea>
+	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardTitle }</textarea>
 	    </div>
 	    <hr/>
 	    <div>
@@ -63,8 +65,7 @@
 	    <br/><br/>
 	    
 	    <div style="width:650px; text-align: center;">
-	        <button type="submit" id="btnSave">작성완료</button>
-	        <button type="reset">다시 작성</button>
+	        <button type="submit" id="btnSave">수정완료</button>
 	        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
 	</form>

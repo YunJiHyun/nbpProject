@@ -45,12 +45,16 @@ public class BoardController {
 		   return "/board/board_view";
 	   }
 	   
-	   @RequestMapping("/update")
-	   public String update(@RequestParam("boardNum") int boardNum) throws Exception{
-		   boardService.updateBoard(boardNum);
-		   return "/board/update";
+	   @RequestMapping("/modify")
+	   public String modify(@RequestParam("boardNum") int boardNum, Model model) throws Exception{
+		   model.addAttribute("BoardDTO",boardService.viewBoard(boardNum));
+		   return "/board/modify";
 	   }
 	   
+	   @RequestMapping("/update")
+	   public String update(@RequestParam("boardNum") int boardNum) throws Exception{
+		   return "redirect:list";
+	   }
 	   
 	   @RequestMapping("/delete")
 	   public String delete(@RequestParam("boardNum") int boardNum) throws Exception{
