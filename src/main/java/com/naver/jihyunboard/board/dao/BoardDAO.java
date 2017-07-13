@@ -8,6 +8,6 @@ public interface BoardDAO {
 	public List<BoardDTO> listAll() throws Exception;
 	public int insertBoard(BoardDTO dto) throws Exception;
 	public BoardDTO viewBoard(int boardNum) throws Exception;
-	public void updateBoard(int boardNum) throws Exception;
+	public void updateBoard(BoardDTO dto) throws Exception;
 	public void deleteBoard(int boardNum) throws Exception;
 }

@@ -41,7 +41,7 @@
 </head>
 <body>
 	<h1>글 수정하기</h1>
-	<form name="boardUpdateForm" method="post" action="${path}/board/update">
+	<form name="boardUpdateForm" method="post" action="${path}/board/update?boardNum=${BoardDTO.boardNum}">
 	    <div>
 	        	제목 <input type="text" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >
 	    </div>

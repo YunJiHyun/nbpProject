@@ -34,5 +34,15 @@
         DELETE FROM board
         WHERE boardNum = #{boardNum}
     </delete>
+    
+     <update id="updateBoard">
+        UPDATE board 
+        SET
+            boardTitle = #{boardTitle},
+            boardContent = #{boardContent},
+            boardCategory = #{boardCategory}
+        WHERE boardNum = #{boardNum}
+    </update>
+    
 	
 </mapper>

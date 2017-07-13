@@ -34,8 +34,8 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public void updateBoard(int boardNum) throws Exception {
-		SqlSession.update(namespace + ".updateBoard", boardNum);
+	public void updateBoard(BoardDTO dto) throws Exception {
+		SqlSession.update(namespace + ".updateBoard", dto);
 		
 	}
 	
