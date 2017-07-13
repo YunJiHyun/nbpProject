@@ -56,7 +56,7 @@
 	        		  </select>
 	    </div>
 	    <div>
-	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardTitle }</textarea>
+	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
 	    </div>
 	    <hr/>
 	    <div>
