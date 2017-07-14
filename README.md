@@ -1,3 +1,6 @@
+Jihyun Yun
+=====
+
 # Development environment
 * Language - JSP, JAVA, Javascript, HTML, CSS
 * Web framework - Spring MVC
