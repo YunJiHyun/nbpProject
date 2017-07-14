@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%@ include file="user_header.jsp" %>
 </head>
 <body>
 	<h1>로그인</h1>
@@ -21,7 +22,7 @@
             	</table>
             	<input type="submit" value="로그인"/>
          </form>
-        회원이 아니신가요?&nbsp;&nbsp; <a href="">회원가입</a>
+        회원이 아니신가요?&nbsp;&nbsp; <a href="${path }/user/register">회원가입</a>
 
 </body>
 </html>
