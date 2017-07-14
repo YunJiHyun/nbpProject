@@ -14,41 +14,46 @@
 # DB
 > MySQL 5.6.30
 
-# DB Table
->CREATE TABLE board(
+# DB Tables
+* board table 
+
+      CREATE TABLE board(
   
->boardNum int PRIMARY KEY AUTO_INCREMENT,
+        boardNum int PRIMARY KEY AUTO_INCREMENT,
 
->boardUserId int NOT NULL,
+        boardUserId int NOT NULL,
 
->boardTitle VARCHAR(150) NOT NULL,
+        boardTitle VARCHAR(150) NOT NULL,
 
->boardContent VARCHAR(300) NOT NULL,
+        boardContent VARCHAR(300) NOT NULL,
 
->boardCategory VARCHAR(45) NOT NULL,
+        boardCategory VARCHAR(45) NOT NULL,
 
->boardDate DATETIME NOT NULL,
+        boardDate DATETIME NOT NULL,
 
->boardReadCount int DEFAULT 0,
+        boardReadCount int DEFAULT 0,
 
->FOREIGN KEY (`boardUserId`) REFERENCES `user` (`userId`)
+        FOREIGN KEY (`boardUserId`) REFERENCES `user` (`userId`)
 
-);
+      );
 
->CREATE TABLE user(
 
->userId int  PRIMARY KEY,
+* user table 
 
->userPw   VARCHAR(15) NOT NULL,
+      CREATE TABLE user(
 
->userName  VARCHAR(30) NOT NULL,
+        userId int  PRIMARY KEY,
 
->userMajor VARCHAR(45) NOT NULL,
+        userPw   VARCHAR(15) NOT NULL,
 
->userPhoneNum VARCHAR(45) NOT NULL
+        userName  VARCHAR(30) NOT NULL,
 
->);
+        userMajor VARCHAR(45) NOT NULL,
+
+        userPhoneNum VARCHAR(45) NOT NULL
+
+       );
 
 
 # Service url
-[10.105.171.231:9001/jihyunboard/user/login](http://10.105.171.231:9001/jihyunboard/user/login)
+>[10.105.171.231:9001/jihyunboard/user/login](http://10.105.171.231:9001/jihyunboard/user/login)
