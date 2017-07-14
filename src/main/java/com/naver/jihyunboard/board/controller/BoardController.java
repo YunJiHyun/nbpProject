@@ -2,8 +2,6 @@ package com.naver.jihyunboard.board.controller;
 
 
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,10 +52,9 @@ public class BoardController {
 	   }
 	   
 	   @RequestMapping(method=RequestMethod.POST, value="/update")
-	   public String update(@ModelAttribute BoardDTO dto, HttpServletRequest request) throws Exception{
+	   public String update(@ModelAttribute BoardDTO dto) throws Exception{
 		   boardService.updateBoard(dto);
-		   String boardNum =request.getParameter("boardNum");
-;		  return "redirect:view?boardNum="+boardNum;
+		  return "redirect:view?boardNum="+dto.getBoardNum();
 		  
 	   }
 	   

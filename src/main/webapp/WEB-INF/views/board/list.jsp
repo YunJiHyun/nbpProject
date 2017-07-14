@@ -33,7 +33,7 @@
         <td>${row.boardUserId}</td>
         <td><a href="${path}/board/view?boardNum=${row.boardNum }">${row.boardTitle}</a></td>
         <td>${row.boardCategory}</td>
-        <td>${row.boardDate}</td>
+        <td><fmt:formatDate value="${row.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
         <td>${row.boardReadCount}</td>
     </tr>    
     </c:forEach>
