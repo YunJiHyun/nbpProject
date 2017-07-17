@@ -42,6 +42,7 @@ public class UserController {
             mv.addObject("boardList", boardService.listAll());
             mv.setViewName("/board/list");
         } else {
+            //mv.addObject("msg", "아이디나 비밀번호가 맞지 않습니다.");
             mv.setViewName("redirect:login");
         }
 

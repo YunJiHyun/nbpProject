@@ -8,11 +8,9 @@
 <%@ include file="user_header.jsp" %>
 <script>
     $(document).ready(function(){
+    	
     	$("#userId").focusout(function(){
     	
-    		if(userId=="") {
-    			alert("아이디를 입력해주세요");
-    		}
     		 $.ajax({
     			   url : "${path}/user/checkId",
     			   type : "post",
@@ -31,6 +29,17 @@
     		}); 
     	});
     	
+    	$("#passwordCheck").focusout(function(){
+           
+            if($("#password").val()!=$("#passwordCheck").val()){
+                	$("#resultPwCheck").text("비밀번호가 일치 하지 않습니다.").css("color","red");
+            }
+        });
+    	
+    	
+    	 var boardTitle = $("#boardTitle").val();
+         var boardCategory = $("select[name='boardCategory']").val();
+         var boardContent = $("#boardContent").val();
     	
     	$("#btnBack").click(function(){
     		 location.href="${path}/user/login";
@@ -43,8 +52,8 @@
 <h1>회원가입</h1>
 	<form name="registerForm" method="post" action="${path }/user/addUser">
 		ID : <input type="text" id="userId" name="userId"/>  <span id="resultIdCheck"></span><br/>
-		Password : <input type="text" id="password" name="password"/><br/>
-		Password 확인 : <input type="text"  id="passwordCheck" name="userPw"/><br/>
+		Password : <input type="password" id="password" name="password"/><br/>
+		Password 확인 : <input type="password"  id="passwordCheck" name="userPw"/> <span id="resultPwCheck"></span> <br/>
 		
 		<hr/>
 		

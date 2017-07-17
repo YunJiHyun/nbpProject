@@ -26,7 +26,7 @@
  <div id="idDiv">${userId } 님 환영합니다. <input type="button" id="btnLogout" value="로그아웃"/></div>
 
 <button type="button" id="btnWrite">글쓰기</button>
-<table border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
+<table class="table table-hover" border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
     <tr>
         <th>번호</th>
         <th>작성자</th>

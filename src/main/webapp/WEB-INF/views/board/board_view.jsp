@@ -44,7 +44,7 @@
 	
 		<div id="boardHeader">
 			<span id="title">${BoardDTO.boardTitle }</span>
-			<span id="categoryAndDate">${BoardDTO.boardCategory } | ${BoardDTO.boardDate }</span>
+			<span id="categoryAndDate">${BoardDTO.boardCategory } | <fmt:formatDate value="${BoardDTO.boardDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
 		</div>
 		<hr/><br/><br/>
 	    <div id="boardBody">

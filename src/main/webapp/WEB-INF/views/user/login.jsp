@@ -10,18 +10,21 @@
 $(document).ready(function(){
     $("#login").click(function(){
         var userId = $("#userId").val();
-        var userPw = $("userPw").val();
+        var userPw = $("#userPw").val();
         
+      
         if(userId == ""){
             alert("아이디를 입력하세요");
             document.loginForm.userId.focus();
-            return;
+            return false;
         }
         if(userPw == ""){
             alert("비밀번호를 입력하세요");
-            document.loginForm.userPw.focus();s
-            return;
+            document.loginForm.userPw.focus();
+            return false;
         }
+        
+
     
     });
     

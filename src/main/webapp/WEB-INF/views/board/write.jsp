@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 작성</title>
 <%@ include file="board_header.jsp" %>
+<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
 <script>
     $(document).ready(function(){
         $("#btnSave").click(function(){
@@ -36,10 +37,36 @@
         });
     });
 </script>
+
+<script> //ckeditor 적용부분 
+    $(function(){
+         
+        CKEDITOR.replace( 'boardContent', {   //textarea name
+            width:'100%',
+            height:'400px',
+            filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+        });
+         
+         
+        CKEDITOR.on('dialogDefinition', function( event ){
+            var dialogName = event.data.name;
+            var dialogDefinition = event.data.definition;
+          
+            switch (dialogName) {
+                case 'image':
+                    //dialogDefinition.removeContents('info');
+                    dialogDefinition.removeContents('Link');
+                    dialogDefinition.removeContents('advanced');
+                    break;
+            }
+        });
+         
+    });
+</script>
 </head>
 <body>
 	<h1>새 글 작성하기</h1>
-	<form name="boardWriteForm" method="post" action="${path}/board/insert">
+	<form class="form-horizontal" name="boardWriteForm" method="post" action="${path}/board/insert">
 	    <div>
 	        	제목 <input typed="text" name="boardTitle" id="boardTitle" size="80" placeholder="제목을 입력해주세요">
 	    </div>
@@ -53,8 +80,12 @@
 	        				<option value="모집">모집</option>
 	        		  </select>
 	    </div>
-	    <div>
-	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" placeholder="내용을 입력해주세요"></textarea>
+	    <div class="form-group">
+            <div class="form-group">
+	           <div>
+	      	             내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" placeholder="내용을 입력해주세요"></textarea>
+	           </div>
+	        </div>
 	    </div>
 	    <hr/>
 	    <div>
@@ -62,8 +93,8 @@
 	    </div>
 	    <br/><br/>
 	    
-	    <div style="width:650px; text-align: center;">
-	        <button type="submit" id="btnSave">작성완료</button>
+	    <div  class="form-group" style="width:650px; text-align: center;">
+	        <button type="submit" id="btnSave" class="btn btn-default">작성완료</button>
 	        <button type="reset">다시 작성</button>
 	        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
