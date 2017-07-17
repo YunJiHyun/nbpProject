@@ -20,4 +20,19 @@ public class UserDAOImpl implements UserDAO {
 		SqlSession.insert(namespace+".insert", dto);
 	}
 
+	@Override
+	public boolean loginCheck(UserDTO dto) {
+		String name = SqlSession.selectOne("loginCheck",dto);
+		
+		if(name == null){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public UserDTO userInfo(UserDTO dto) {
+		return SqlSession.selectOne("userInfo",dto);
+	}
+
 }

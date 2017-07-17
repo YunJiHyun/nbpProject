@@ -11,12 +11,20 @@
             // 페이지 주소 변경(이동)
             location.href = "${path}/board/write";
         });
+        
+        $("#btnLogout").click(function(){
+            // 페이지 주소 변경(이동)
+            alert("로그아웃하셨습니다.");
+            location.href = "${path}/user/logout";
+        });
     });
 </script>
 
 </head>
 <body>
- <h2>게시글 목록</h2>
+ <h2>게시글 목록</h2>   
+ <div id="idDiv">${userId } 님 환영합니다. <input type="button" id="btnLogout" value="로그아웃"/></div>
+
 <button type="button" id="btnWrite">글쓰기</button>
 <table border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
     <tr>

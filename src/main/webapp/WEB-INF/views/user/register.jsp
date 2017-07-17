@@ -8,27 +8,23 @@
 <%@ include file="user_header.jsp" %>
 <script>
     $(document).ready(function(){
-    	/* 
+    	
      	var ajaxPostSend =  function() {
     	    var url = "${path}/user/addUser";  
 			var str =$()
     	    
          $.ajax({ 
-    	        type: "POST",
-    	        url: url,
+        	 	url : url,
+        	 	method : "post",
+        	 	type: "json",
+    	     
     	        data: postString,
     	        success: function(msg) {  
     	        	alert("success")//성공시 이 함수를 호출한다.
     	       }
-    	    }); */
-    	 };  */
+    	    });
+    	 }  
     	 
-    	
-
-        $("#btnBack").click(function(){
-        	location.href = "${path}/user/login";
-        });
-    });
 </script>
 
 </head>

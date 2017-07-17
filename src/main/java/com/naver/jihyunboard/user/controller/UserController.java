@@ -1,11 +1,15 @@
 package com.naver.jihyunboard.user.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.user.dto.UserDTO;
 import com.naver.jihyunboard.user.service.UserService;
 
@@ -16,9 +20,31 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	BoardService boardService;
+	
 	@RequestMapping("/login")
 	 public String login() {
 		return "/user/login";
+	}
+	
+	@RequestMapping("/loginCheck") 
+	public ModelAndView loginCheck(@ModelAttribute UserDTO dto, HttpSession session) throws Exception{
+		
+		boolean result = userService.loginCheck(dto, session);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if(result == true) {
+			//로그인 성공
+			mv.addObject("boardList", boardService.listAll());
+			mv.setViewName("/board/list");
+		} else {
+			mv.setViewName("redirect:login");
+		}
+		
+		return mv;
+		
 	}
 	
 	@RequestMapping("/register")
@@ -31,5 +57,10 @@ public class UserController {
 		userService.registerUser(dto);
 		return "redirect:login";
 	}
-
+	
+	@RequestMapping("/logout")
+	 public String logout(HttpSession session) {
+		session.removeAttribute("userId");
+		return "redirect:login";
+	}
 }
