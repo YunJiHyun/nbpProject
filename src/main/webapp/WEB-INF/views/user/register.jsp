@@ -8,30 +8,41 @@
 <%@ include file="user_header.jsp" %>
 <script>
     $(document).ready(function(){
+    	$("#userId").focusout(function(){
     	
-     	var ajaxPostSend =  function() {
-    	    var url = "${path}/user/addUser";  
-			var str =$()
-    	    
-         $.ajax({ 
-        	 	url : url,
-        	 	method : "post",
-        	 	type: "json",
-    	     
-    	        data: postString,
-    	        success: function(msg) {  
-    	        	alert("success")//성공시 이 함수를 호출한다.
-    	       }
-    	    });
-    	 }  
-    	 
+    		if(userId=="") {
+    			alert("아이디를 입력해주세요");
+    		}
+    		 $.ajax({
+    			   url : "${path}/user/checkId",
+    			   type : "post",
+    			    data : {
+    			    	"userId" : $("#userId").val()
+    			    },
+    			   
+    			   success : function(data){ 
+    				   
+    			    	 if ( data.userId == undefined) {
+    			    		$("#resultIdCheck").text("사용할 수 있는 아이디 입니다.").css("color","green");   		 
+    			    	} else {
+    			    		$("#resultIdCheck").text("이미 존재하는 아이디입니다").css("color","red");
+    			    	} 
+    			   }
+    		}); 
+    	});
+    	
+    	
+    	$("#btnBack").click(function(){
+    		 location.href="${path}/user/login";
+    	});
+    });
 </script>
 
 </head>
 <body>
 <h1>회원가입</h1>
 	<form name="registerForm" method="post" action="${path }/user/addUser">
-		ID : <input type="text" id="userId" name="userId"/><br/>
+		ID : <input type="text" id="userId" name="userId"/>  <span id="resultIdCheck"></span><br/>
 		Password : <input type="text" id="password" name="password"/><br/>
 		Password 확인 : <input type="text"  id="passwordCheck" name="userPw"/><br/>
 		
