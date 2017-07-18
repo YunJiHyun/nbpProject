@@ -1,7 +1,5 @@
 package com.naver.jihyunboard.board.controller;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.jihyunboard.board.dto.BoardDTO;
-import com.naver.jihyunboard.board.service.BoardPageHelper;
 import com.naver.jihyunboard.board.service.BoardService;
 
 @Controller
@@ -28,17 +25,19 @@ public class BoardController {
     @RequestMapping("/list")
 
     public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception {
-        int count = boardService.boardListCount();
+        /*int count = boardService.boardListCount();
         BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
         int start = boardPageHelper.getPageBegin();
         int end = boardPageHelper.getPageEnd();
-
+        
         List<BoardDTO> boardList = boardService.listAll(start, end);
-
+        
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("boardList", boardList);
         map.put("count", count);
-        map.put("boardPageHelper", boardPageHelper);
+        map.put("boardPageHelper", boardPageHelper);*/
+
+        Map<String, Object> map = boardService.listAll(currentPage);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("map", map);
