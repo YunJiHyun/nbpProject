@@ -28,7 +28,6 @@ public class BoardDAOImpl implements BoardDAO {
     }
 
     @Override
-    //public int insertBoard(BoardDTO dto) throws Exception {
     public void insertBoard(BoardDTO dto) throws Exception {
         SqlSession.insert(namespace + ".insert", dto);
 
@@ -54,6 +53,12 @@ public class BoardDAOImpl implements BoardDAO {
     @Override
     public int listCount() throws Exception {
         return SqlSession.selectOne(namespace + ".listCount");
+    }
+
+    @Override
+    public void increaseReadCount(int boardNum) throws Exception {
+        SqlSession.update(namespace + ".increaseReadCount", boardNum);
+
     }
 
 }

@@ -16,6 +16,6 @@ public interface BoardService {
 
     public void deleteBoard(int boardNum) throws Exception;
 
-    public int boardListCount() throws Exception;
+    public void increaseReadCount(int boardNum) throws Exception;
 
 }

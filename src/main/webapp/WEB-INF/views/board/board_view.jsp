@@ -37,7 +37,16 @@
 			 $("#btnBack").click(function(){
 		        	location.href = "${path}/board/list";
 		        });
+			
 		});
+		$(document).keydown(function(e){   
+	        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){       
+	            if(e.keyCode === 8){   
+	            return false;
+	            }
+	        }
+	    });
+		
 	</script>
 </head>
 <body>

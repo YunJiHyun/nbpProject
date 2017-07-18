@@ -16,4 +16,6 @@ public interface BoardDAO {
     public void deleteBoard(int boardNum) throws Exception;
 
     public int listCount() throws Exception;
+
+    public void increaseReadCount(int boardNum) throws Exception;
 }

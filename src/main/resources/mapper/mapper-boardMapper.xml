@@ -26,10 +26,11 @@
      	WHERE boardNum = #{boardNum} 
      </select>
 	
-	  <delete id="deleteBoard">
+	 
+	 <delete id="deleteBoard">
         DELETE FROM board
         WHERE boardNum = #{boardNum}
-    </delete>
+     </delete>
     
      <update id="updateBoard">
         UPDATE board 
@@ -38,11 +39,17 @@
             boardContent = #{boardContent},
             boardCategory = #{boardCategory}
         WHERE boardNum = #{boardNum}
-    </update>
+     </update>
     
      <select id="listCount" resultType="int">
         SELECT COUNT(*) AS count  
         FROM board
-    </select>
-	
+     </select>
+	 
+	  <update id="increaseReadCount" >
+        UPDATE board
+        SET
+            boardReadCount = boardReadCount + 1
+        WHERE boardNum = #{boardNum}
+      </update>
 </mapper>

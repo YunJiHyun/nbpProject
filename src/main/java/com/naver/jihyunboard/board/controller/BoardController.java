@@ -2,6 +2,8 @@ package com.naver.jihyunboard.board.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +27,6 @@ public class BoardController {
     @RequestMapping("/list")
 
     public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception {
-        /*int count = boardService.boardListCount();
-        BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
-        int start = boardPageHelper.getPageBegin();
-        int end = boardPageHelper.getPageEnd();
-        
-        List<BoardDTO> boardList = boardService.listAll(start, end);
-        
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("boardList", boardList);
-        map.put("count", count);
-        map.put("boardPageHelper", boardPageHelper);*/
-
         Map<String, Object> map = boardService.listAll(currentPage);
 
         ModelAndView mv = new ModelAndView();
@@ -59,7 +49,8 @@ public class BoardController {
     }
 
     @RequestMapping("/view")
-    public String view(@RequestParam("boardNum") int boardNum, Model model) throws Exception {
+    public String view(@RequestParam("boardNum") int boardNum, HttpSession session, Model model) throws Exception {
+        boardService.increaseReadCount(boardNum);
         model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
         return "/board/board_view";
     }

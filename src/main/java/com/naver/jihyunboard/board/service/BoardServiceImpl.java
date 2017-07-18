@@ -54,13 +54,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void deleteBoard(int boardNum) throws Exception {
         boardDao.deleteBoard(boardNum);
-
     }
 
     @Override
-    public int boardListCount() throws Exception {
-        int total = boardDao.listCount();
-        return total;
+    public void increaseReadCount(int boardNum) throws Exception {
+        boardDao.increaseReadCount(boardNum);
     }
 
 }
