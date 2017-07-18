@@ -39,7 +39,9 @@ public class UserController {
 
         if (result == true) {
             //로그인 성공
-            mv.addObject("boardList", boardService.listAll());
+
+            //mv.addObject("boardList", boardService.listAll());
+
             mv.setViewName("/board/list");
         } else {
             //mv.addObject("msg", "아이디나 비밀번호가 맞지 않습니다.");

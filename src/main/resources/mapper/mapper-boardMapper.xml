@@ -3,8 +3,10 @@
 <mapper namespace="com.naver.jihyunboard.board.dao.BoardDAO">
 
     <!-- 게시글 전체 목록 조회 -->
-    <select id="listAll" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
-      SELECT * FROM board
+    <select id="listAll" parameterType="hashmap" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
+        SELECT *
+        FROM (SELECT @ROWNUM:=@ROWNUM+1 AS ROW, A.* FROM (SELECT * FROM board ORDER BY boardNum DESC) A, (SELECT @ROWNUM:=0) B) C
+        WHERE C.ROW BETWEEN #{start} AND #{end}
     </select>
     
     <!-- 새 글 등록  -->
@@ -34,5 +36,9 @@
         WHERE boardNum = #{boardNum}
     </update>
     
+     <select id="listCount" resultType="int">
+        SELECT COUNT(*) AS count  
+        FROM board
+    </select>
 	
 </mapper>

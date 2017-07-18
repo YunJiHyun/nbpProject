@@ -9,39 +9,45 @@ import com.naver.jihyunboard.board.dao.BoardDAO;
 import com.naver.jihyunboard.board.dto.BoardDTO;
 
 @Service
-public class BoardServiceImpl implements BoardService{
-	
-	@Autowired
+public class BoardServiceImpl implements BoardService {
+
+    @Autowired
     BoardDAO boardDao;
 
-	@Override
-	public List<BoardDTO> listAll() throws Exception {
-		  return boardDao.listAll();
-	
-	}
+    @Override
+    public List<BoardDTO> listAll(int start, int end) throws Exception {
+        return boardDao.listAll(start, end);
 
-	@Override
-	public void insertBoard(BoardDTO dto) throws Exception {
-		boardDao.insertBoard(dto);
-		
-	}
+    }
 
-	@Override
-	public BoardDTO viewBoard(int boardNum) throws Exception{
-		return boardDao.viewBoard(boardNum);
-		
-	}
+    @Override
+    public void insertBoard(BoardDTO dto) throws Exception {
+        boardDao.insertBoard(dto);
 
-	@Override
-	public void updateBoard(BoardDTO dto) throws Exception {
-		boardDao.updateBoard(dto);
-		
-	}
-	
-	@Override
-	public void deleteBoard(int boardNum) throws Exception {
-		boardDao.deleteBoard(boardNum);
-		
-	}
+    }
+
+    @Override
+    public BoardDTO viewBoard(int boardNum) throws Exception {
+        return boardDao.viewBoard(boardNum);
+
+    }
+
+    @Override
+    public void updateBoard(BoardDTO dto) throws Exception {
+        boardDao.updateBoard(dto);
+
+    }
+
+    @Override
+    public void deleteBoard(int boardNum) throws Exception {
+        boardDao.deleteBoard(boardNum);
+
+    }
+
+    @Override
+    public int boardListCount() throws Exception {
+        int total = boardDao.listCount();
+        return total;
+    }
 
 }
