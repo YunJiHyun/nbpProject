@@ -28,6 +28,7 @@ public class BoardServiceImpl implements BoardService {
         map.put("boardList", boardList);
         map.put("count", count);
         map.put("boardPageHelper", boardPageHelper);
+        map.put("count", count);
 
         return map;
 

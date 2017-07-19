@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.jihyunboard.board.dto.BoardDTO;
 import com.naver.jihyunboard.board.service.BoardService;
+import com.naver.jihyunboard.user.dto.UserDTO;
+import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -23,17 +26,30 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @Autowired
+    UserService userService;
+
     //게시글 리스트
     @RequestMapping("/list")
 
-    public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) throws Exception {
-        Map<String, Object> map = boardService.listAll(currentPage);
+    public ModelAndView list(@ModelAttribute UserDTO userdto, HttpSession session,
+        @RequestParam(defaultValue = "1") int currentPage, Authentication auth) throws Exception {
+
+        //userService.loginCheck(userdto, session);
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("map", map);
-        mv.setViewName("/board/list");
 
+        // if (result == true) {
+        Map<String, Object> map = boardService.listAll(currentPage);
+        mv.addObject("map", map);
+        mv.addObject("auth", auth);
+        mv.setViewName("/board/list");
+        //} else {
+        //mv.addObject("msg", "아이디나 비밀번호가 맞지 않습니다.");
+        // mv.setViewName("/user/login");
+        //}
         return mv;
+
     }
 
     //새 글 작성하기

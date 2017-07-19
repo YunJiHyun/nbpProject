@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="user_header.jsp" %>
+
 <script>
 $(document).ready(function(){
     $("#login").click(function(){
@@ -23,24 +24,19 @@ $(document).ready(function(){
             document.loginForm.userPw.focus();
             return false;
         }
-        
-
-    
-    });
-    
-    $("#btnBack").click(function(){
-    	location.href = "${path}/board/list";
+        loginForm.submit();
     });
 });
 </script>
 </head>
 <body>
 	<h1>로그인</h1>
-    	<form name="loginForm" method="post" action="${path }/user/loginCheck">
+ <%--    <c:url var="loginUrl" value="/board/list" /> --%>
+        <form name="loginForm" method="post" action="<c:url value='j_spring_security_check'/>">
         	<table border="1" width="400px">
             	<tr>
                 	<td>아이디</td>
-                	<td><input name="userId" id="userId" placeholder="아이디를 입력해주세요"></td>
+                	<td><input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요"></td>
             	</tr>
             	<tr>
                 	<td>비밀번호</td>
@@ -50,6 +46,13 @@ $(document).ready(function(){
             	<input type="submit" id="login" value="로그인"/>
          </form>
         회원이 아니신가요?&nbsp;&nbsp; <a href="${path }/user/register">회원가입</a>
+        <c:if test="${not empty error}">
+            <div class="error">${error}</div>
+        </c:if>
+        <c:if test="${not empty msg}">
+            <div class="msg">${msg}</div>
+        </c:if>
+        
 
 </body>
 </html>

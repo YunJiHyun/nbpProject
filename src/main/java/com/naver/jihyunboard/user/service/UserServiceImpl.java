@@ -21,18 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginCheck(UserDTO dto, HttpSession session) {
+    public void loginCheck(UserDTO dto, HttpSession session) {
 
-        boolean result = userDao.loginCheck(dto);
-
-        if (result) {
-            // true일 경우 세션에 등록
-            UserDTO userDto = userInfo(dto);
-
-            // 세션 변수 등록
-            session.setAttribute("userId", userDto.getUserId());
-        }
-        return result;
+        // 로그인 성공 시 세션에 등록
+        UserDTO userDto = userInfo(dto);
+        session.setAttribute("userId", userDto.getUserId());
 
     }
 

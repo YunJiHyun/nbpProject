@@ -15,7 +15,7 @@
         $("#btnLogout").click(function(){
             // 페이지 주소 변경(이동)
             alert("로그아웃하셨습니다.");
-            location.href = "${path}/user/logout";
+            location.href = "${path}/j_spring_security_logout";
         });
     });
     function list(page){
@@ -26,9 +26,12 @@
 </head>
 <body>
  <h2>학교 게시판</h2>   
- <div id="idDiv">${userId } 님 반갑습니다. <input type="button" id="btnLogout" value="로그아웃"/></div>
+    <div id="idDiv">
+            <sec:authentication property="principal.username"/> 님 반갑습니다.</p> 
+            <input type="button" id="btnLogout" value="로그아웃"/>
+    </div>
 
-<div id="listCount" style="textalign : right"> 개 게시물</div>
+<div id="listCount" style="textalign : right">${map.count } 개 게시물</div>
 <table class="table table-hover" border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
     <tr>
         <th>번호</th>
