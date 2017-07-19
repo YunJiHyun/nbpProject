@@ -60,3 +60,5 @@ Jihyun Yun
 
 # Service url
 >[10.105.171.231:9001/jihyunboard/login](http://10.105.171.231:9001/jihyunboard/login)
+
+> test ID : 1212220  PW : 1111
