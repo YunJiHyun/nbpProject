@@ -5,5 +5,5 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="../resources/js/jquery-3.2.1.min.js"></script>
+<script src="<c:url value="/resources/js/jquery-3.2.1.min.js"></c:url>"></script>
 </head>

@@ -18,11 +18,12 @@
             location.href = "${path}/j_spring_security_logout";
         });
     });
-    function list(page){
-        location.href="${path}/board/list?currentPage="+page;
-    }
 </script>
-
+<script>
+function list(page){
+    location.href="${path}/board/list?currentPage="+page;
+}
+</script>
 </head>
 <body>
  <h2>학교 게시판</h2>   

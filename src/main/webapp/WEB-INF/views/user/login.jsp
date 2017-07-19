@@ -24,15 +24,15 @@ $(document).ready(function(){
             document.loginForm.userPw.focus();
             return false;
         }
-        loginForm.submit();
+        
+        $('#loginForm').attr({action:"<c:url value='j_spring_security_check'/>",method:'post'}).submit();
     });
 });
 </script>
 </head>
 <body>
 	<h1>로그인</h1>
- <%--    <c:url var="loginUrl" value="/board/list" /> --%>
-        <form name="loginForm" method="post" action="<c:url value='j_spring_security_check'/>">
+        <form name="loginForm" id="loginForm">
         	<table border="1" width="400px">
             	<tr>
                 	<td>아이디</td>
@@ -43,7 +43,7 @@ $(document).ready(function(){
                 	<td><input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요"></td>
             	</tr>
             	</table>
-            	<input type="submit" id="login" value="로그인"/>
+            	<input type="button" id="login" value="로그인"/>
          </form>
         회원이 아니신가요?&nbsp;&nbsp; <a href="${path }/user/register">회원가입</a>
         <c:if test="${not empty error}">
