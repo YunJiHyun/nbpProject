@@ -59,4 +59,6 @@ Jihyun Yun
 
 
 # Service url
->[10.105.171.231:9001/jihyunboard/user/login](http://10.105.171.231:9001/jihyunboard/user/login)
+>[10.105.171.231:9001/jihyunboard/login](http://10.105.171.231:9001/jihyunboard/login)
+>[localhost:8080/jihyunboard/login](http://localhost:8080/jihyunboard/login)
+
