@@ -7,16 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.naver.jihyunboard.board.dao.BoardDAO;
+import com.naver.jihyunboard.board.dao.BoardDAOImpl;
 import com.naver.jihyunboard.board.dto.BoardDTO;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class BoardServiceImpl {
 
     @Autowired
-    BoardDAO boardDao;
+    BoardDAOImpl boardDao;
 
-    @Override
     public Map<String, Object> listAll(int currentPage) throws Exception {
         int count = boardDao.listCount();
         BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
@@ -34,30 +33,30 @@ public class BoardServiceImpl implements BoardService {
 
     }
 
-    @Override
     public void insertBoard(BoardDTO dto) throws Exception {
+
+        //System.out.println(dto.getBoardUserId());
+        // int userId = session.getId();
+        //System.out.println(session.toString());
+        //dto.setBoardUserId(userId);
         boardDao.insertBoard(dto);
 
     }
 
-    @Override
     public BoardDTO viewBoard(int boardNum) throws Exception {
         return boardDao.viewBoard(boardNum);
 
     }
 
-    @Override
     public void updateBoard(BoardDTO dto) throws Exception {
         boardDao.updateBoard(dto);
 
     }
 
-    @Override
     public void deleteBoard(int boardNum) throws Exception {
         boardDao.deleteBoard(boardNum);
     }
 
-    @Override
     public void increaseReadCount(int boardNum) throws Exception {
         boardDao.increaseReadCount(boardNum);
     }

@@ -33,16 +33,64 @@
            
             if($("#password").val()!=$("#passwordCheck").val()){
                 	$("#resultPwCheck").text("비밀번호가 일치 하지 않습니다.").css("color","red");
+            } else if(($("#password").val()==$("#passwordCheck").val())&&
+            		  ($("#password").val()!= "" && $("#passwordCheck").val()!="")) {
+                    $("#resultPwCheck").text("비밀번호가 일치 합니다").css("color","green");
+            } else if(($("#password").val() == "" && $("#passwordCheck").val()=="")) {
+                     $("#resultPwCheck").text("");
             }
         });
     	
-    	
-    	 var boardTitle = $("#boardTitle").val();
-         var boardCategory = $("select[name='boardCategory']").val();
-         var boardContent = $("#boardContent").val();
-    	
-    	$("#btnBack").click(function(){
-    		 location.href="${path}/user/login";
+    	$("#btnRegister").click(function(){
+	    	 var userId = $("#userId").val();
+	         var password = $("#password").val();
+	         var passwordCheck = $("#passwordCheck").val();
+	         var userName = $("#userName").val();
+	         var userMajor = $("select[name='userMajor']").val();
+	         var userPhoneNum = $("#userPhoneNum").val();
+	         
+	         var reg_id = /^[1-9]{7,8}$/;
+	         
+	         if(userId == ""){
+	             alert("아이디를 입력하세요");
+	             document.registerForm.userId.focus();
+	             return false;
+	         }
+	         
+	         if(!reg_id.test(userId)){ 
+                 alert("아이디는 학번입니다 7~8자리입니다. ex)1212222");
+                 return false;
+             }
+	         
+	         if(password == ""){
+	             alert("패스워드를 입력하세요");
+	             document.registerForm.password.focus();
+	             return false;
+	         }
+	         if(passwordCheck == ""){
+	             alert("패스워드를 확인하세요");
+	             document.registerForm.passwordCheck.focus();
+	             return false;
+	         }
+	         if(password!=passwordCheck){
+	        	 alert("비밀번호가 일치하지 않습니다.");
+                 return false;
+	         }
+	         if(userName == ""){
+	             alert("이름 입력하세요");
+	             document.registerForm.userName.focus();
+	             return false;
+	         }
+	         if(userPhoneNum == ""){
+	             alert("핸드폰 번호를 입력하세요");
+	             document.registerForm.userPhoneNum.focus();
+	             return false;
+	         }
+	         
+	         $('#registerForm').attr({action:"${path }/user/addUser",method:'post'}).submit();
+	        });
+	    	$("#btnBack").click(function(){
+	    		 location.href="${path}/login";
     	});
     });
 </script>
@@ -50,7 +98,7 @@
 </head>
 <body>
 <h1>회원가입</h1>
-	<form name="registerForm" method="post" action="${path }/user/addUser">
+	<form name="registerForm" id="registerForm">
 		ID : <input type="text" id="userId" name="userId"/>  <span id="resultIdCheck"></span><br/>
 		Password : <input type="password" id="password" name="password"/><br/>
 		Password 확인 : <input type="password"  id="passwordCheck" name="userPw"/> <span id="resultPwCheck"></span> <br/>

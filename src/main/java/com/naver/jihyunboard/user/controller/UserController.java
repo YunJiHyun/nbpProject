@@ -9,19 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.naver.jihyunboard.user.dto.UserDTO;
-import com.naver.jihyunboard.user.service.UserService;
+import com.naver.jihyunboard.user.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
 
     @Autowired
-    UserService userService;
-
-    /*@RequestMapping("/login")
-    public String login() {
-        return "/user/login";
-    }*/
+    UserServiceImpl userService;
 
     @RequestMapping("/register")
     public String register() {
@@ -38,13 +33,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/addUser")
     public String addUser(@ModelAttribute UserDTO dto) {
         userService.registerUser(dto);
-        return "redirect:login";
+        return "redirect:/login";
     }
-
-    /*  @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("userId");
-        return "redirect:login";
-    }*/
 
 }

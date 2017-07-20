@@ -37,6 +37,12 @@
 			 $("#btnBack").click(function(){
 		        	location.href = "${path}/board/list";
 		        });
+			 
+			  $("#btnLogout").click(function(){
+		            // 페이지 주소 변경(이동)
+		            alert("로그아웃하셨습니다.");
+		            location.href = "${path}/j_spring_security_logout";
+		        });
 			
 		});
 		$(document).keydown(function(e){   
@@ -54,7 +60,11 @@
 		<div id="boardHeader">
 			<span id="title">${BoardDTO.boardTitle }</span>
 			<span id="categoryAndDate">${BoardDTO.boardCategory } | <fmt:formatDate value="${BoardDTO.boardDate }" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-		</div>
+		</div><br/>
+		<div id="idDiv">
+            <sec:authentication property="principal.username"/> 님 반갑습니다. 
+            <input type="button" id="btnLogout" value="로그아웃"/>
+        </div>
 		<hr/><br/><br/>
 	    <div id="boardBody">
 	    	${BoardDTO.boardContent }

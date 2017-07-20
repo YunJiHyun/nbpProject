@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BoardPageHelper {
     public static final int PAGE_SCALE = 5; // 5개씩 게시물
-    public static final int BLOCK_SCALE = 3; // 페이징 번호 3개씩 
+    public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩 
     private int curPage; // 현재 페이지
     private int prevPage;
     private int nextPage;

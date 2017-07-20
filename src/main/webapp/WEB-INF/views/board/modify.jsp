@@ -13,7 +13,7 @@
     	$("#btnSave").click(function(){
             var boardTitle = $("#boardTitle").val();
             var boardCategory = $("select[name='boardCategory']").val();
-            var boardContent = $("#boardContent").val();
+            var boardContent = CKEDITOR.instances.boardContent.getData();
             
             if(boardTitle == ""){
                 alert("제목을 입력하세요");
@@ -32,15 +32,50 @@
             }
         
         });
+    	
+    	$("#btnLogout").click(function(){
+              // 페이지 주소 변경(이동)
+              alert("로그아웃하셨습니다.");
+              location.href = "${path}/j_spring_security_logout";
+        });
         
         $("#btnBack").click(function(){
         	location.href = "${path}/board/view?boardNum=${BoardDTO.boardNum}";
         });
     });
 </script>
+<script> //ckeditor 적용부분 
+    $(function(){
+         
+        CKEDITOR.replace( 'boardContent', {   //textarea name
+            width:'100%',
+            height:'400px',
+            //filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+        });
+         
+         
+        CKEDITOR.on('dialogDefinition', function( event ){
+            var dialogName = event.data.name;
+            var dialogDefinition = event.data.definition;
+          
+            switch (dialogName) {
+                case 'image':
+                    //dialogDefinition.removeContents('info');
+                    dialogDefinition.removeContents('Link');
+                    dialogDefinition.removeContents('advanced');
+                    break;
+            }
+        });
+         
+    });
+</script>
 </head>
 <body>
 	<h1>글 수정하기</h1>
+	<div id="idDiv">
+            <sec:authentication property="principal.username"/> 님 반갑습니다. 
+            <input type="button" id="btnLogout" value="로그아웃"/>
+    </div>
 	<form name="boardUpdateForm" method="post" action="${path}/board/update?boardNum=${BoardDTO.boardNum}">
 	    <div>
 	        	제목 <input type="text" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >
@@ -55,8 +90,12 @@
 	        				<option value="모집">모집</option>
 	        		  </select>
 	    </div>
-	    <div>
-	      	  내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
+	    <div class="form-group">
+	       <div class="form-group">
+               <div>
+	      	             내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
+	           </div>
+	       </div>
 	    </div>
 	    <hr/>
 	    <div>

@@ -5,22 +5,20 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.naver.jihyunboard.user.dao.UserDAO;
+import com.naver.jihyunboard.user.dao.UserDAOImpl;
 import com.naver.jihyunboard.user.dto.UserDTO;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl {
 
     @Autowired
-    UserDAO userDao;
+    UserDAOImpl userDao;
 
-    @Override
     public void registerUser(UserDTO dto) {
         userDao.registerUser(dto);
 
     }
 
-    @Override
     public void loginCheck(UserDTO dto, HttpSession session) {
 
         // 로그인 성공 시 세션에 등록
@@ -29,12 +27,10 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    @Override
     public UserDTO userInfo(UserDTO dto) {
         return userDao.userInfo(dto);
     }
 
-    @Override
     public UserDTO checkId(int userId) {
         return userDao.ckeckId(userId);
 

@@ -15,8 +15,8 @@
     
     <!-- 새 글 등록  -->
      <insert id="insert">
-        INSERT INTO board (boardTitle, boardContent, boardCategory)
-        VALUES (#{boardTitle},#{boardContent},#{boardCategory} )
+        INSERT INTO board (boardUserId, boardTitle, boardContent, boardCategory)
+        VALUES (#{boardUserId},#{boardTitle},#{boardContent},#{boardCategory} )
     </insert>
     
     <!-- 선택한 게시글 보기  -->

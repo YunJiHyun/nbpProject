@@ -72,14 +72,11 @@ function list(page){
                     </c:choose>
                 </c:forEach>
                 
-                <c:if test="${map.boardPageHelper.curBlock <= map.boardPageHelper.totalBlock}">
+                <c:if test="${map.boardPageHelper.curBlock < map.boardPageHelper.totalBlock}">
                     <a href="javascript:list('${map.boardPageHelper.nextPage}')">[>]</a>
+                     <a href="javascript:list('${map.boardPageHelper.totalPage}')">[>>]</a>
                 </c:if>
                 
-                <!-- **끝페이지로 이동 : 현재 페이지가 전체 페이지보다 작거나 같으면 [끝]하이퍼링크를 화면에 출력 -->
-                <c:if test="${map.boardPageHelper.curPage <= map.boardPageHelper.totalPage}">
-                    <a href="javascript:list('${map.boardPageHelper.totalPage}')">[>>]</a>
-                </c:if>
             </td>
         </tr>
     

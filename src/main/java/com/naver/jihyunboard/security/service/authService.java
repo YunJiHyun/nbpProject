@@ -12,13 +12,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.naver.jihyunboard.user.dto.UserDTO;
-import com.naver.jihyunboard.user.service.UserService;
+import com.naver.jihyunboard.user.service.UserServiceImpl;
 
 @Service
 public class authService implements UserDetailsService {
 
     @Autowired
-    UserService userService;
+    UserServiceImpl userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

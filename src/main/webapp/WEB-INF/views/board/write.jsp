@@ -6,35 +6,40 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 작성</title>
 <%@ include file="board_header.jsp" %>
-<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
+
 <script>
     $(document).ready(function(){
         $("#btnSave").click(function(){
             var boardTitle = $("#boardTitle").val();
             var boardCategory = $("select[name='boardCategory']").val();
-            var boardContent = $("#boardContent").val();
+            var boardContent = CKEDITOR.instances.boardContent.getData();
             
             if(boardTitle == ""){
                 alert("제목을 입력하세요");
                 document.boardWriteForm.boardTitle.focus();
-                return;
+                return false;
             }
             if(boardCategory == "checking"){
                 alert("카테고리를 선택하세요");
                 document.boardWriteForm.boardCategory.focus();
-                return;
+                return false;
             }
             if(boardContent == ""){
                 alert("내용을 입력하세요");
                 document.boardWriteForm.boardContent.focus();
-                return;
+                return false;
             }
-        
+            $('#boardWriteForm').attr({action:"${path}/board/insert",method:'post'}).submit();
         });
         
         $("#btnBack").click(function(){
         	location.href = "${path}/board/list";
         });
+        
+        $("#btnReset").click(function(){
+        	CKEDITOR.instances.boardContent.setData()=="";
+        });
+        
     });
 </script>
 
@@ -44,7 +49,7 @@
         CKEDITOR.replace( 'boardContent', {   //textarea name
             width:'100%',
             height:'400px',
-            filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+            //filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
         });
          
          
@@ -65,8 +70,12 @@
 </script>
 </head>
 <body>
-	<h1>새 글 작성하기</h1>
-	<form class="form-horizontal" name="boardWriteForm" method="post" action="${path}/board/insert">
+	<h1>새 글 작성하기</h1>   
+	<div id="idDiv">
+            <sec:authentication property="principal.username"/> 님 반갑습니다. 
+            <input type="button" id="btnLogout" value="로그아웃"/>
+    </div>
+	<form class="form-horizontal" id="boardWriteForm" name="boardWriteForm" >
 	    <div>
 	        	제목 <input typed="text" name="boardTitle" id="boardTitle" size="80" placeholder="제목을 입력해주세요">
 	    </div>
@@ -95,7 +104,7 @@
 	    
 	    <div  class="form-group" style="width:650px; text-align: center;">
 	        <button type="submit" id="btnSave" class="btn btn-default">작성완료</button>
-	        <button type="reset">다시 작성</button>
+	        <button type="reset" id="btnReset">다시 작성</button>
 	        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
 	</form>
