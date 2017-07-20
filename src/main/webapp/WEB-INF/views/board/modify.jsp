@@ -90,12 +90,10 @@
 	        				<option value="모집">모집</option>
 	        		  </select>
 	    </div>
-	    <div class="form-group">
-	       <div class="form-group">
+	    <div >
                <div>
 	      	             내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
-	           </div>
-	       </div>
+	           </div>   
 	    </div>
 	    <hr/>
 	    <div>
@@ -104,8 +102,8 @@
 	    <br/><br/>
 	    
 	    <div style="width:650px; text-align: center;">
-	        <button type="submit" id="btnSave">수정완료</button>
-	        <button type="button" id="btnBack">돌아가기</button>
+		        <button type="submit" id="btnSave">수정완료</button>
+		        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
 	</form>
 </body>

@@ -56,12 +56,15 @@
 	             document.registerForm.userId.focus();
 	             return false;
 	         }
-	         
+	         if($("#resultIdCheck").text()=="이미 존재하는 아이디입니다"){
+                 alert("존재하는 아이디입니다. 다른 아이디로 회원가입해주세요");
+                 return false;
+             } 
 	         if(!reg_id.test(userId)){ 
                  alert("아이디는 학번입니다 7~8자리입니다. ex)1212222");
                  return false;
              }
-	         
+	        
 	         if(password == ""){
 	             alert("패스워드를 입력하세요");
 	             document.registerForm.password.focus();

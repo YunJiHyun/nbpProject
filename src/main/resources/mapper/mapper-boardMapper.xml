@@ -3,7 +3,7 @@
 <mapper namespace="com.naver.jihyunboard.board.dao.BoardDAO">
 
     <!-- 게시글 전체 목록 조회 -->
-    <select id="listAll" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
+    <select id="listAll" resultType="boardDto">
         SELECT *
         FROM ( 
                 SELECT @ROWNUM:=@ROWNUM+1 AS ROW, A.* 
@@ -20,7 +20,7 @@
     </insert>
     
     <!-- 선택한 게시글 보기  -->
-     <select id="viewBoard" resultType="com.naver.jihyunboard.board.dto.BoardDTO">
+     <select id="viewBoard" resultType="boardDto">
      	SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory, boardDate
      	FROM board
      	WHERE boardNum = #{boardNum} 

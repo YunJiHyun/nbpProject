@@ -47,9 +47,9 @@
     $(function(){
          
         CKEDITOR.replace( 'boardContent', {   //textarea name
-            width:'100%',
+            width:'80%',
             height:'400px',
-            //filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
+            filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
         });
          
          
@@ -75,6 +75,7 @@
             <sec:authentication property="principal.username"/> 님 반갑습니다. 
             <input type="button" id="btnLogout" value="로그아웃"/>
     </div>
+    <div id="centerForm">
 	<form class="form-horizontal" id="boardWriteForm" name="boardWriteForm" >
 	    <div>
 	        	제목 <input typed="text" name="boardTitle" id="boardTitle" size="80" placeholder="제목을 입력해주세요">
@@ -89,12 +90,10 @@
 	        				<option value="모집">모집</option>
 	        		  </select>
 	    </div>
-	    <div class="form-group">
-            <div class="form-group">
-	           <div>
+	    <div classs="ckeditorBody">
+	           <div class="ckeditor">
 	      	             내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" placeholder="내용을 입력해주세요"></textarea>
 	           </div>
-	        </div>
 	    </div>
 	    <hr/>
 	    <div>
@@ -108,5 +107,6 @@
 	        <button type="button" id="btnBack">돌아가기</button>
 	    </div>
 	</form>
+	</div>
 </body>
 </html>

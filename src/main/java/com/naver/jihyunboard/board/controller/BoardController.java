@@ -28,7 +28,6 @@ public class BoardController {
 
     //게시글 리스트
     @RequestMapping("/list")
-
     public String list(@ModelAttribute BoardDTO dto, @RequestParam(defaultValue = "1") int currentPage,
         Model model) throws Exception {
 
@@ -54,9 +53,12 @@ public class BoardController {
     }
 
     @RequestMapping("/view")
-    public String view(@RequestParam("boardNum") int boardNum, Model model) throws Exception {
+    public String view(@RequestParam("boardNum") int boardNum, Model model, Authentication auth) throws Exception {
         boardService.increaseReadCount(boardNum);
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName();
         model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
+        model.addAttribute("userId", userId);
         return "/board/board_view";
     }
 
