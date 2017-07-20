@@ -45,11 +45,11 @@ Jihyun Yun
 
       CREATE TABLE user(
 
-        userId int  PRIMARY KEY,
+        userId int  PRIMARY KEY,
 
-        userPw   VARCHAR(15) NOT NULL,
+        userPw   VARCHAR(15) NOT NULL,
 
-        userName  VARCHAR(30) NOT NULL,
+        userName  VARCHAR(30) NOT NULL,
 
         userMajor VARCHAR(45) NOT NULL,
 
@@ -59,4 +59,6 @@ Jihyun Yun
 
 
 # Service url
->[10.105.171.231:9001/jihyunboard/user/login](http://10.105.171.231:9001/jihyunboard/user/login)
+>[10.105.171.231:9001/jihyunboard/login](http://10.105.171.231:9001/jihyunboard/login)
+
+> test ID : 1212220  PW : 1111
