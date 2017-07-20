@@ -47,9 +47,8 @@ public class BoardController {
     @RequestMapping(method = RequestMethod.POST, value = "/insert")
     public String insert(@ModelAttribute BoardDTO dto, Authentication auth) throws Exception {
         auth = SecurityContextHolder.getContext().getAuthentication();
-        String user_id = auth.getName();
-        dto.setBoardUserId(Integer.parseInt(user_id)); //ID확인 Mapper에서 insert해보기
-        // dto.setBoardUserId(Integer.parseInt(user_id));
+        String userId = auth.getName();
+        dto.setBoardUserId(Integer.parseInt(userId));
         boardService.insertBoard(dto);
         return "redirect:list";
     }

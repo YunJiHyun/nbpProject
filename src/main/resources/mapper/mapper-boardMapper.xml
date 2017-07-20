@@ -15,7 +15,7 @@
     
     <!-- 새 글 등록  -->
      <insert id="insert">
-        INSERT INTO board (boardUserId, boardTitle, boardContent, boardCategory)
+        INSERT INTO board ( boardUserId, boardTitle, boardContent, boardCategory)
         VALUES (#{boardUserId},#{boardTitle},#{boardContent},#{boardCategory} )
     </insert>
     
@@ -25,8 +25,7 @@
      	FROM board
      	WHERE boardNum = #{boardNum} 
      </select>
-	
-	 
+
 	 <delete id="deleteBoard">
         DELETE FROM board
         WHERE boardNum = #{boardNum}

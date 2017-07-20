@@ -25,6 +25,7 @@
     </beans:bean>
 
 	
-	<context:component-scan base-package="com.naver.jihyunboard" />
-
+	   <context:component-scan base-package="com.naver.jihyunboard.board" />
+        <context:component-scan base-package="com.naver.jihyunboard.user" />
+        <context:component-scan base-package="com.naver.jihyunboard.security" />
     </beans:beans>
