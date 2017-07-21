@@ -51,6 +51,7 @@
       	
 	</style>
 	<script>
+
 	   $(document).ready(function() {
 		        $("#btnBack").click(function(){
 		               location.href = "${path}/board/list";

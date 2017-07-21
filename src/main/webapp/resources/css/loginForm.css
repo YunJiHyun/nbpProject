@@ -1,0 +1,8 @@
+@CHARSET "UTF-8";
+body { background-image: url('../img/backgrounds/1.jpg');}
+h1 { color : black }
+.error { color: red; }
+.msg { color : blue; }
+.signUp { font-weight : bold;}
+#mark { text-decoration : underline;}
+.description { color : gray}
