@@ -6,6 +6,37 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 수정</title>
 <%@ include file="board_header.jsp" %>
+<style>
+#wrapper {
+    margin : 0 auto;
+    padding-top : 20pt;
+    width : 90%;
+   }
+h1 { 
+    text-align : center;
+}
+#idDiv {
+        text-align : right;
+        margin-bottom : 50pt;
+       
+   }
+.form-group {
+    margin-bottom : 200pt;
+}
+#fileDiv {
+    margin-left : 100pt;
+}
+#btnDiv {
+    width:100%;
+     text-align:center
+}
+#btnDivInner {
+    width : 40%;
+    margin:0 auto; 
+
+
+}
+</style>
 <script>
     $(document).ready(function(){
     	$("select[name='boardCategory']").val('${BoardDTO.boardCategory}');
@@ -71,40 +102,47 @@
 </script>
 </head>
 <body>
+    <div id="wrapper">
 	<h1>글 수정하기</h1>
 	<div id="idDiv">
             <sec:authentication property="principal.username"/> 님 반갑습니다. 
-            <input type="button" id="btnLogout" value="로그아웃"/>
+            <input type="button" id="btnLogout" class="btn btn-default"value="로그아웃"/>
     </div>
-	<form name="boardUpdateForm" method="post" action="${path}/board/update?boardNum=${BoardDTO.boardNum}">
-	    <div>
-	        	제목 <input type="text" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >
+	<form class="form-inline" name="boardUpdateForm" method="post" action="${path}/board/update?boardNum=${BoardDTO.boardNum}">
+	    <div class="form-group">
+	        	<label>제목</label>
+	        	<input type="text"  class="form-control" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >
 	    </div>
-	    <div>
-	        	카테고리 <select name="boardCategory">
+	    <br/><br/>
+	    <div class="form-group">
+	        	<label>카테고리 </label>
+	        	<select name="boardCategory" class="form-control" >
 	        				<option value="checking">--선택해주세요--</option>
 	        				<option value="공지">공지</option>
 	        				<option value="학사">학사</option>
 	        				<option value="장학">장학</option>
 	        				<option value="졸업">졸업</option>
 	        				<option value="모집">모집</option>
-	        		  </select>
+	            </select>
 	    </div>
-	    <div >
-               <div>
-	      	             내용 <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
+	    <br/><br/>
+	    <div class="ckeditorBody" >
+               <div  class="ckeditor">
+	      	       <label>내용 </label>
+	      	       <textarea name="boardContent" id="boardContent" rows="5" cols="80" >${BoardDTO.boardContent }</textarea>
 	           </div>   
 	    </div>
 	    <hr/>
-	    <div>
-	    	첨부파일  <input type="file">
-	    </div>
-	    <br/><br/>
+	     <div class="form-group" >
+            <label>첨부파일 </label> 
+            <input type="file">
+        </div><br/><br/>
 	    
-	    <div style="width:650px; text-align: center;">
-		        <button type="submit" id="btnSave">수정완료</button>
-		        <button type="button" id="btnBack">돌아가기</button>
-	    </div>
+	    <div class="form-group" id="btnDiv">
+		        <button type="submit" id="btnSave" class="btn btn-success" >수정완료</button>
+		        <button type="button" id="btnBack"  class="btn btn-link">돌아가기</button>
+	    </div><br/><br/>
 	</form>
+	</div>
 </body>
 </html>

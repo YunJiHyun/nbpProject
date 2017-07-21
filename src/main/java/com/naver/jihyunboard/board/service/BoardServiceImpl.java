@@ -27,20 +27,12 @@ public class BoardServiceImpl {
         map.put("boardList", boardList);
         map.put("count", count);
         map.put("boardPageHelper", boardPageHelper);
-        map.put("count", count);
-
         return map;
 
     }
 
     public void insertBoard(BoardDTO dto) throws Exception {
-
-        //System.out.println(dto.getBoardUserId());
-        // int userId = session.getId();
-        //System.out.println(session.toString());
-        //dto.setBoardUserId(userId);
         boardDao.insertBoard(dto);
-
     }
 
     public BoardDTO viewBoard(int boardNum) throws Exception {

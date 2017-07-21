@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class BoardPageHelper {
-    public static final int PAGE_SCALE = 5; // 5개씩 게시물
+    public static final int PAGE_SCALE = 10; // 5개씩 게시물
     public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩 
     private int curPage; // 현재 페이지
     private int prevPage;
     private int nextPage;
-    private int totalPage;
-    private int totalBlock; // 전체 페이지 블록 갯수
+    private int totalPage; // 전체 게시물 갯수
+    private int totalBlock; // 전체 ㄹ이지 블록 갯수
     private int curBlock;
     private int prevBlock;
     private int nextBlock;

@@ -30,12 +30,10 @@ public class BoardController {
     @RequestMapping("/list")
     public String list(@ModelAttribute BoardDTO dto, @RequestParam(defaultValue = "1") int currentPage,
         Model model) throws Exception {
-
         Map<String, Object> map = boardService.listAll(currentPage);
         model.addAttribute("map", map);
-        //model.addAttribute("auth", auth);
-        return "/board/list";
 
+        return "/board/list";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/write")
@@ -43,6 +41,7 @@ public class BoardController {
         return "/board/write";
     }
 
+    //새 글 등록하기
     @RequestMapping(method = RequestMethod.POST, value = "/insert")
     public String insert(@ModelAttribute BoardDTO dto, Authentication auth) throws Exception {
         auth = SecurityContextHolder.getContext().getAuthentication();
@@ -52,6 +51,7 @@ public class BoardController {
         return "redirect:list";
     }
 
+    //게시물 상세보기
     @RequestMapping("/view")
     public String view(@RequestParam("boardNum") int boardNum, Model model, Authentication auth) throws Exception {
         boardService.increaseReadCount(boardNum);
@@ -69,10 +69,15 @@ public class BoardController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    public String update(@ModelAttribute BoardDTO dto) throws Exception {
+    public String update(@ModelAttribute BoardDTO dto, Authentication auth) throws Exception {
         boardService.updateBoard(dto);
+        //권한체크
+        auth = SecurityContextHolder.getContext().getAuthentication();
+        String userId = auth.getName();
+        if (Integer.parseInt(userId) != dto.getBoardUserId()) {
+            return "/user/authCheck";
+        }
         return "redirect:view?boardNum=" + dto.getBoardNum();
-
     }
 
     @RequestMapping("/delete")

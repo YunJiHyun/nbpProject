@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class authController {
-
+    //spring security login-page
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(
         @RequestParam(value = "error", required = false) String error,

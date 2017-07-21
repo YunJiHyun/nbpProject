@@ -5,6 +5,52 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>게시글 목록</title>
 <%@ include file="board_header.jsp" %>
+<style>
+   #wrapper {
+    margin : 0 auto;
+    padding-top : 20pt;
+    width : 90%;
+   }
+   #boardTitle {
+    text-shadow: 0 1px 0 #ccc,
+               0 2px 0 #c9c9c9,
+               0 3px 0 #bbb,
+               0 4px 0 #b9b9b9,
+               0 5px 0 #aaa,
+               0 6px 1px rgba(0,0,0,.1),
+               0 0 5px rgba(0,0,0,.1),
+               0 1px 3px rgba(0,0,0,.3),
+               0 3px 5px rgba(0,0,0,.2),
+               0 5px 10px rgba(0,0,0,.25),
+               0 10px 10px rgba(0,0,0,.2),
+               0 20px 20px rgba(0,0,0,.15);
+    color : white;
+    font-size : 30pt;
+   }
+    th {
+         background-color:lightgray;
+         text-align :center;
+    }
+    td {
+        text-align : center;
+    }
+   #paging {
+        margin-top : 20pt;
+        text-align : center;
+   }
+   #idDiv {
+        text-align : right;
+        margin-bottom : 100pt;
+   }
+   #btnWriteDiv {
+        margin-top : 10px;
+        text-align : right;
+   }
+   #listCount {
+        text-align : right;
+        margin-bottom : 10pt;
+   }
+</style>
 <script>
     $(document).ready(function(){
         $("#btnWrite").click(function(){
@@ -26,11 +72,11 @@ function list(page){
 </script>
 </head>
 <body>
- <h2>학교 게시판</h2>   
+<div id="wrapper">
+ <p id="boardTitle">학교 게시판</p>   
     <div id="idDiv">
-            <sec:authentication property="principal.username"/> 님 반갑습니다.</p> 
-            <input type="button" id="btnLogout" value="로그아웃"/>
-    </div>
+        <span> <sec:authentication property="principal.username"/> 님 반갑습니다. <input type="button"  class="btn btn-default" id="btnLogout" value="로그아웃"/></span>
+    </div> 
 
 <div id="listCount" style="textalign : right">${map.count } 개 게시물</div>
 <table class="table table-hover" border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
@@ -42,48 +88,53 @@ function list(page){
         <th>날짜</th>
         <th>조회수</th>
     </tr>
+    
 	<c:forEach var="row" items="${map.boardList}">
+    <tbody>
     <tr>
-        <td>${row.boardNum}</td>
-        <td>${row.boardUserId}</td>
-        <td><a href="${path}/board/view?boardNum=${row.boardNum }">${row.boardTitle}</a></td>
-        <td>${row.boardCategory}</td>
-        <td><fmt:formatDate value="${row.boardDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-        <td>${row.boardReadCount}</td>
+        <td width="70">${row.boardNum}</td>
+        <td width="150">${row.boardUserId}</td>
+        <td width="750"><a href="${path}/board/view?boardNum=${row.boardNum }">${row.boardTitle}</a></td>
+        <td width="100">${row.boardCategory}</td>
+        <td width="150"><fmt:formatDate value="${row.boardDate}" pattern="yyyy-MM-dd"/></td>
+        <td width="70">${row.boardReadCount}</td>
     </tr>    
+      </tbody>
     </c:forEach>
-    
-    <tr>
-        <td colspan="6">
-             
-                <c:if test="${map.boardPageHelper.curBlock > 1}">
-                    <a href="javascript:list('1')"> [<<]</a>
-                    <a href="javascript:list('${map.boardPageHelper.prevPage}')">[<]</a>
-                </c:if>
-
-                <c:forEach var="num" begin="${map.boardPageHelper.blockBegin}" end="${map.boardPageHelper.blockEnd}">
-                    <c:choose>
-                        <c:when test="${num == map.boardPageHelper.curPage}">
-                            <span style="color: black">${num}</span>&nbsp;
-                        </c:when>
-                        <c:otherwise>
-                            <a href="javascript:list('${num}')">${num}</a>&nbsp;
-                        </c:otherwise>
-                    </c:choose>
-                </c:forEach>
-                
-                <c:if test="${map.boardPageHelper.curBlock < map.boardPageHelper.totalBlock}">
-                    <a href="javascript:list('${map.boardPageHelper.nextPage}')">[>]</a>
-                     <a href="javascript:list('${map.boardPageHelper.totalPage}')">[>>]</a>
-                </c:if>
-                
-            </td>
-        </tr>
-    
-    
-    
-    
 </table> 
-<button type="button" id="btnWrite">글쓰기</button>
+
+    <div id="paging">     
+                <nav aria-label="Page navigation">
+                     <ul class="pagination">
+                       <li>
+					      <c:if test="${map.boardPageHelper.curBlock > 1}">
+                            <a href="javascript:list('1')" aria-label="Previous">  <span aria-hidden="true">&laquo;</span></a>
+                            <a href="javascript:list('${map.boardPageHelper.prevPage}')" aria-label="Previous"> <span aria-hidden="true">&lt;</span></a>
+                          </c:if>
+					    </li> 
+					    
+					     <li> <c:forEach var="num" begin="${map.boardPageHelper.blockBegin}" end="${map.boardPageHelper.blockEnd}">
+			                    <c:choose>
+			                        <c:when test="${num == map.boardPageHelper.curPage}">
+			                            <span style="color: black">${num}</span>&nbsp;
+			                        </c:when>
+			                        <c:otherwise>
+			                            <a href="javascript:list('${num}')">${num}</a>&nbsp;
+			                        </c:otherwise>
+			                    </c:choose>
+			                </c:forEach></li>
+                <li>
+			         <c:if test="${map.boardPageHelper.curBlock <= map.boardPageHelper.totalBlock}">
+			              <a href="javascript:list('${map.boardPageHelper.nextPage}')"  aria-label="Next"> <span aria-hidden="true">&gt;</span></a>
+			                <a href="javascript:list('${map.boardPageHelper.totalPage}')"  aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
+			         </c:if>
+			         
+			      
+    </li>
+                
+    </div>
+     <div id="btnWriteDiv"><button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button></div>
+
+</div>
 </body>
 </html>
