@@ -29,7 +29,10 @@ public class BoardServiceImpl {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("boardList", boardList);
         map.put("count", count);
+        map.put("searchOption", searchOption);
+        map.put("keyword", keyword);
         map.put("boardPageHelper", boardPageHelper);
+        System.out.println(keyword);
         return map;
 
     }

@@ -27,9 +27,9 @@ public class BoardController {
     UserServiceImpl userService;
 
     //게시글 리스트
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list")
     public String list(@ModelAttribute BoardDTO dto, @RequestParam(defaultValue = "1") int currentPage,
-        @RequestParam(defaultValue = "boardTitle") String searchOption, @RequestParam(defaultValue = "") String keyword,
+        @RequestParam(defaultValue = "all") String searchOption, @RequestParam(defaultValue = "") String keyword,
         Model model) throws Exception {
         Map<String, Object> map = boardService.listAll(searchOption, keyword, currentPage);
         model.addAttribute("map", map);

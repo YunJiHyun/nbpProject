@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BoardPageHelper {
-    public static final int PAGE_SCALE = 10; // 5개씩 게시물
+    public static final int PAGE_SCALE = 10; // 10개씩 게시물
     public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩 
     private int curPage; // 현재 페이지
     private int prevPage;
@@ -34,14 +34,16 @@ public class BoardPageHelper {
         blockBegin = (curBlock - 1) * BLOCK_SCALE + 1;
         blockEnd = blockBegin + BLOCK_SCALE - 1;
 
-        if (blockEnd > totalPage)
+        if (blockEnd > totalPage) {
             blockEnd = totalPage;
+        }
 
         prevPage = (curPage == 1) ? 1 : (curBlock - 1) * BLOCK_SCALE;
         nextPage = curBlock > totalBlock ? (curBlock * BLOCK_SCALE) : (curBlock * BLOCK_SCALE) + 1;
 
-        if (nextPage >= totalPage)
+        if (nextPage >= totalPage) {
             nextPage = totalPage;
+        }
     }
 
     public void setPageRange() {
