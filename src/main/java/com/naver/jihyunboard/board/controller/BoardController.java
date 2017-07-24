@@ -54,12 +54,17 @@ public class BoardController {
 
     //게시물 상세보기
     @RequestMapping("/view")
-    public String view(@RequestParam("boardNum") int boardNum, Model model, Authentication auth) throws Exception {
+    public String view(@RequestParam("boardNum") int boardNum, @RequestParam("currentPage") int currentPage,
+        @RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword,
+        Model model, Authentication auth) throws Exception {
         boardService.increaseReadCount(boardNum);
         auth = SecurityContextHolder.getContext().getAuthentication();
         String userId = auth.getName();
         model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
         model.addAttribute("userId", userId);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("searchOption", searchOption);
         return "/board/board_view";
     }
 

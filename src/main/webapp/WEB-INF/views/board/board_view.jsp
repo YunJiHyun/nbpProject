@@ -54,7 +54,7 @@
 
 	   $(document).ready(function() {
 		        $("#btnBack").click(function(){
-		               location.href = "${path}/board/list";
+		               location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}";
 		           });
 		        
 		         $("#btnLogout").click(function(){

@@ -32,7 +32,6 @@ public class BoardServiceImpl {
         map.put("searchOption", searchOption);
         map.put("keyword", keyword);
         map.put("boardPageHelper", boardPageHelper);
-        System.out.println(keyword);
         return map;
 
     }
