@@ -67,7 +67,7 @@
 </script>
 <script>
 function list(page){
-    location.href="${path}/board/list?currentPage="+page;
+    location.href="${path}/board/list?currentPage="+page+"&searchOption=${map.searchOption}"+"&keyword=${map.keyword}";
 }
 </script>
 </head>
@@ -77,7 +77,20 @@ function list(page){
     <div id="idDiv">
         <span> <sec:authentication property="principal.username"/> 님 반갑습니다. <input type="button"  class="btn btn-default" id="btnLogout" value="로그아웃"/></span>
     </div> 
+	<form name="searchForm" method="post" action="${path }/board/list" >
+		 <div class="form-group">
+		 <select name="searchOption" class="form-control" style="width:100pt">
+            <!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
+            <option value="all" <c:out value="${map.searchOption == 'all'?'selected':''}"/> >전체</option>
+            <option value="boardUserId" <c:out value="${map.searchOption == 'boardUserId'?'selected':''}"/> >작성자</option>
 
+            <option value="boardTitle" <c:out value="${map.searchOption == 'boardTitle'?'selected':''}"/> >제목</option>
+        </select>
+        <input name="keyword" value="${map.keyword}">
+        <input type="submit" value="조회">
+		</div>	
+	</form>
+	
 <div id="listCount" style="textalign : right">${map.count } 개 게시물</div>
 <table class="table table-hover" border="1" width="600px"  style="border-collapse:collapse; border:1px gray solid;">
     <tr>

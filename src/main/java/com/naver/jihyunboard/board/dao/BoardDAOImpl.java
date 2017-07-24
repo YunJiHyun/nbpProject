@@ -18,10 +18,13 @@ public class BoardDAOImpl {
 
     private static String namespace = "com.naver.jihyunboard.board.dao.BoardDAO";
 
-    public List<BoardDTO> listAll(int start, int end) throws Exception {
+    public List<BoardDTO> listAll(String searchOption, String keyword, int startRow, int pageScale) throws Exception {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("start", start);
-        map.put("end", end);
+        map.put("startRow", startRow);
+        map.put("pageScale", pageScale);
+        map.put("searchOption", searchOption);
+        map.put("keyword", keyword);
+        // map.put("end", end);
         return SqlSession.selectList(namespace + ".listAll", map);
 
     }
@@ -45,8 +48,11 @@ public class BoardDAOImpl {
 
     }
 
-    public int listCount() throws Exception {
-        return SqlSession.selectOne(namespace + ".listCount");
+    public int listCount(String searchOption, String keyword) throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("searchOption", searchOption);
+        map.put("keyword", keyword);
+        return SqlSession.selectOne(namespace + ".listCount", map);
     }
 
     public void increaseReadCount(int boardNum) throws Exception {

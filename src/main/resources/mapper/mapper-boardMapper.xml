@@ -2,53 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.jihyunboard.board.dao.BoardDAO">
 
-    <!-- 게시글 전체 목록 조회 -->
-    <select id="listAll" resultType="boardDto">
-        SELECT *
-        FROM ( 
-                SELECT @ROWNUM:=@ROWNUM+1 AS ROW, A.* 
-                FROM (SELECT * FROM board ORDER BY boardNum DESC) A, 
-                     (SELECT @ROWNUM:=0) B
-             ) C
-        WHERE C.ROW BETWEEN #{start} AND #{end}
-    </select>
-    
-    <!-- 새 글 등록  -->
-     <insert id="insert">
-        INSERT INTO board ( boardUserId, boardTitle, boardContent, boardCategory)
-        VALUES (#{boardUserId},#{boardTitle},#{boardContent},#{boardCategory} )
-    </insert>
-    
-    <!-- 선택한 게시글 보기  -->
-     <select id="viewBoard" resultType="boardDto">
-     	SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory, boardDate
-     	FROM board
-     	WHERE boardNum = #{boardNum} 
-     </select>
+	<!-- 게시글 전체 목록 조회 -->
+	<select id="listAll" resultType="boardDto">
+		SELECT *
+		FROM board
+		<include refid="search"></include>
+		ORDER BY boardNum DESC
+		LIMIT #{startRow} ,#{pageScale}
+	</select>
 
-	 <delete id="deleteBoard">
-        DELETE FROM board
-        WHERE boardNum = #{boardNum}
-     </delete>
-    
-     <update id="updateBoard">
-        UPDATE board 
-        SET
-            boardTitle = #{boardTitle},
-            boardContent = #{boardContent},
-            boardCategory = #{boardCategory}
-        WHERE boardNum = #{boardNum}
-     </update>
-    
-     <select id="listCount" resultType="int">
-        SELECT COUNT(*) AS count  
-        FROM board
-     </select>
-	 
-	  <update id="increaseReadCount" >
-        UPDATE board
-        SET
-            boardReadCount = boardReadCount + 1
-        WHERE boardNum = #{boardNum}
-      </update>
+	<!-- 새 글 등록 -->
+	<insert id="insert">
+		INSERT INTO board ( boardUserId, boardTitle, boardContent, boardCategory)
+		VALUES (#{boardUserId},#{boardTitle},#{boardContent},#{boardCategory}
+		)
+	</insert>
+
+	<!-- 선택한 게시글 보기 -->
+	<select id="viewBoard" resultType="boardDto">
+		SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory,
+		boardDate
+		FROM board
+		WHERE boardNum = #{boardNum}
+	</select>
+
+	<delete id="deleteBoard">
+		DELETE FROM board
+		WHERE boardNum = #{boardNum}
+	</delete>
+
+	<update id="updateBoard">
+		UPDATE board
+		SET
+		boardTitle = #{boardTitle},
+		boardContent = #{boardContent},
+		boardCategory = #{boardCategory}
+		WHERE boardNum = #{boardNum}
+	</update>
+
+	<select id="listCount" resultType="int">
+		SELECT COUNT(*) AS count
+		FROM board
+		<include refid="search"></include>
+	</select>
+
+	<update id="increaseReadCount">
+		UPDATE board
+		SET
+		boardReadCount = boardReadCount + 1
+		WHERE boardNum = #{boardNum}
+	</update>
+
+
+	<sql id="search">
+		<choose>
+			<when test="searchOption == 'all'">
+				WHERE boardUserId LIKE CONCAT('%' ,#{keyword},'%')
+				OR boardTitle LIKE CONCAT('%' ,#{keyword},'%')
+			</when>
+			<otherwise>
+				WHERE ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
+			</otherwise>
+		</choose>
+	</sql>
 </mapper>

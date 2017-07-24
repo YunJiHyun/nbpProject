@@ -29,8 +29,9 @@ public class BoardController {
     //게시글 리스트
     @RequestMapping("/list")
     public String list(@ModelAttribute BoardDTO dto, @RequestParam(defaultValue = "1") int currentPage,
+        @RequestParam(defaultValue = "boardTitle") String searchOption, @RequestParam(defaultValue = "") String keyword,
         Model model) throws Exception {
-        Map<String, Object> map = boardService.listAll(currentPage);
+        Map<String, Object> map = boardService.listAll(searchOption, keyword, currentPage);
         model.addAttribute("map", map);
 
         return "/board/list";

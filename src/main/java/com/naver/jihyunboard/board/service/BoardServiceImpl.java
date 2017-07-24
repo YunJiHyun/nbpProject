@@ -16,12 +16,15 @@ public class BoardServiceImpl {
     @Autowired
     BoardDAOImpl boardDao;
 
-    public Map<String, Object> listAll(int currentPage) throws Exception {
-        int count = boardDao.listCount();
+    public Map<String, Object> listAll(String searchOption, String keyword, int currentPage) throws Exception {
+
+        int count = boardDao.listCount(searchOption, keyword); //검색 결과에 따른 게시글의 갯수
+
         BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
-        int start = boardPageHelper.getPageBegin();
-        int end = boardPageHelper.getPageEnd();
-        List<BoardDTO> boardList = boardDao.listAll(start, end);
+        int startRow = (currentPage - 1) * BoardPageHelper.PAGE_SCALE;
+        //int start = boardPageHelper.getPageBegin();
+        //int end = boardPageHelper.getPageEnd();
+        List<BoardDTO> boardList = boardDao.listAll(searchOption, keyword, startRow, BoardPageHelper.PAGE_SCALE); //rownum을 이용한 서브쿼리 대신 LIMIT 사용으로 수정
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("boardList", boardList);
