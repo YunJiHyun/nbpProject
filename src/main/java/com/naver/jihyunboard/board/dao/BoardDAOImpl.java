@@ -60,4 +60,8 @@ public class BoardDAOImpl {
 
     }
 
+    public void addAttach(String fileName) {
+        SqlSession.insert(namespace + ".addAttach", fileName);
+
+    }
 }

@@ -13,11 +13,23 @@
 
 	<!-- 새 글 등록 -->
 	<insert id="insert">
-		INSERT INTO board ( boardUserId, boardTitle, boardContent, boardCategory)
-		VALUES (#{boardUserId},#{boardTitle},#{boardContent},#{boardCategory}
+		INSERT INTO board ( boardTitle, boardContent, boardCategory)
+		VALUES (#{boardTitle},#{boardContent},#{boardCategory}
 		)
 	</insert>
 
+
+	<!-- <insert id="addAttach">
+    INSERT INTO file ( file_name, file_board_num ) 
+    VALUES (#{fileName},1 )
+	</insert> -->
+	
+	
+	
+	
+	
+	
+	
 	<!-- 선택한 게시글 보기 -->
 	<select id="viewBoard" resultType="boardDto">
 		SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory,

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.naver.jihyunboard.board.dao.BoardDAOImpl;
 import com.naver.jihyunboard.board.dto.BoardDTO;
@@ -36,8 +37,17 @@ public class BoardServiceImpl {
 
     }
 
+    @Transactional
     public void insertBoard(BoardDTO dto) throws Exception {
-        boardDao.insertBoard(dto);
+        boardDao.insertBoard(dto); //호출한 후 파일 이름을 추가
+
+        String[] files = dto.getFiles();
+        if (files == null) {
+            return;
+        }
+        for (String fileName : files) { //강화된 for
+            boardDao.addAttach(fileName);
+        }
     }
 
     public BoardDTO viewBoard(int boardNum) throws Exception {

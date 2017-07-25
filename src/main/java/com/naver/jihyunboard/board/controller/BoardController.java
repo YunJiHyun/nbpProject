@@ -62,8 +62,8 @@ public class BoardController {
         String userId = auth.getName();
         model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
         model.addAttribute("userId", userId);
-        model.addAttribute("keyword", keyword);
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("keyword", keyword);
         model.addAttribute("searchOption", searchOption);
         return "/board/board_view";
     }

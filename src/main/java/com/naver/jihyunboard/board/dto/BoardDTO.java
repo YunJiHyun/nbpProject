@@ -16,5 +16,6 @@ public class BoardDTO {
     private String boardCategory;
     private Timestamp boardDate;
     private int boardReadCount;
+    private String[] files;
 
 }

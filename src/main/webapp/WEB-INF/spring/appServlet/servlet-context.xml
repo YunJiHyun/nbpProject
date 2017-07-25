@@ -28,4 +28,15 @@
 	   <context:component-scan base-package="com.naver.jihyunboard.board" />
         <context:component-scan base-package="com.naver.jihyunboard.user" />
         <context:component-scan base-package="com.naver.jihyunboard.security" />
+        
+    
+		  <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="defaultEncoding" value="UTF-8"/>
+        <beans:property name="maxUploadSize" value="20000000"/>
+    </beans:bean> 
+    
+		<beans:bean id="uploadPath" class="java.lang.String">
+        	<beans:constructor-arg value="C:\JihyunboardFile"/>
+		</beans:bean>
+		
     </beans:beans>
