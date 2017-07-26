@@ -24,7 +24,6 @@ public class BoardDAOImpl {
         map.put("pageScale", pageScale);
         map.put("searchOption", searchOption);
         map.put("keyword", keyword);
-        // map.put("end", end);
         return SqlSession.selectList(namespace + ".listAll", map);
 
     }

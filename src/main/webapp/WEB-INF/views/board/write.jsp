@@ -169,16 +169,11 @@ table, tr, td {
 			},
 			tag : function() {
 				var tag = new StringBuffer();
-				/*  var str = "";
-				 if(checkType(this.name)){
-				  str = "<div><a href='${path}/upload/displayFile?fileName="+getImageLink(data)+"'>";
-				     str += "<img src='${path}/upload/displayFile?fileName="+this.name+"'></a>";
-				 }
-				 */
-				tag.append('<tr>');
-				tag.append('<td data-source='+data+'>' + this.name + '</td>');
+				
+				tag.append("<tr data-source="+ data +">");
+				tag.append('<td>' + this.name + '</td>');
 				tag.append('<td>' + this.size + '</td>');
-				tag.append("<td data-source="+data+"><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
+				tag.append("<td data-source="+ data +"><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
 				tag.append('</tr>');
 				return tag.toString();
 			}
@@ -199,6 +194,15 @@ table, tr, td {
 		           
 		       }
 		});   */
+		dataSource= $(event).parents('tr').attr("data-source");
+	
+			$("input[type='hidden']").each(function () {
+			    if (this.value == dataSource) { 
+			        $(this).remove();
+			    }
+			});
+
+		
 		$(event).parents('tr').remove(); //upload한 리스트에서 제거
 	
 	}
