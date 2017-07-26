@@ -1,5 +1,6 @@
 package com.naver.jihyunboard.board.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.naver.jihyunboard.board.dto.BoardDTO;
 import com.naver.jihyunboard.board.service.BoardServiceImpl;
@@ -90,6 +93,12 @@ public class BoardController {
     public String delete(@RequestParam("boardNum") int boardNum) throws Exception {
         boardService.deleteBoard(boardNum);
         return "redirect:list";
+    }
+
+    @RequestMapping("/getFileList/{boardNum}")
+    @ResponseBody
+    public List<String> getFileList(@PathVariable("boardNum") int boardNum) {
+        return boardService.getFileList(boardNum);
     }
 
 }

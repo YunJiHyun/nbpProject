@@ -13,29 +13,30 @@
 
 	<!-- 새 글 등록 -->
 	<insert id="insert">
-		INSERT INTO board ( boardTitle, boardContent, boardCategory)
+		INSERT INTO board ( boardTitle, boardContent,
+		boardCategory)
 		VALUES (#{boardTitle},#{boardContent},#{boardCategory}
 		)
 	</insert>
 
 
-	<!-- <insert id="addAttach">
-    INSERT INTO file ( file_name, file_board_num ) 
-    VALUES (#{fileName},1 )
-	</insert> -->
-	
-	
-	
-	
-	
-	
-	
+	<insert id="addAttach">
+		INSERT INTO file ( file_name, file_board_num )
+		VALUES
+		(
+		#{fileName}, (select max(boardNum) from board)
+		)
+
+	</insert>
+
 	<!-- 선택한 게시글 보기 -->
 	<select id="viewBoard" resultType="boardDto">
-		SELECT boardNum, boardUserid, boardTitle, boardContent, boardCategory,
+		SELECT boardNum, boardUserid,
+		boardTitle, boardContent, boardCategory,
 		boardDate
 		FROM board
-		WHERE boardNum = #{boardNum}
+		WHERE
+		boardNum = #{boardNum}
 	</select>
 
 	<delete id="deleteBoard">
@@ -49,7 +50,8 @@
 		boardTitle = #{boardTitle},
 		boardContent = #{boardContent},
 		boardCategory = #{boardCategory}
-		WHERE boardNum = #{boardNum}
+		WHERE
+		boardNum = #{boardNum}
 	</update>
 
 	<select id="listCount" resultType="int">
@@ -70,11 +72,18 @@
 		<choose>
 			<when test="searchOption == 'all'">
 				WHERE boardUserId LIKE CONCAT('%' ,#{keyword},'%')
-				OR boardTitle LIKE CONCAT('%' ,#{keyword},'%')
+				OR
+				boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 			</when>
 			<otherwise>
 				WHERE ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
 			</otherwise>
 		</choose>
 	</sql>
+
+	<select id="getFileList" resultType="String">
+		SELECT file_name
+		FROM file
+		WHERE file_board_num = #{boardNum}
+	</select>
 </mapper>

@@ -45,7 +45,7 @@ public class BoardServiceImpl {
         if (files == null) {
             return;
         }
-        for (String fileName : files) { //강화된 for
+        for (String fileName : files) {
             boardDao.addAttach(fileName);
         }
     }
@@ -66,6 +66,10 @@ public class BoardServiceImpl {
 
     public void increaseReadCount(int boardNum) throws Exception {
         boardDao.increaseReadCount(boardNum);
+    }
+
+    public List<String> getFileList(int bno) {
+        return boardDao.getFileList(bno);
     }
 
 }

@@ -64,4 +64,9 @@ public class BoardDAOImpl {
         SqlSession.insert(namespace + ".addAttach", fileName);
 
     }
+
+    public List<String> getFileList(int boardNum) {
+        return SqlSession.selectList(namespace + ".getFileList", boardNum);
+
+    }
 }

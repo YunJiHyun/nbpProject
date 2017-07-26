@@ -43,74 +43,74 @@ h1 {
 
 .fileDrop {
 	width: 600px;
-	height: 100px;
+	height: 150px;
 	border: 2px dotted gray;
 	background-color: white;
 	padding-top: 30px;
-	text-align : center;
-	font-size : 20pt;
-	font-weight : bold;
-}
-#tabFileName{
-  width: 470px;
-  text-align: left;
-}
- 
-#tabFileSize{
-  width: 70px;
-}
- 
-#tabFileDel{
-  width: 50px;
-}
-table , tr , td{
-  border: 1px solid black;
-  border-collapse: collapse;
+	text-align: center;
+	font-size: 20pt;
+	font-weight: bold;
 }
 
+#tabFileName {
+	width: 470px;
+	text-align: left;
+}
 
+#tabFileSize {
+	width: 70px;
+}
+
+#tabFileDel {
+	width: 50px;
+}
+
+table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
 </style>
 
 
 
 <script>
 	$(document).ready(function() {
+
+		//listAttach();
+
 		$(".fileDrop").on("dragenter dragover", function(event) {
 			event.preventDefault();
 		});
-		
-		 $(".fileDrop").on("drop", function(event){
+
+		$(".fileDrop").on("drop", function(event) {
 			event.preventDefault(); // 기본효과 제한
-			
+
 			var files = event.originalEvent.dataTransfer.files; // 드래그한 파일들
 			var file = files[0];
-			alert(file);
+		
 			var formData = new FormData();
 			formData.append("file", file);
-			 
-			
-			
 			$.ajax({
-				    type : "POST",
-				    url : "${path}/upload/uploadFile", //Upload URL
-				    data : formData,
-				    contentType : false,
-				    processData : false,
-				    cache : false,
-				    success : function(data) {
-				      if(data) {
-				        alert('성공');
-				        alert(data);
-				        var tag = createFile(file.name, file.size);
-				        $('#fileTable').append(tag);	       
-				      }else {
-				        alert('실패');
-				      }
-				    }
-				  });
-		   
-		}); 
+				type : "POST",
+				url : "${path}/upload/uploadFile", //Upload URL
+				data : formData,
+				contentType : false,
+				processData : false,
+				cache : false,
+				success : function(data) {
+					var fileInfo = getFileInfo(data);
+					var html = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
+					var tag = createFile(file.name, file.size, data);
+					$('#fileTable').append(tag);
+					$("#uploadedList").append(html);
+					
+				}
+			});
+
+		});
+
 	
+
 		$("#btnSave").click(function() {
 			var boardTitle = $("#boardTitle").val();
 			var boardCategory = $("select[name='boardCategory']").val();
@@ -132,7 +132,6 @@ table , tr , td{
 				return false;
 			}
 			
-		
 			
 			$('#boardWriteForm').attr({
 				action : "${path}/board/insert",
@@ -149,52 +148,60 @@ table , tr , td{
 		});
 
 	});
-	
-	
-	function createFile(fileName, fileSize) {
-	    var file = {
-	        name : fileName,
-	        size : fileSize,
-	        format : function() {
-	          var sizeKB = this.size / 1024;
-	          if (parseInt(sizeKB) > 1024) {
-	            var sizeMB = sizeKB / 1024;
-	            this.size = sizeMB.toFixed(2) + " MB";
-	          } else {
-	            this.size = sizeKB.toFixed(2) + " KB";
-	          }
-	          //파일이름이 너무 길면 화면에 표시해주는 이름을 변경해준다.
-	          if(name.length > 70){
-	            this.name = this.name.substr(0,68)+"...";
-	          }
-	          return this;
-	        },
-	        tag : function() {
-	          var tag = new StringBuffer();
-	         /*  var str = "";
-	          if(checkType(this.name)){
-	        	  str = "<div><a href='${path}/upload/displayFile?fileName="+getImageLink(data)+"'>";
-	              str += "<img src='${path}/upload/displayFile?fileName="+this.name+"'></a>";
 
-	          }
-	           */
-	          tag.append('<tr>');
-	          tag.append('<td>'+this.name+'</td>');
-	          tag.append('<td>'+this.size+'</td>');
-	          tag.append("<td><button id='"+this.name+"' onclick='delFile(this)'>취소</button></td>");
-	          tag.append('</tr>');
-	          return tag.toString();         
-	        }
-	    }
-	    return file.format().tag();
-	  }
-	
-	function checkType(fileName) {
-	 
-	    var pattern = /jpg|gif|png|jpeg/i; // i 는 ignore 대소문자
-	    return fileName.match(pattern); 
+	function createFile(fileName, fileSize, data) {
+		var file = {
+			name : fileName,
+			size : fileSize,
+			format : function() {
+				var sizeKB = this.size / 1024;
+				if (parseInt(sizeKB) > 1024) {
+					var sizeMB = sizeKB / 1024;
+					this.size = sizeMB.toFixed(2) + " MB";
+				} else {
+					this.size = sizeKB.toFixed(2) + " KB";
+				}
+				//파일이름이 너무 길면 화면에 표시해주는 이름을 변경해준다.
+				if (name.length > 70) {
+					this.name = this.name.substr(0, 68) + "...";
+				}
+				return this;
+			},
+			tag : function() {
+				var tag = new StringBuffer();
+				/*  var str = "";
+				 if(checkType(this.name)){
+				  str = "<div><a href='${path}/upload/displayFile?fileName="+getImageLink(data)+"'>";
+				     str += "<img src='${path}/upload/displayFile?fileName="+this.name+"'></a>";
+				 }
+				 */
+				tag.append('<tr>');
+				tag.append('<td data-source='+data+'>' + this.name + '</td>');
+				tag.append('<td>' + this.size + '</td>');
+				tag.append("<td data-source="+data+"><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
+				tag.append('</tr>');
+				return tag.toString();
+			}
+		}
+		return file.format().tag();
 	}
-
+	
+	function deleteFile(event){
+	/* 	  $.ajax({
+		       url: "${path}/upload/deleteFile",
+		       type: "POST",
+		       data: {fileName:$(this).parents('td').attr("data-source")}, // json방식
+		       dataType: "text",
+		       success: function(result){
+		           if( result == "delet" ){
+		        		 $(event).parents('tr').remove(); //upload한 리스트에서 제거
+		           }
+		           
+		       }
+		});   */
+		$(event).parents('tr').remove(); //upload한 리스트에서 제거
+	
+	}
 </script>
 
 <script>
@@ -232,7 +239,8 @@ table , tr , td{
 			님 반갑습니다. <input type="button" id="btnLogout" class="btn btn-default"
 				value="로그아웃" />
 		</div>
-		<form class="form-inline" id="boardWriteForm" name="boardWriteForm" method="post" enctype="multipart/form-data">
+		<form class="form-inline" id="boardWriteForm" name="boardWriteForm"
+			method="post" enctype="multipart/form-data">
 
 			<div class="form-group" id="centerForm">
 				<label>제목</label> <input type="text" class="form-control"
@@ -265,10 +273,11 @@ table , tr , td{
 			<div class="form-group">
 				<!-- <label>첨부파일 </label> 
 				<!-- <input type="file"> -->
-				첨부파일  
-				 <div class="fileDrop"> Drag & Drop here</div><br/>
-				
-	
+				첨부파일
+				<div class="fileDrop">Drag & Drop here</div>
+				<br />
+
+				<div id="uploadedList"></div>
 				<div id="fileList">
 					<table id='fileTable'>
 						<tr>
@@ -278,8 +287,7 @@ table , tr , td{
 						</tr>
 					</table>
 
-				</div>   
-				<input type="button" id="fileupload" value="전송"/>
+				</div>
 			</div>
 			<br /> <br />
 
