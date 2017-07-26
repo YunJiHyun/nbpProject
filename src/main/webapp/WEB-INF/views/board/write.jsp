@@ -170,10 +170,10 @@ table, tr, td {
 			tag : function() {
 				var tag = new StringBuffer();
 				
-				tag.append("<tr data-source="+ data +">");
+				tag.append("<tr id='"+data+"'>");
 				tag.append('<td>' + this.name + '</td>');
 				tag.append('<td>' + this.size + '</td>');
-				tag.append("<td data-source="+ data +"><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
+				tag.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
 				tag.append('</tr>');
 				return tag.toString();
 			}
@@ -194,7 +194,7 @@ table, tr, td {
 		           
 		       }
 		});   */
-		dataSource= $(event).parents('tr').attr("data-source");
+		dataSource= $(event).parents('tr').attr("id");
 	
 			$("input[type='hidden']").each(function () {
 			    if (this.value == dataSource) { 

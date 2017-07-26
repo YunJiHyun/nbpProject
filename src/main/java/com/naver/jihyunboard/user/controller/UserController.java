@@ -8,32 +8,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.naver.jihyunboard.user.dto.UserDTO;
-import com.naver.jihyunboard.user.service.UserServiceImpl;
+import com.naver.jihyunboard.user.model.BoardUser;
+import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
 @RequestMapping("/user/*")
 public class UserController {
 
-    @Autowired
-    UserServiceImpl userService;
+	@Autowired
+	private UserService userService;
 
-    @RequestMapping("/register")
-    public String register() {
-        return "/user/register";
-    }
+	@RequestMapping("/register")
+	public String register() {
+		return "/user/register";
+	}
 
-    @RequestMapping(method = RequestMethod.POST, value = "/checkId", produces = "application/json")
-    public @ResponseBody UserDTO checkId(@RequestParam("userId") int userId) {
-        UserDTO userdto = userService.checkId(userId);
-        return userdto;
+	@RequestMapping(value = "/checkId", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody BoardUser checkId(@RequestParam("userId") int userId) {
+		BoardUser userdto = userService.checkId(userId);
+		return userdto;
 
-    }
+	}
 
-    @RequestMapping(method = RequestMethod.POST, value = "/addUser")
-    public String addUser(@ModelAttribute UserDTO dto) {
-        userService.registerUser(dto);
-        return "redirect:/login";
-    }
+	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
+	public String addUser(@ModelAttribute BoardUser dto) {
+		userService.registerUser(dto);
+		return "redirect:/login";
+	}
 
 }
