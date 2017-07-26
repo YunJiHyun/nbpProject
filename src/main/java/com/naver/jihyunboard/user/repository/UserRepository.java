@@ -12,7 +12,7 @@ public class UserRepository {
 	@Autowired
 	SqlSession sqlSession;
 
-	private static String namespace = "com.naver.jihyunboard.user.dao.UserRepository";
+	private static String namespace = "com.naver.jihyunboard.user.repository.UserRepository";
 
 	public void registerUser(BoardUser dto) {
 		sqlSession.insert(namespace + ".insert", dto);

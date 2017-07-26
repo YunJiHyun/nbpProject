@@ -13,5 +13,5 @@ public class BoardUser {
 	private String userName;
 	private String userMajor;
 	private String userPhoneNum;
-
+	private String userRole;
 }

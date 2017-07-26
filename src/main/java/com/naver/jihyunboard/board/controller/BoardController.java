@@ -60,7 +60,6 @@ public class BoardController {
 	public String view(@RequestParam("boardNum") int boardNum, @RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword,
 		Model model, Authentication auth) throws Exception {
-		boardService.increaseReadCount(boardNum);
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));

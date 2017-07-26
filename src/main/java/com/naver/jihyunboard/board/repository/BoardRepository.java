@@ -9,6 +9,7 @@ import com.naver.jihyunboard.board.model.Board;
 
 @Repository
 public interface BoardRepository {
+
 	public List<Board> listAll(Map<String, Object> map) throws Exception;
 
 	public void insertBoard(Board dto) throws Exception;

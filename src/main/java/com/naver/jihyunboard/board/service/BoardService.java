@@ -62,6 +62,7 @@ public class BoardService {
 	}
 
 	public Board viewBoard(int boardNum) throws Exception {
+		boardDao.increaseReadCount(boardNum);
 		return boardDao.viewBoard(boardNum);
 
 	}
@@ -73,10 +74,6 @@ public class BoardService {
 
 	public void deleteBoard(int boardNum) throws Exception {
 		boardDao.deleteBoard(boardNum);
-	}
-
-	public void increaseReadCount(int boardNum) throws Exception {
-		boardDao.increaseReadCount(boardNum);
 	}
 
 	public List<String> getFileList(int bno) {

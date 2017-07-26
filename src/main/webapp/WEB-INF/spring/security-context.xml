@@ -1,51 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-    <http auto-config='true' use-expressions="true">
-    
-        <intercept-url pattern="/upload/**" access="permitAll" />
-        <intercept-url pattern="/login" access="permitAll" />
-        <intercept-url pattern="/resources/**" access="permitAll"/>
-        <intercept-url pattern="/board/**" access="hasRole('ROLE_USER')" />
-        
-        <form-login 
-                login-page="/login"         
-                default-target-url="/board/list"          
-                 username-parameter="userId"  
-                password-parameter="userPw"
-                authentication-failure-url="/login?error"  
-                always-use-default-target='true' 
-                
-        />
-          
-         
-          <logout invalidate-session="true"  logout-success-url="/login?logout" /> 
-    </http> 
- 
- 
-    <authentication-manager> 
-        <authentication-provider> 
-            <user-service> 
-                <user name="1212220" password="1111" authorities="ROLE_USER" /> 
-                <user name="1222222" password="1234" authorities="ROLE_USER" /> 
-            </user-service> 
-        </authentication-provider> 
-    </authentication-manager>
+	<http auto-config='true' use-expressions="true">
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/board/**" access="hasRole('ROLE_USER')" />
 
-   <!--  <beans:bean id="authService" class="com.naver.jihyunboard.security.service.authService" /> 
- 
-	    <authentication-manager  >
-	       <authentication-provider user-service-ref="authService">
-	    </authentication-provider>
-    </authentication-manager> -->
-    
- 
+		<form-login login-page="/login" 
+			username-parameter="userId" 
+			password-parameter="userPw"
+			authentication-success-handler-ref="loginSuccessHandler"
+			authentication-failure-handler-ref="loginFailureHandler" />
 
+		<logout invalidate-session="true" logout-success-url="/login?logout" />
+	</http>
 
+	<!-- <beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" 
+		/> -->
+	<beans:bean id="loginSuccessHandler" class="com.naver.jihyunboard.security.service.LoginSuccessHandler"></beans:bean> 
+	<beans:bean id="loginFailureHandler" class="com.naver.jihyunboard.security.service.LoginFailureHandler"></beans:bean>
+		
+	<beans:bean id="AuthService" class="com.naver.jihyunboard.security.service.AuthService"/>
+	<authentication-manager>
+		<authentication-provider user-service-ref="AuthService"/>
+	</authentication-manager>
+
+	<context:component-scan base-package="com.naver.jihyunboard"/>
 </beans:beans>
+
+
+

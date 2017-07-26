@@ -78,7 +78,7 @@ td {
 	<div id="wrapper">
 		<p id="boardTitle">학교 게시판</p>
 		<div id="idDiv">
-			<span> <sec:authentication property="principal.username" /> 님
+			<span> <b><sec:authentication property="principal.userName" /></b> 님
 				반갑습니다. <input type="button" class="btn btn-default" id="btnLogout"
 				value="로그아웃" /></span>
 		</div>
