@@ -1,4 +1,4 @@
-package com.naver.jihyunboard.board.service;
+package com.naver.jihyunboard.board.model;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

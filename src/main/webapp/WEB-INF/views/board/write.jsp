@@ -239,7 +239,7 @@ table, tr, td {
 	<div id="wrapper">
 		<h1>새 글 작성하기</h1>
 		<div id="idDiv">
-			<sec:authentication property="principal.username" />
+			<b><sec:authentication property="principal.userName" /></b>
 			님 반갑습니다. <input type="button" id="btnLogout" class="btn btn-default"
 				value="로그아웃" />
 		</div>

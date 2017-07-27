@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.naver.jihyunboard.board.service.UploadFileHelper;
+import com.naver.jihyunboard.board.model.UploadFileHelper;
 
 /**
  * 

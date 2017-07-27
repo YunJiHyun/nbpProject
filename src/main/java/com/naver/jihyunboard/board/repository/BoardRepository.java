@@ -27,4 +27,6 @@ public interface BoardRepository {
 	public void addAttach(String fileName);
 
 	public List<String> getFileList(int boardNum);
+
+	public void deleteFile(int boardNum);
 }

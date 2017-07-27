@@ -53,7 +53,7 @@
 	         var userMajor = $("select[name='userMajor']").val();
 	         var userPhoneNum = $("#userPhoneNum").val();
 	         
-	         var reg_id = /^[1-9]{7,8}$/;
+	         var reg_id = /^[0-9]{7,8}$/;
 	         var reg_phoneNum =/^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
 	         
 	         if(userId == ""){
@@ -65,10 +65,10 @@
                  alert("존재하는 아이디입니다. 다른 아이디로 회원가입해주세요");
                  return false;
              } 
-	         if(!reg_id.test(userId)){ 
+	          if(!reg_id.test(userId)){ 
                  alert("아이디는 학번입니다 7~8자리입니다. ex)1212222");
                  return false;
-             }
+             } 
 	        
 	         if(password == ""){
 	             alert("패스워드를 입력하세요");

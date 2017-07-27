@@ -13,9 +13,17 @@
 
 	<!-- 새 글 등록 -->
 	<insert id="insertBoard">
-		INSERT INTO board ( boardTitle, boardContent,
-		boardCategory)
-		VALUES (#{boardTitle},#{boardContent},#{boardCategory}
+		INSERT INTO board ( 
+			boardUserId, 
+			boardTitle, 
+			boardContent,
+			boardCategory
+		)	
+		VALUES (
+			#{boardUserId},
+			#{boardTitle},
+			#{boardContent},
+			#{boardCategory}
 		)
 	</insert>
 
@@ -42,6 +50,11 @@
 	<delete id="deleteBoard">
 		DELETE FROM board
 		WHERE boardNum = #{boardNum}
+	</delete>
+	
+	<delete id="deleteFile">
+		DELETE FROM file
+		WHERE file_board_num = #{boardNum}
 	</delete>
 
 	<update id="updateBoard">

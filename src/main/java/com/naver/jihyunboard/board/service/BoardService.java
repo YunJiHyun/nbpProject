@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.naver.jihyunboard.board.model.Board;
+import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.repository.BoardRepository;
 
 @Service
@@ -26,9 +27,6 @@ public class BoardService {
 
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
 		int startRow = (currentPage - 1) * BoardPageHelper.PAGE_SCALE;
-		//int start = boardPageHelper.getPageBegin();
-		//int end = boardPageHelper.getPageEnd();
-		//rownum을 이용한 서브쿼리 대신 LIMIT 사용으로 수정
 
 		Map<String, Object> listParam = new HashMap<String, Object>();
 		listParam.put("startRow", startRow);
@@ -72,7 +70,9 @@ public class BoardService {
 
 	}
 
+	@Transactional
 	public void deleteBoard(int boardNum) throws Exception {
+		boardDao.deleteFile(boardNum);
 		boardDao.deleteBoard(boardNum);
 	}
 

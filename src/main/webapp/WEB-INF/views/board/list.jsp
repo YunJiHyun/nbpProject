@@ -51,6 +51,17 @@ td {
 	text-align: right;
 	margin-bottom: 10pt;
 }
+#searchDiv select {
+	display: inline;
+	float : left;
+	margin-right : 10px;
+}
+.table-borderless tr,
+.table-borderless td,
+.table-borderless th {
+
+    border-width : 0;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -78,12 +89,12 @@ td {
 	<div id="wrapper">
 		<p id="boardTitle">학교 게시판</p>
 		<div id="idDiv">
-			<span> <b><sec:authentication property="principal.userName" /></b> 님
-				반갑습니다. <input type="button" class="btn btn-default" id="btnLogout"
-				value="로그아웃" /></span>
+			<span> <b><sec:authentication
+						property="principal.userName" /></b> 님 반갑습니다. <input type="button"
+				class="btn btn-default" id="btnLogout" value="로그아웃" /></span>
 		</div>
-		<form name="searchForm" method="post" action="${path }/board/list">
-			<div class="form-group">
+		<form class="form-inline" name="searchForm" method="post" action="${path }/board/list">
+			<div id="searchDiv" class="form-group">
 				<select name="searchOption" class="form-control"
 					style="width: 100pt">
 					<!-- 검색조건을 검색처리후 결과화면에 보여주기위해  c:out 출력태그 사용, 삼항연산자 -->
@@ -94,14 +105,19 @@ td {
 
 					<option value="boardTitle"
 						<c:out value="${map.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
-				</select> <input name="keyword" value="${map.keyword}"> <input
-					type="submit" value="조회">
+				</select>
+				<div class="col-xs-2"> 
+					<input  class="form-control" name="keyword" value="${map.keyword}">
+				</div>
+				 
 			</div>
+			<input type="submit"  class="btn btn-success" value="조회">
 		</form>
 
-		<div id="listCount" style="textalign: right">${map.count }개 게시물</div>
-		<table class="table table-hover" border="1" width="600px"
-			style="border-collapse: collapse; border: 1px gray solid;">
+		<div id="listCount" style="textalign: right ">총 <span style="color:blue;">${map.count }</span>개</div>
+		<table class="table table-borderless table-hover" border="1" width="600px"
+			>
+			<thead>
 			<tr>
 				<th>번호</th>
 				<th>작성자</th>
@@ -110,7 +126,7 @@ td {
 				<th>날짜</th>
 				<th>조회수</th>
 			</tr>
-
+			</thead>
 			<c:forEach var="row" items="${map.boardList}">
 				<tbody>
 					<tr>

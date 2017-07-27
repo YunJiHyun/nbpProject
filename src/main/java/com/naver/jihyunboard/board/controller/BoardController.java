@@ -40,13 +40,13 @@ public class BoardController {
 		return "/board/list";
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/write")
+	@RequestMapping(value = "/write", method = RequestMethod.GET)
 	public String write() {
 		return "/board/write";
 	}
 
 	//새 글 등록하기
-	@RequestMapping(method = RequestMethod.POST, value = "/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert(@ModelAttribute Board dto, Authentication auth) throws Exception {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
@@ -71,21 +71,25 @@ public class BoardController {
 	}
 
 	@RequestMapping("/modify")
-	public String modify(@RequestParam("boardNum") int boardNum, Model model) throws Exception {
+	public String modify(@RequestParam("boardNum") int boardNum, Model model,
+		@RequestParam("currentPage") int currentPage,
+		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("searchOption", searchOption);
 		return "/board/modify";
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/update")
-	public String update(@ModelAttribute Board dto, Authentication auth) throws Exception {
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String update(@ModelAttribute Board dto, @RequestParam("currentPage") int currentPage,
+		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
 		boardService.updateBoard(dto);
-		//권한체크
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-		if (Integer.parseInt(userId) != dto.getBoardUserId()) {
-			return "/user/authCheck";
-		}
-		return "redirect:view?boardNum=" + dto.getBoardNum();
+
+		return "redirect:view?boardNum=" + dto.getBoardNum()
+			+ "&currentPage=" + currentPage
+			+ "&searchOption=" + searchOption
+			+ "all&keyword=" + keyword;
 	}
 
 	@RequestMapping("/delete")

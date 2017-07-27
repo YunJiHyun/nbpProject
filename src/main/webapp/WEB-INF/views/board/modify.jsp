@@ -105,10 +105,11 @@ h1 {
     <div id="wrapper">
 	<h1>글 수정하기</h1>
 	<div id="idDiv">
-            <sec:authentication property="principal.username"/> 님 반갑습니다. 
+            <b><sec:authentication property="principal.userName" /></b> 님 반갑습니다. 
             <input type="button" id="btnLogout" class="btn btn-default"value="로그아웃"/>
     </div>
-	<form class="form-inline" name="boardUpdateForm" method="post" action="${path}/board/update?boardNum=${BoardDTO.boardNum}">
+	<form class="form-inline" name="boardUpdateForm" method="post" 
+			action="${path}/board/update?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">
 	    <div class="form-group">
 	        	<label>제목</label>
 	        	<input type="text"  class="form-control" name="boardTitle" id="boardTitle" size="80" value="${BoardDTO.boardTitle }" >

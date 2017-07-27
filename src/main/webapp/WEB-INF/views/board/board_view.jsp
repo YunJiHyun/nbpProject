@@ -99,7 +99,7 @@
 		<div id="boardHeader">
 			<div width="900" id="title">${BoardDTO.boardTitle }</div>
 			<div id="idDiv">
-				<sec:authentication property="principal.username" />
+				<b><sec:authentication property="principal.userName" /></b>
 				님 반갑습니다. <input type="button" id="btnLogout" class="btn btn-default"
 					value="로그아웃" />
 			</div>
@@ -127,7 +127,7 @@
 			<div id="btnhidden">
 				<input type="hidden" name="boardNum" value="${BoardDTO.boardNum}">
 				<c:if test="${BoardDTO.boardUserId eq userId}">
-					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}">수정하기</a>&nbsp;&nbsp;	
+					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">수정하기</a>&nbsp;&nbsp;	
 			     <a href="${path }/board/delete?boardNum=${BoardDTO.boardNum}">삭제하기</a>
 					<br />
 				</c:if>
