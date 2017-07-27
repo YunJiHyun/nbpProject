@@ -53,7 +53,7 @@
 	         var userMajor = $("select[name='userMajor']").val();
 	         var userPhoneNum = $("#userPhoneNum").val();
 	         
-	         var reg_id = /^[0-9]{7,8}$/;
+	         var reg_id = /^[g0-9]{7,8}$/;
 	         var reg_phoneNum =/^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
 	         
 	         if(userId == ""){

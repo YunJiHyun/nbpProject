@@ -37,7 +37,7 @@ public class UserController {
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute BoardUser dto) {
-		dto.setUserPw(shaEncoder.encoding(dto.getUserPw()));
+		dto.setUserPw(shaEncoder.saltEncoding(dto.getUserPw(), dto.getUserId()));
 		userService.registerUser(dto);
 		return "redirect:/login";
 	}

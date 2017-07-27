@@ -34,7 +34,9 @@
 		class="com.naver.jihyunboard.security.service.AuthService" />
 	<authentication-manager>
 		<authentication-provider user-service-ref="AuthService">
-			<password-encoder ref="passwordEncoder" />
+			<password-encoder ref="passwordEncoder" >
+				<salt-source user-property="username"/>
+			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>
 
