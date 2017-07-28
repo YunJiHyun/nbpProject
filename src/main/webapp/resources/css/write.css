@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+#wrapper {
+	margin: 0 auto;
+	padding-top: 20pt;
+	width: 90%;
+}
+
+h1 {
+	text-align: center;
+}
+
+#idDiv {
+	text-align: right;
+	margin-bottom: 50pt;
+}
+
+.form-group {
+	margin-bottom: 200pt;
+}
+
+#fileDiv {
+	margin-left: 100pt;
+}
+
+#btnDiv {
+	width: 100%;
+	text-align: center
+}
+
+#btnDivInner {
+	width: 40%;
+	margin: 0 auto;
+}
+
+.fileDrop {
+	width: 600px;
+	height: 150px;
+	border: 2px dotted gray;
+	background-color: white;
+	padding-top: 30px;
+	text-align: center;
+	font-size: 20pt;
+	font-weight: bold;
+}
+
+#tabFileName {
+	width: 470px;
+	text-align: left;
+}
+
+#tabFileSize {
+	width: 70px;
+}
+
+#tabFileDel {
+	width: 50px;
+}
+
+/* table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+} */

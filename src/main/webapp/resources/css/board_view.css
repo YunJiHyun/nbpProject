@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+#boardHeader {
+	margin-top: 50px;
+}
+
+#title {
+	display: inline-block;
+	margin-left: 30px;
+	font-size: 25pt;
+	font-weight: bold;
+	text-align: left
+}
+
+#categoryAndDate {
+	font-size: 10pt;
+	color: gray;
+	text-align: right
+}
+
+#boardBody {
+	margin-left: 30px;
+	margin-bottom: 50px;
+	width: 100%;
+	height:
+}
+
+#wrapper {
+	margin: 0 auto;
+	padding-top: 20pt;
+	width: 90%;
+}
+
+#idDiv {
+	text-align: right;
+}
+
+#btnOuter {
+	width: 100%;
+	text-align: center
+}
+
+#hidden {
+	width: 40%;
+	margin: 0 auto;
+}
