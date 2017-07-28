@@ -65,29 +65,27 @@ h1 {
 	width: 50px;
 }
 
-table, tr, td {
+/* table, tr, td {
 	border: 1px solid black;
 	border-collapse: collapse;
-}
+} */
 </style>
 
 
 
 <script>
-	$(document).ready(function() {
-
+	$(document).ready( function() {
 		//listAttach();
-
 		$(".fileDrop").on("dragenter dragover", function(event) {
 			event.preventDefault();
 		});
 
-		$(".fileDrop").on("drop", function(event) {
+		$(".fileDrop").on("drop",function(event) {
 			event.preventDefault(); // 기본효과 제한
 
 			var files = event.originalEvent.dataTransfer.files; // 드래그한 파일들
 			var file = files[0];
-		
+
 			var formData = new FormData();
 			formData.append("file", file);
 			$.ajax({
@@ -98,56 +96,66 @@ table, tr, td {
 				processData : false,
 				cache : false,
 				success : function(data) {
-					var fileInfo = getFileInfo(data);
-					var html = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
-					var tag = createFile(file.name, file.size, data);
-					$('#fileTable').append(tag);
-					$("#uploadedList").append(html);
-					
+				var fileInfo = getFileInfo(data);
+				var html = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
+				var tag = createFile(
+							file.name,
+							file.size,
+							data);
+								
+				$('#fileTable').append(tag);
+				$("#uploadedList").append(html);
 				}
 			});
-
 		});
 
-	
+						$("#btnSave")
+								.click(
+										function() {
+											var boardTitle = $("#boardTitle")
+													.val();
+											var boardCategory = $(
+													"select[name='boardCategory']")
+													.val();
+											var boardContent = CKEDITOR.instances.boardContent
+													.getData();
 
-		$("#btnSave").click(function() {
-			var boardTitle = $("#boardTitle").val();
-			var boardCategory = $("select[name='boardCategory']").val();
-			var boardContent = CKEDITOR.instances.boardContent.getData();
+											if (boardTitle == "") {
+												alert("제목을 입력하세요");
+												document.boardWriteForm.boardTitle
+														.focus();
+												return false;
+											}
+											if (boardCategory == "checking") {
+												alert("카테고리를 선택하세요");
+												document.boardWriteForm.boardCategory
+														.focus();
+												return false;
+											}
+											if (boardContent == "") {
+												alert("내용을 입력하세요");
+												document.boardWriteForm.boardContent
+														.focus();
+												return false;
+											}
 
-			if (boardTitle == "") {
-				alert("제목을 입력하세요");
-				document.boardWriteForm.boardTitle.focus();
-				return false;
-			}
-			if (boardCategory == "checking") {
-				alert("카테고리를 선택하세요");
-				document.boardWriteForm.boardCategory.focus();
-				return false;
-			}
-			if (boardContent == "") {
-				alert("내용을 입력하세요");
-				document.boardWriteForm.boardContent.focus();
-				return false;
-			}
-			
-			
-			$('#boardWriteForm').attr({
-				action : "${path}/board/insert",
-				method : 'post'
-			}).submit();
-		});
+											$('#boardWriteForm')
+													.attr(
+															{
+																action : "${path}/board/insert",
+																method : 'post'
+															}).submit();
+										});
 
-		$("#btnBack").click(function() {
-			location.href = "${path}/board/list";
-		});
+						$("#btnBack").click(function() {
+							location.href = "${path}/board/list";
+						});
 
-		$("#btnReset").click(function() {
-			CKEDITOR.instances.boardContent.setData() == "";
-		});
+						$("#btnReset").click(function() {
+							CKEDITOR.instances.boardContent.setData() == "";
+						});
 
-	});
+					});
 
 	function createFile(fileName, fileSize, data) {
 		var file = {
@@ -169,42 +177,31 @@ table, tr, td {
 			},
 			tag : function() {
 				var tag = new StringBuffer();
-				
+
 				tag.append("<tr id='"+data+"'>");
 				tag.append('<td>' + this.name + '</td>');
 				tag.append('<td>' + this.size + '</td>');
-				tag.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"+this.name+"'></input></td>");
+				tag
+						.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"
+								+ this.name + "'></input></td>");
 				tag.append('</tr>');
 				return tag.toString();
 			}
 		}
 		return file.format().tag();
 	}
-	
-	function deleteFile(event){
-	/* 	  $.ajax({
-		       url: "${path}/upload/deleteFile",
-		       type: "POST",
-		       data: {fileName:$(this).parents('td').attr("data-source")}, // json방식
-		       dataType: "text",
-		       success: function(result){
-		           if( result == "delet" ){
-		        		 $(event).parents('tr').remove(); //upload한 리스트에서 제거
-		           }
-		           
-		       }
-		});   */
-		dataSource= $(event).parents('tr').attr("id");
-	
-			$("input[type='hidden']").each(function () {
-			    if (this.value == dataSource) { 
-			        $(this).remove();
-			    }
-			});
 
-		
+	function deleteFile(event) {
+		dataSource = $(event).parents('tr').attr("id");
+
+		$("input[type='hidden']").each(function() {
+			if (this.value == dataSource) {
+				$(this).remove();
+			}
+		});
+
 		$(event).parents('tr').remove(); //upload한 리스트에서 제거
-	
+
 	}
 </script>
 
@@ -239,10 +236,15 @@ table, tr, td {
 	<div id="wrapper">
 		<h1>새 글 작성하기</h1>
 		<div id="idDiv">
-			<b><sec:authentication property="principal.userName" /></b>
-			님 반갑습니다. <input type="button" id="btnLogout" class="btn btn-default"
-				value="로그아웃" />
+			<form id="logout" action="${pageContext.request.contextPath}/logout"
+				method="post">
+				<b><sec:authentication property="principal.userName" /></b> 님
+				반갑습니다. <input type="submit" id="btnLogout" class="btn btn-default"
+					value="로그아웃" /> <input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
+			</form>
 		</div>
+
 		<form class="form-inline" id="boardWriteForm" name="boardWriteForm"
 			method="post" enctype="multipart/form-data">
 
@@ -275,15 +277,12 @@ table, tr, td {
 			<hr />
 
 			<div class="form-group">
-				<!-- <label>첨부파일 </label> 
-				<!-- <input type="file"> -->
 				첨부파일
 				<div class="fileDrop">Drag & Drop here</div>
 				<br />
-
 				<div id="uploadedList"></div>
 				<div id="fileList">
-					<table id='fileTable'>
+					<table class="table table-bordered" id="fileTable">
 						<tr>
 							<td id='tabFileName'>파일명</td>
 							<td id='tabFileSize'>사이즈</td>

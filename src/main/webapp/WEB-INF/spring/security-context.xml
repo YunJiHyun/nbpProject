@@ -2,21 +2,30 @@
 <beans:beans xmlns="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<http auto-config='true' use-expressions="true">
+		<csrf disabled="true" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/board/**" access="hasRole('ROLE_USER')" />
 
 		<form-login login-page="/login" username-parameter="userId"
-			password-parameter="userPw" authentication-success-handler-ref="loginSuccessHandler"
+			password-parameter="userPw" 
+			login-processing-url="/j_spring_security_check"
+			authentication-success-handler-ref="loginSuccessHandler"
 			authentication-failure-handler-ref="loginFailureHandler" />
 
 		<logout invalidate-session="true" logout-success-url="/login?logout" />
+
+		<session-management invalid-session-url="/login">
+			<concurrency-control max-sessions="1"
+				expired-url="/login" />
+		</session-management>
+
 	</http>
 
 
@@ -34,8 +43,8 @@
 		class="com.naver.jihyunboard.security.service.AuthService" />
 	<authentication-manager>
 		<authentication-provider user-service-ref="AuthService">
-			<password-encoder ref="passwordEncoder" >
-				<salt-source user-property="username"/>
+			<password-encoder ref="passwordEncoder">
+				<salt-source user-property="username" />
 			</password-encoder>
 		</authentication-provider>
 	</authentication-manager>

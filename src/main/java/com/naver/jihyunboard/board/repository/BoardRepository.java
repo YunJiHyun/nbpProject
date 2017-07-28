@@ -18,6 +18,8 @@ public interface BoardRepository {
 
 	public void updateBoard(Board dto) throws Exception;
 
+	public void updateFile(Map<String, Object> map) throws Exception;
+
 	public void deleteBoard(int boardNum) throws Exception;
 
 	public int listCount(Map<String, String> map) throws Exception;

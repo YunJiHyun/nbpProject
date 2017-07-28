@@ -3,6 +3,9 @@ package com.naver.jihyunboard.board.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,10 +51,8 @@ public class BoardController {
 	//새 글 등록하기
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public String insert(@ModelAttribute Board dto, Authentication auth) throws Exception {
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-		dto.setBoardUserId(Integer.parseInt(userId));
-		boardService.insertBoard(dto);
+		boardService.insertBoard(dto, auth);
+		System.out.println(dto.getBoardContent());
 		return "redirect:list";
 	}
 
@@ -59,22 +60,28 @@ public class BoardController {
 	@RequestMapping("/view")
 	public String view(@RequestParam("boardNum") int boardNum, @RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword,
-		Model model, Authentication auth) throws Exception {
+		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response, Board board)
+		throws Exception {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
-		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
+
+		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("userId", userId);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
 		return "/board/board_view";
+
 	}
 
 	@RequestMapping("/modify")
-	public String modify(@RequestParam("boardNum") int boardNum, Model model,
+	public String modify(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
+		HttpServletResponse response,
 		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
-		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum));
+		List<String> list = boardService.getFileList(boardNum);
+		model.addAttribute("list", list);
+		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
@@ -82,14 +89,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute Board dto, @RequestParam("currentPage") int currentPage,
+	public String update(@ModelAttribute Board dto,
+		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
 		boardService.updateBoard(dto);
 
 		return "redirect:view?boardNum=" + dto.getBoardNum()
 			+ "&currentPage=" + currentPage
 			+ "&searchOption=" + searchOption
-			+ "all&keyword=" + keyword;
+			+ "&keyword=" + keyword;
 	}
 
 	@RequestMapping("/delete")

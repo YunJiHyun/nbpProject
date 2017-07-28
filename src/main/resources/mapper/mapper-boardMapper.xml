@@ -2,10 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.jihyunboard.board.repository.BoardRepository">
 
+
 	<!-- 게시글 전체 목록 조회 -->
 	<select id="listAll" resultType="boardDto">
-		SELECT *
-		FROM board
+		SELECT 
+			boardNum, 
+			userName, 
+			boardTitle, 
+			boardCategory, 
+			boardDate,
+			boardReadCount
+		FROM 
+			board b, user u
 		<include refid="search"></include>
 		ORDER BY boardNum DESC
 		LIMIT #{startRow} ,#{pageScale}
@@ -13,12 +21,12 @@
 
 	<!-- 새 글 등록 -->
 	<insert id="insertBoard">
-		INSERT INTO board ( 
-			boardUserId, 
-			boardTitle, 
+		INSERT INTO board (
+			boardUserId,
+			boardTitle,
 			boardContent,
 			boardCategory
-		)	
+		)
 		VALUES (
 			#{boardUserId},
 			#{boardTitle},
@@ -26,7 +34,6 @@
 			#{boardCategory}
 		)
 	</insert>
-
 
 	<insert id="addAttach">
 		INSERT INTO file ( file_name, file_board_num )
@@ -39,7 +46,7 @@
 
 	<!-- 선택한 게시글 보기 -->
 	<select id="viewBoard" resultType="boardDto">
-		SELECT boardNum, boardUserid,
+		SELECT boardNum, boardUserId,
 		boardTitle, boardContent, boardCategory,
 		boardDate
 		FROM board
@@ -51,7 +58,7 @@
 		DELETE FROM board
 		WHERE boardNum = #{boardNum}
 	</delete>
-	
+
 	<delete id="deleteFile">
 		DELETE FROM file
 		WHERE file_board_num = #{boardNum}
@@ -60,17 +67,26 @@
 	<update id="updateBoard">
 		UPDATE board
 		SET
-		boardTitle = #{boardTitle},
-		boardContent = #{boardContent},
-		boardCategory = #{boardCategory}
+			boardTitle = #{boardTitle},
+			boardContent = #{boardContent},
+			boardCategory = #{boardCategory}
 		WHERE
-		boardNum = #{boardNum}
+			boardNum = #{boardNum}
 	</update>
+	
+	
+	<insert id="updateFile">
+		INSERT INTO file (file_name, file_board_num)
+		VALUES(
+			#{fileName}, 
+			#{boardNum}
+			)
+	</insert>
 
 	<select id="listCount" resultType="int">
 		SELECT COUNT(*) AS count
-		FROM board
-		<include refid="search"></include>
+		FROM board b, user u
+		<include refid="search"></include> 
 	</select>
 
 	<update id="increaseReadCount">
@@ -84,12 +100,17 @@
 	<sql id="search">
 		<choose>
 			<when test="searchOption == 'all'">
-				WHERE boardUserId LIKE CONCAT('%' ,#{keyword},'%')
-				OR
-				boardTitle LIKE CONCAT('%' ,#{keyword},'%')
+				WHERE b.boardUserId = u.userId
+				AND 
+				(
+					boardUserId LIKE CONCAT('%' ,#{keyword},'%')
+					OR
+					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
+				)
 			</when>
 			<otherwise>
-				WHERE ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
+				WHERE b.boardUserId = u.userId
+				AND ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
 			</otherwise>
 		</choose>
 	</sql>
@@ -99,4 +120,5 @@
 		FROM file
 		WHERE file_board_num = #{boardNum}
 	</select>
+
 </mapper>

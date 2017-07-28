@@ -21,5 +21,6 @@ public class Board {
 	private String boardCategory;
 	private Timestamp boardDate;
 	private int boardReadCount;
+	private String userName;
 	private String[] files;
 }
