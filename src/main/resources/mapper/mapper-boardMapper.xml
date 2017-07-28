@@ -21,13 +21,15 @@
 
 	<!-- 새 글 등록 -->
 	<insert id="insertBoard">
-		INSERT INTO board (
+		INSERT INTO board 
+		(
 			boardUserId,
 			boardTitle,
 			boardContent,
 			boardCategory
 		)
-		VALUES (
+		VALUES 
+		(
 			#{boardUserId},
 			#{boardTitle},
 			#{boardContent},
@@ -36,32 +38,43 @@
 	</insert>
 
 	<insert id="addAttach">
-		INSERT INTO file ( file_name, file_board_num )
+		INSERT INTO file 
+		( 
+			file_name, 
+			file_board_num 
+		)
 		VALUES
 		(
-		#{fileName}, (select max(boardNum) from board)
+			#{fileName}, 
+			(select max(boardNum) from board)
 		)
 
 	</insert>
 
 	<!-- 선택한 게시글 보기 -->
 	<select id="viewBoard" resultType="boardDto">
-		SELECT boardNum, boardUserId,
-		boardTitle, boardContent, boardCategory,
-		boardDate
+		SELECT 
+			boardNum, 
+			boardUserId,
+			boardTitle, 
+			boardContent, 
+			boardCategory,
+			boardDate
 		FROM board
-		WHERE
-		boardNum = #{boardNum}
+		WHERE 
+			boardNum = #{boardNum}
 	</select>
 
 	<delete id="deleteBoard">
 		DELETE FROM board
-		WHERE boardNum = #{boardNum}
+		WHERE 
+			boardNum = #{boardNum}
 	</delete>
 
 	<delete id="deleteFile">
 		DELETE FROM file
-		WHERE file_board_num = #{boardNum}
+		WHERE 
+			file_board_num = #{boardNum}
 	</delete>
 
 	<update id="updateBoard">
@@ -76,11 +89,16 @@
 	
 	
 	<insert id="updateFile">
-		INSERT INTO file (file_name, file_board_num)
-		VALUES(
+		INSERT INTO file 
+		(
+			file_name, 
+			file_board_num
+		)
+		VALUES
+		(
 			#{fileName}, 
 			#{boardNum}
-			)
+		)
 	</insert>
 
 	<select id="listCount" resultType="int">
@@ -118,7 +136,8 @@
 	<select id="getFileList" resultType="String">
 		SELECT file_name
 		FROM file
-		WHERE file_board_num = #{boardNum}
+		WHERE 
+			file_board_num = #{boardNum}
 	</select>
 
 </mapper>

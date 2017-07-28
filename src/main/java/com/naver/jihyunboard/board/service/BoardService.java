@@ -90,7 +90,6 @@ public class BoardService {
 			boardRepository.increaseReadCount(boardNum);
 		}
 		return boardRepository.viewBoard(boardNum);
-
 	}
 
 	@Transactional

@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.naver.jihyunboard.board.model.UploadFileHelper;
 
 /**
- * 
+ *
  * @author NAVER
  *
  */
@@ -35,7 +35,7 @@ public class FileController {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param fileName
 	 * @return
 	 * @throws Exception
@@ -82,18 +82,6 @@ public class FileController {
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public void deleteFile(String fileName) {
 		System.out.println(fileName);
-		/* String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
-		MediaType mediaType = UploadFileHelper.getMediaType(formatName);
-		if (mediaType != null) {
-		    String front = fileName.substring(0, 12);
-		    String end = fileName.substring(14);
-		    System.out.println(fileName);
-		    System.out.println(front);
-		    System.out.println(end);
-		    // new File(BASE_PATH + (front + end).replace('/', File.separatorChar)).delete();
-		}
-		//new File(BASE_PATH + fileName.replace('/', File.separatorChar)).delete();
-		return new ResponseEntity<String>("delet", HttpStatus.OK);*/
 	}
 
 }

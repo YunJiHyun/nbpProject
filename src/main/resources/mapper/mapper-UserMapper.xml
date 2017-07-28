@@ -4,8 +4,22 @@
   
     <!-- 회원가입  -->
      <insert id="insert" parameterType="userDto">
-        INSERT INTO user (userId, userPw, userName, userMajor, userPhoneNum)
-        VALUES (#{userId}, #{userPw}, #{userName}, #{userMajor}, #{userPhoneNum})
+        INSERT INTO user 
+        (
+        	userId, 
+        	userPw, 
+        	userName, 
+        	userMajor, 
+        	userPhoneNum
+        )
+        VALUES 
+        (
+        	#{userId}, 
+        	#{userPw}, 
+        	#{userName}, 
+        	#{userMajor}, 
+        	#{userPhoneNum}
+        )
     </insert>
     
     <select id="loginCheck" resultType="String">

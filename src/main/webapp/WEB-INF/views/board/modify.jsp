@@ -6,63 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 수정</title>
 <%@ include file="board_header.jsp"%>
-<style>
-#wrapper {
-	margin: 0 auto;
-	padding-top: 20pt;
-	width: 90%;
-}
-
-h1 {
-	text-align: center;
-}
-
-#idDiv {
-	text-align: right;
-	margin-bottom: 50pt;
-}
-
-.form-group {
-	margin-bottom: 200pt;
-}
-
-#fileDiv {
-	margin-left: 100pt;
-}
-
-#btnDiv {
-	width: 100%;
-	text-align: center
-}
-
-#btnDivInner {
-	width: 40%;
-	margin: 0 auto;
-}
-.fileDrop {
-	width: 600px;
-	height: 150px;
-	border: 2px dotted gray;
-	background-color: white;
-	padding-top: 30px;
-	text-align: center;
-	font-size: 20pt;
-	font-weight: bold;
-}
-
-#tabFileName {
-	width: 470px;
-	text-align: left;
-}
-
-#tabFileSize {
-	width: 70px;
-}
-
-#tabFileDel {
-	width: 50px;
-}
-</style>
+<link rel="stylesheet"
+	href="<c:url value='/resources/css/modify.css'></c:url>" />
+<script src="<c:url value="/resources/js/myCkeditor.js"></c:url>"></script>
+<script src="<c:url value="/resources/js/modify.js"></c:url>"></script>
 <script>
 	$(document).ready(function() {
 		viewFileList();
@@ -142,53 +89,6 @@ h1 {
 		});
 	});
 	
-	function createFile(fileName, fileSize, data) {
-		var file = {
-			name : fileName,
-			size : fileSize,
-			format : function() {
-				var sizeKB = this.size / 1024;
-				if (parseInt(sizeKB) > 1024) {
-					var sizeMB = sizeKB / 1024;
-					this.size = sizeMB.toFixed(2) + " MB";
-				} else {
-					this.size = sizeKB.toFixed(2) + " KB";
-				}
-				//파일이름이 너무 길면 화면에 표시해주는 이름을 변경해준다.
-				if (name.length > 70) {
-					this.name = this.name.substr(0, 68) + "...";
-				}
-				return this;
-			},
-			tag : function() {
-				var tag = new StringBuffer();
-
-				tag.append("<tr id='"+data+"'>");
-				tag.append('<td>' + this.name + '</td>');
-				tag.append('<td>' + this.size + '</td>');
-				tag
-						.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"
-								+ this.name + "'></input></td>");
-				tag.append('</tr>');
-				return tag.toString();
-			}
-		}
-		return file.format().tag();
-	}
-
-	function deleteFile(event) {
-		dataSource = $(event).parents('tr').attr("id");
-
-		$("input[type='hidden']").each(function() {
-			if (this.value == dataSource) {
-				$(this).remove();
-			}
-		});
-
-		$(event).parents('tr').remove(); //upload한 리스트에서 제거
-
-	}
-	
 	function viewFileList() {
 		$.ajax({
 			type : "POST",
@@ -212,90 +112,65 @@ h1 {
 	}
 	
 </script>
-<script>
-	//ckeditor 적용부분 
-	$(function() {
-
-		CKEDITOR.replace('boardContent', { //textarea name
-			width : '100%',
-			height : '400px',
-		//filebrowserImageUploadUrl: '/community/imageUpload' //여기 경로로 파일을 전달하여 업로드 시킨다.
-		});
-
-		CKEDITOR.on('dialogDefinition', function(event) {
-			var dialogName = event.data.name;
-			var dialogDefinition = event.data.definition;
-
-			switch (dialogName) {
-			case 'image':
-				//dialogDefinition.removeContents('info');
-				dialogDefinition.removeContents('Link');
-				dialogDefinition.removeContents('advanced');
-				break;
-			}
-		});
-
-	});
-</script>
 </head>
-<body>
-	<div id="wrapper">
-		<h1>글 수정하기</h1>
-		<div id="idDiv">
-			<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다.
-			<input type="button" id="btnLogout" class="btn btn-default"
-				value="로그아웃" />
+	<body>
+		<div id="wrapper">
+			<h1>글 수정하기</h1>
+			<div id="idDiv">
+				<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다.
+				<input type="button" id="btnLogout" class="btn btn-default"
+					value="로그아웃" />
+			</div>
+			<form class="form-inline" name="boardUpdateForm" id="boardUpdateForm">
+				<div class="form-group">
+					<label>제목</label> <input type="text" class="form-control"
+						name="boardTitle" id="boardTitle" size="80"
+						value="${BoardDTO.boardTitle }">
+				</div>
+				<br /> <br />
+				<div class="form-group">
+					<label>카테고리 </label> <select name="boardCategory"
+						class="form-control">
+						<option value="checking">--선택해주세요--</option>
+						<option value="공지">공지</option>
+						<option value="학사">학사</option>
+						<option value="장학">장학</option>
+						<option value="졸업">졸업</option>
+						<option value="모집">모집</option>
+					</select>
+				</div>
+				<br /> <br />
+				<div class="ckeditorBody">
+					<div class="ckeditor">
+						<label>내용 </label>
+						<textarea name="boardContent" id="boardContent" rows="5" cols="80">${BoardDTO.boardContent }</textarea>
+					</div>
+				</div>
+				<hr />
+				<div class="form-group">
+					첨부파일
+					<div class="fileDrop">Drag & Drop here</div>
+					<br />
+					<div id="uploadedList">
+					</div>
+					<div id="fileList">
+						<table class="table table-bordered" id="fileTable">
+							<tr>
+								<td id='tabFileName'>파일명</td>
+								<td id='tabFileSize'>사이즈</td>
+								<td id='tabFileDel'>삭제</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<br /> <br /> <br /> <br />
+	
+				<div class="form-group" id="btnDiv">
+					<button type="submit" id="btnSave" class="btn btn-success">수정완료</button>
+					<button type="button" id="btnBack" class="btn btn-link">돌아가기</button>
+				</div>
+				<br /> <br />
+			</form>
 		</div>
-		<form class="form-inline" name="boardUpdateForm" id="boardUpdateForm">
-			<div class="form-group">
-				<label>제목</label> <input type="text" class="form-control"
-					name="boardTitle" id="boardTitle" size="80"
-					value="${BoardDTO.boardTitle }">
-			</div>
-			<br /> <br />
-			<div class="form-group">
-				<label>카테고리 </label> <select name="boardCategory"
-					class="form-control">
-					<option value="checking">--선택해주세요--</option>
-					<option value="공지">공지</option>
-					<option value="학사">학사</option>
-					<option value="장학">장학</option>
-					<option value="졸업">졸업</option>
-					<option value="모집">모집</option>
-				</select>
-			</div>
-			<br /> <br />
-			<div class="ckeditorBody">
-				<div class="ckeditor">
-					<label>내용 </label>
-					<textarea name="boardContent" id="boardContent" rows="5" cols="80">${BoardDTO.boardContent }</textarea>
-				</div>
-			</div>
-			<hr />
-			<div class="form-group">
-				첨부파일
-				<div class="fileDrop">Drag & Drop here</div>
-				<br />
-				<div id="uploadedList">
-				</div>
-				<div id="fileList">
-					<table class="table table-bordered" id="fileTable">
-						<tr>
-							<td id='tabFileName'>파일명</td>
-							<td id='tabFileSize'>사이즈</td>
-							<td id='tabFileDel'>삭제</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<br /> <br /> <br /> <br />
-
-			<div class="form-group" id="btnDiv">
-				<button type="submit" id="btnSave" class="btn btn-success">수정완료</button>
-				<button type="button" id="btnBack" class="btn btn-link">돌아가기</button>
-			</div>
-			<br /> <br />
-		</form>
-	</div>
-</body>
+	</body>
 </html>

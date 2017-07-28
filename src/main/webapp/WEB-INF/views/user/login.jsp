@@ -40,11 +40,7 @@
 </script>
 </head>
 <body>
-
-
-
 	<div class="top-content">
-
 		<div class="inner-bg">
 			<div class="container">
 				<div class="row">
@@ -82,7 +78,8 @@
 										placeholder="Password..." class="form-password form-control">
 								</div>
 								<button type="button" id="login" class="btn">Sign in!</button>
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+								<input type="hidden" name="${_csrf.parameterName}"
+									value="${_csrf.token}" />
 							</form>
 						</div>
 						<br />
@@ -97,11 +94,8 @@
 						</c:if>
 					</div>
 				</div>
-
 			</div>
 		</div>
-
 	</div>
-
 </body>
 </html>

@@ -21,7 +21,6 @@ public class UserService {
 
 	public void loginCheck(BoardUser dto, HttpSession session) {
 
-		// 로그인 성공 시 세션에 등록
 		BoardUser userDto = userInfo(dto);
 		session.setAttribute("userId", userDto.getUserId());
 
