@@ -112,4 +112,9 @@ public class BoardService {
 		return writerId;
 	}
 
+	/*public int countReply() {
+	
+		//return boardRepository.getReplyCount;
+	}*/
+
 }

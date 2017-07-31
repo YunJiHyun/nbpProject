@@ -69,7 +69,9 @@
 						<td width="70">${row.boardNum}</td>
 						<td width="150">${row.userName}</td>
 						<td style="width:750; text-align:left"><a 
-							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}</a></td>
+							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">
+							${row.boardTitle}&nbsp;<span style="color:red">[${row.replyCount}]</span></a>
+						</td>
 						<td width="100">${row.boardCategory}</td>
 						<td width="150"><fmt:formatDate value="${row.boardDate}"
 								pattern="yyyy-MM-dd" /></td>

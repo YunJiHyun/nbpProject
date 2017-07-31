@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="board_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 읽기</title>
-<%@ include file="board_header.jsp"%>
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/board_view.css'></c:url>" />
 <script>
@@ -45,9 +45,11 @@
 			if($("#replyDiv").hasClass("view")){
 				$("#replyDiv").show();
 				$("#replyDiv").removeClass('view')
+				$("#btnShowRelpy span").attr("class","glyphicon glyphicon-chevron-up");
 			}else{
 				$("#replyDiv").hide();
-				$("#replyDiv").addClass("view"); 
+				$("#replyDiv").addClass("view");
+				$("#btnShowRelpy span").attr("class","glyphicon glyphicon-chevron-down");
 			}		 	
 		});  
 
@@ -124,7 +126,7 @@
 					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 댓글 보기
 				</button>
 				<br/><br/>
-				<div id="replyDiv" class="view" style=" display: none;background-color: #a3ca61">
+				<div id="replyDiv" class="view" style=" display:none; width:70%; background-color: #a3ca61">
 					<div id="replyList"></div>
 
 					<div id="writeReplyDiv"

@@ -11,10 +11,11 @@
 			boardTitle, 
 			boardCategory, 
 			boardDate,
-			boardReadCount
+			boardReadCount,
+		<include refid="replyCount"></include>
 		FROM 
 			board b, user u
-		 <include refid="search"></include>
+		<include refid="search"></include>
 		ORDER BY boardNum DESC
 		LIMIT #{startRow} ,#{pageScale}
 	</select>
@@ -132,7 +133,15 @@
 			</otherwise>
 		</choose>
 	</sql>
-
+	
+	<sql id="replyCount">
+		(
+			SELECT COUNT(1) 
+			FROM reply 
+			WHERE reply_board_num=boardNum
+		) AS replyCount
+	</sql>
+	
 	<select id="getFileList" resultType="String">
 		SELECT file_name
 		FROM file

@@ -49,6 +49,8 @@ public class BoardController {
 		model.addAttribute("boardList", boardService.listResult(boardPageHelper));
 		model.addAttribute("count", count);
 
+		//int replyCount = boardService.countReply();
+
 		return "/board/list";
 	}
 
