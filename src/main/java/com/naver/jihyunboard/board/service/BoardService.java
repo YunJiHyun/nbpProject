@@ -27,13 +27,6 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 
-	/**
-	 * TODO 수정예정
-	 * @param searchModel
-	 * @param currentPage
-	 * @return
-	 * @throws Exception
-	 */
 	public int listAll(SearchPageHelper searchPageHelper)
 		throws Exception {
 		int count = boardRepository.listCount(searchPageHelper); //검색 결과에 따른 게시글의 갯수
@@ -112,6 +105,11 @@ public class BoardService {
 
 	public List<String> getFileList(int bno) {
 		return boardRepository.getFileList(bno);
+	}
+
+	public String writerId(int boardNum) throws Exception {
+		String writerId = Integer.toString(boardRepository.viewBoard(boardNum).getBoardUserId());
+		return writerId;
 	}
 
 }

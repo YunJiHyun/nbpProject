@@ -88,13 +88,12 @@ public class BoardController {
 		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
-		//작성자가 아니라면 에러처리
-
-		/*auth = SecurityContextHolder.getContext().getAuthentication();
+		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
-		if (userId != boardService.writerId(boardNum)) {
+
+		if (!userId.equals(boardService.writerId(boardNum))) {
 			return "/board/authError";
-		}*/
+		}
 
 		List<String> list = boardService.getFileList(boardNum);
 		model.addAttribute("list", list);
@@ -102,6 +101,7 @@ public class BoardController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
+
 		return "/board/modify";
 	}
 
@@ -118,7 +118,13 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam("boardNum") int boardNum) throws Exception {
+	public String delete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
+		auth = SecurityContextHolder.getContext().getAuthentication();
+		String userId = auth.getName();
+		if (!userId.equals(boardService.writerId(boardNum))) {
+			return "/board/authError";
+		}
+
 		boardService.deleteBoard(boardNum);
 		return "redirect:list";
 	}
