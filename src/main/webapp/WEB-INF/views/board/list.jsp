@@ -29,7 +29,7 @@
 					value="${_csrf.token}" />
 			</form>
 		</div>
-		<form class="form-inline" name="searchForm" method="post"
+		<form class="form-inline" name="searchForm" method="get"
 			action="${path }/board/list">
 			<div id="searchDiv" class="form-group">
 				<select name="searchOption" class="form-control"

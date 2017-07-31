@@ -34,7 +34,7 @@ public class BoardController {
 	UserService userService;
 
 	//게시글 리스트
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
 		Model model)
 		throws Exception {
@@ -42,9 +42,13 @@ public class BoardController {
 		int count = boardService.listAll(searchPageHelper); //갯수
 
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
-		model.addAttribute("boardList", boardService.listResult(boardPageHelper));
+		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
+		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
+
 		model.addAttribute("boardPageHelper", boardPageHelper);
+		model.addAttribute("boardList", boardService.listResult(boardPageHelper));
 		model.addAttribute("count", count);
+
 		return "/board/list";
 	}
 
