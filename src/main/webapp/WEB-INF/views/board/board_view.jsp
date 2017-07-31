@@ -11,11 +11,28 @@
 <script>
 	$(document).ready(function() {
 		viewFileList();
+		replyList();
+		
 		$("#btnBack").click(function() {
 			location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}";
 		});
+		
+		$("#btnReply").click(function(){
+			var replyContent=$("#replyContent").val();
+			var boardNum="${BoardDTO.boardNum}"
+			var parameter="replyContent="+replyContent+"&boardNum="+boardNum;
+			$.ajax({
+				type: "POST",
+				url: "${path}/reply/insert",
+				data: parameter,
+				success: function(){
+					replyList();
+					$("#replyContent").val("");
+				}
+			}); 
+		});
 
-
+		
 		$(document).keydown(function(e) {
 			if (e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 				if (e.keyCode === 8) {
@@ -23,29 +40,51 @@
 				}
 			}
 		});
+		
+		 $("#btnShowRelpy").click(function() {
+			if($("#replyDiv").hasClass("view")){
+				$("#replyDiv").show();
+				$("#replyDiv").removeClass('view')
+			}else{
+				$("#replyDiv").hide();
+				$("#replyDiv").addClass("view"); 
+			}		 	
+		});  
+
 	});
-	
+
 	function viewFileList() {
 		$.ajax({
 			type : "POST",
 			url : "${path}/board/getFileList/${BoardDTO.boardNum}",
 			success : function(data) {
 				$(data).each(
-					function() {
-						var fileInfo = getFileInfo(this);
-						var html = "<li><a href='"+fileInfo.getLink+"'>"
+						function() {
+							var fileInfo = getFileInfo(this);
+							var html = "<li><a href='"+fileInfo.getLink+"'>"
 									+ fileInfo.fileName + "</li>";
 							$("#uploadedList").append(html);
-				});
+						});
 			}
 		});
 	}
+	
+	function replyList(){
+		$.ajax({
+			type: "GET",
+			url: "${path}/reply/list?boardNum=${BoardDTO.boardNum}",
+			success: function(result){
+				$("#replyList").html(result);
+			}
+		});
+	}
+
 </script>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="boardHeader">
-			<div style="width:900px" id="boardTitle">${BoardDTO.boardTitle }</div>
+			<div style="width: 900px" id="boardTitle">${BoardDTO.boardTitle }</div>
 			<div id="idDiv">
 				<form id="logout" action="${pageContext.request.contextPath}/logout"
 					method="post">
@@ -80,6 +119,33 @@
 				</c:if>
 			</div>
 			<br /> <br />
+			<div id="replyOuter">
+				<button type="button" id="btnShowRelpy" class="btn btn-default ">
+					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 댓글 보기
+				</button>
+				<br/><br/>
+				<div id="replyDiv" class="view" style=" display: none;background-color: #a3ca61">
+					<div id="replyList"></div>
+
+					<div id="writeReplyDiv"
+						style="width: 650px; display: inline; text-align: left;">
+						<br />
+						<table>
+							<tr>
+								<td><textarea rows="3" cols="80" name="replyContent"
+										id="replyContent" style="resize: none;"
+										placeholder="댓글을 작성해주세요"></textarea>
+								</td>
+								<td>
+									<button type="button" id="btnReply" class="btn btn-default" style="color:green;">COMMENT</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<br />
+			<br />
 			<div id="btnInner">
 				<input type="button" id="btnBack" class="btn btn-primary" value="목록" />
 			</div>

@@ -43,3 +43,20 @@
 	width: 40%;
 	margin: 0 auto;
 }
+
+#replyOuter {
+	text-align :left;
+}
+textarea {
+	margin-left : 10px;
+}
+
+#btnReply {
+	margin-left : 20px;
+}
+#replyList, #replyContent {
+	margin-left : 20px;
+}
+#replyDiv {
+	padding-top : 40px;
+}
