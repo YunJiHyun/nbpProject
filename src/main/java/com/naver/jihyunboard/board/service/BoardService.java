@@ -18,6 +18,7 @@ import com.mysql.jdbc.StringUtils;
 
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
+import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.repository.BoardRepository;
 
 @Service
@@ -26,31 +27,23 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 
-	public Map<String, Object> listAll(String searchOption, String keyword, int currentPage) throws Exception {
+	/**
+	 * TODO 수정예정
+	 * @param searchModel
+	 * @param currentPage
+	 * @return
+	 * @throws Exception
+	 */
+	public int listAll(SearchPageHelper searchPageHelper)
+		throws Exception {
+		int count = boardRepository.listCount(searchPageHelper); //검색 결과에 따른 게시글의 갯수
+		return count;
+	}
 
-		Map<String, String> countParam = new HashMap<String, String>();
-		countParam.put("searchOption", searchOption);
-		countParam.put("keyword", keyword);
-		int count = boardRepository.listCount(countParam); //검색 결과에 따른 게시글의 갯수
-
-		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
-		int startRow = (currentPage - 1) * BoardPageHelper.PAGE_SCALE;
-
-		Map<String, Object> listParam = new HashMap<String, Object>();
-		listParam.put("startRow", startRow);
-		listParam.put("pageScale", BoardPageHelper.PAGE_SCALE);
-		listParam.put("searchOption", searchOption);
-		listParam.put("keyword", keyword);
-
-		List<Board> boardList = boardRepository.listAll(listParam);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("boardList", boardList);
-		map.put("count", count);
-		map.put("searchOption", searchOption);
-		map.put("keyword", keyword);
-		map.put("boardPageHelper", boardPageHelper);
-		return map;
+	public List<Board> listResult(BoardPageHelper boardPageHelper)
+		throws Exception {
+		List<Board> boardList = boardRepository.listAll(boardPageHelper);
+		return boardList;
 
 	}
 

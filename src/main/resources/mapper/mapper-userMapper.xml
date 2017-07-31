@@ -3,7 +3,7 @@
 <mapper namespace="com.naver.jihyunboard.user.repository.UserRepository">
   
     <!-- 회원가입  -->
-     <insert id="insert" parameterType="userDto">
+     <insert id="insertUser" parameterType="userDto">
         INSERT INTO user 
         (
         	userId, 

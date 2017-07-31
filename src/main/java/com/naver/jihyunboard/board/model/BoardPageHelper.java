@@ -3,10 +3,10 @@ package com.naver.jihyunboard.board.model;
 import lombok.Data;
 
 @Data
-public class BoardPageHelper {
-	public static final int PAGE_SCALE = 10; // 10개씩 게시물
+public class BoardPageHelper extends SearchPageHelper {
+	private int pageScale = 10; // 10개씩 게시물
 	public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩
-	private int curPage; // 현재 페이지
+	private int currentPage = 1; // 현재 페이지
 	private int prevPage;
 	private int nextPage;
 	private int totalPage; // 전체 게시물 갯수
@@ -18,19 +18,24 @@ public class BoardPageHelper {
 	private int pageEnd;
 	private int blockBegin; // 현재 페이지 블록의 시작번호
 	private int blockEnd;
+	private int startRow;
 
-	public BoardPageHelper(int count, int curPage) {
+	public BoardPageHelper(int count, int currentPage) {
 		curBlock = 1;
-		this.curPage = curPage;
+		this.currentPage = currentPage;
 		setTotalPage(count);
 		setPageRange();
 		setTotalBlock();
 		setBlockRange();
 	}
 
+	public void setStartRow(int currentPage) {
+		this.startRow = (currentPage - 1) * pageScale;
+	}
+
 	public void setBlockRange() {
 		//현재 페이지 몇 번째 블록?
-		curBlock = (int)Math.ceil((curPage - 1) / BLOCK_SCALE) + 1;
+		curBlock = (int)Math.ceil((currentPage - 1) / BLOCK_SCALE) + 1;
 		blockBegin = (curBlock - 1) * BLOCK_SCALE + 1;
 		blockEnd = blockBegin + BLOCK_SCALE - 1;
 
@@ -38,7 +43,7 @@ public class BoardPageHelper {
 			blockEnd = totalPage;
 		}
 
-		prevPage = (curPage == 1) ? 1 : (curBlock - 1) * BLOCK_SCALE;
+		prevPage = (currentPage == 1) ? 1 : (curBlock - 1) * BLOCK_SCALE;
 		nextPage = curBlock > totalBlock ? (curBlock * BLOCK_SCALE) : (curBlock * BLOCK_SCALE) + 1;
 
 		if (nextPage >= totalPage) {
@@ -47,12 +52,12 @@ public class BoardPageHelper {
 	}
 
 	public void setPageRange() {
-		pageBegin = (curPage - 1) * PAGE_SCALE + 1;
-		pageEnd = pageBegin + PAGE_SCALE - 1;
+		pageBegin = (currentPage - 1) * pageScale + 1;
+		pageEnd = pageBegin + pageScale - 1;
 	}
 
 	public void setTotalPage(int count) {
-		totalPage = (int)Math.ceil(count * 1.0 / PAGE_SCALE); //올림 후 int형으로 형변환
+		totalPage = (int)Math.ceil(count * 1.0 / pageScale); //올림 후 int형으로 형변환
 	}
 
 	public void setTotalBlock() {

@@ -91,7 +91,7 @@
 						</c:if>
 						<c:if test="${not empty msg}">
 							<div class="msg">${msg}</div>
-						</c:if>
+						</c:if>						
 					</div>
 				</div>
 			</div>

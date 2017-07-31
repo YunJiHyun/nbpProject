@@ -1,39 +1,17 @@
 package com.naver.jihyunboard.user.repository;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.naver.jihyunboard.user.model.BoardUser;
 
 @Repository
-public class UserRepository {
+public interface UserRepository {
 
-	@Autowired
-	SqlSession sqlSession;
+	public void insertUser(BoardUser dto);
 
-	private static String namespace = "com.naver.jihyunboard.user.repository.UserRepository";
+	public boolean loginCheck(BoardUser dto);
 
-	public void registerUser(BoardUser dto) {
-		sqlSession.insert(namespace + ".insert", dto);
-	}
+	public BoardUser userInfo(BoardUser dto);
 
-	public boolean loginCheck(BoardUser dto) {
-		String name = sqlSession.selectOne("loginCheck", dto);
-
-		if (name == null) {
-			return false;
-		}
-		return true;
-	}
-
-	public BoardUser userInfo(BoardUser dto) {
-		return sqlSession.selectOne("userInfo", dto);
-	}
-
-	public BoardUser ckeckId(int userId) {
-		return sqlSession.selectOne("checkId", userId);
-
-	}
-
+	public BoardUser checkId(int userId);
 }

@@ -6,11 +6,13 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.naver.jihyunboard.board.model.Board;
+import com.naver.jihyunboard.board.model.BoardPageHelper;
+import com.naver.jihyunboard.board.model.SearchPageHelper;
 
 @Repository
 public interface BoardRepository {
 
-	public List<Board> listAll(Map<String, Object> map) throws Exception;
+	public List<Board> listAll(BoardPageHelper boardPageHelper) throws Exception;
 
 	public void insertBoard(Board dto) throws Exception;
 
@@ -22,7 +24,7 @@ public interface BoardRepository {
 
 	public void deleteBoard(int boardNum) throws Exception;
 
-	public int listCount(Map<String, String> map) throws Exception;
+	public int listCount(SearchPageHelper searchPageHelper) throws Exception;
 
 	public void increaseReadCount(int boardNum) throws Exception;
 

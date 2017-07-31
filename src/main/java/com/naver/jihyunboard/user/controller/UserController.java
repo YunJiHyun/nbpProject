@@ -13,7 +13,7 @@ import com.naver.jihyunboard.user.service.ShaEncoder;
 import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
-@RequestMapping("/user/*")
+@RequestMapping("/user/")
 public class UserController {
 
 	@Autowired

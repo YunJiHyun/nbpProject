@@ -1,7 +1,6 @@
 package com.naver.jihyunboard.board.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.naver.jihyunboard.board.model.Board;
+import com.naver.jihyunboard.board.model.BoardPageHelper;
+import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/board/")
 public class BoardController {
 
 	@Autowired
@@ -34,12 +35,16 @@ public class BoardController {
 
 	//게시글 리스트
 	@RequestMapping(value = "/list")
-	public String list(@ModelAttribute Board dto, @RequestParam(defaultValue = "1") int currentPage,
-		@RequestParam(defaultValue = "all") String searchOption, @RequestParam(defaultValue = "") String keyword,
-		Model model) throws Exception {
-		Map<String, Object> map = boardService.listAll(searchOption, keyword, currentPage);
-		model.addAttribute("map", map);
+	public String list(@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
+		Model model)
+		throws Exception {
 
+		int count = boardService.listAll(searchPageHelper); //갯수
+
+		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
+		model.addAttribute("boardList", boardService.listResult(boardPageHelper));
+		model.addAttribute("boardPageHelper", boardPageHelper);
+		model.addAttribute("count", count);
 		return "/board/list";
 	}
 
@@ -57,7 +62,7 @@ public class BoardController {
 	}
 
 	//게시물 상세보기
-	@RequestMapping("/view")
+	@RequestMapping(value = "/view")
 	public String view(@RequestParam("boardNum") int boardNum, @RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response, Board board)
@@ -74,11 +79,19 @@ public class BoardController {
 
 	}
 
-	@RequestMapping("/modify")
+	@RequestMapping(value = "/modify")
 	public String modify(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
-		HttpServletResponse response,
+		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
+		//작성자가 아니라면 에러처리
+
+		/*auth = SecurityContextHolder.getContext().getAuthentication();
+		String userId = auth.getName();
+		if (userId != boardService.writerId(boardNum)) {
+			return "/board/authError";
+		}*/
+
 		List<String> list = boardService.getFileList(boardNum);
 		model.addAttribute("list", list);
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
@@ -100,13 +113,13 @@ public class BoardController {
 			+ "&keyword=" + keyword;
 	}
 
-	@RequestMapping("/delete")
+	@RequestMapping(value = "/delete")
 	public String delete(@RequestParam("boardNum") int boardNum) throws Exception {
 		boardService.deleteBoard(boardNum);
 		return "redirect:list";
 	}
 
-	@RequestMapping("/getFileList/{boardNum}")
+	@RequestMapping(value = "/getFileList/{boardNum}")
 	@ResponseBody
 	public List<String> getFileList(@PathVariable("boardNum") int boardNum) {
 		return boardService.getFileList(boardNum);

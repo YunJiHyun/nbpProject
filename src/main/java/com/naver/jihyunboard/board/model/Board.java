@@ -23,4 +23,5 @@ public class Board {
 	private int boardReadCount;
 	private String userName;
 	private String[] files;
+	private int replyCount;
 }

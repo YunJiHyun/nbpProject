@@ -12,8 +12,8 @@
 <script>
 	function list(page) {
 		location.href = "/jihyunboard/board/list?currentPage=" + page
-				+ "&searchOption=${map.searchOption}"
-				+ "&keyword=${map.keyword}";
+				+ "&searchOption=${boardPageHelper.searchOption}"
+				+ "&keyword=${boardPageHelper.keyword}";
 	}
 </script>
 </head>
@@ -35,14 +35,14 @@
 				<select name="searchOption" class="form-control"
 					style="width: 100pt">
 					<option value="all"
-						<c:out value="${map.searchOption == 'all'?'selected':''}"/>>전체</option>
+						<c:out value="${boardPageHelper.searchOption == 'all'?'selected':''}"/>>전체</option>
 					<option value="userName"
-						<c:out value="${map.searchOption == 'userName'?'selected':''}"/>>작성자</option>
+						<c:out value="${boardPageHelper.searchOption == 'userName'?'selected':''}"/>>작성자</option>
 					<option value="boardTitle"
-						<c:out value="${map.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
+						<c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
 				</select>
 				<div class="col-xs-2">
-					<input class="form-control" name="keyword" value="${map.keyword}">
+					<input class="form-control" name="keyword" value="${boardPageHelper.keyword}">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-success" value="조회"> <input
@@ -50,9 +50,9 @@
 		</form>
 
 		<div id="listCount" style="textalign: right">
-			총 <span style="color: blue;">${map.count }</span>개
+			 총 <span style="color: blue;">${count }</span>개 
 		</div>
-		<table class="table table-borderless table-hover" width="600px">
+		<table class="table table-borderless table-hover">
 			<thead>
 				<tr>
 					<th>번호</th>
@@ -63,13 +63,13 @@
 					<th>조회수</th>
 				</tr>
 			</thead>
-			<c:forEach var="row" items="${map.boardList}">
+			<c:forEach var="row" items="${boardList}">
 				<tbody>
 					<tr>
 						<td width="70">${row.boardNum}</td>
 						<td width="150">${row.userName}</td>
-						<td width="750"><a
-							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${map.boardPageHelper.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}">${row.boardTitle}</a></td>
+						<td style="width:750; text-align:left"><a 
+							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}</a></td>
 						<td width="100">${row.boardCategory}</td>
 						<td width="150"><fmt:formatDate value="${row.boardDate}"
 								pattern="yyyy-MM-dd" /></td>
@@ -82,17 +82,17 @@
 		<div id="paging">
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
-					<li><c:if test="${map.boardPageHelper.curBlock > 1}">
+					<li><c:if test="${boardPageHelper.curBlock > 1}">
 							<a href="javascript:list('1')" aria-label="Previous"> <span
 								aria-hidden="true">&laquo;</span></a>
-							<a href="javascript:list('${map.boardPageHelper.prevPage}')"
+							<a href="javascript:list('${boardPageHelper.prevPage}')"
 								aria-label="Previous"> <span aria-hidden="true">&lt;</span></a>
 						</c:if></li>
 					<li><c:forEach var="num"
-							begin="${map.boardPageHelper.blockBegin}"
-							end="${map.boardPageHelper.blockEnd}">
+							begin="${boardPageHelper.blockBegin}"
+							end="${boardPageHelper.blockEnd}">
 							<c:choose>
-								<c:when test="${num == map.boardPageHelper.curPage}">
+								<c:when test="${num == boardPageHelper.currentPage}">
 									<span style="color: black">${num}</span>&nbsp;
 								</c:when>
 								<c:otherwise>
@@ -101,10 +101,10 @@
 							</c:choose>
 						</c:forEach></li>
 					<li><c:if
-							test="${map.boardPageHelper.curBlock <= map.boardPageHelper.totalBlock}">
-							<a href="javascript:list('${map.boardPageHelper.nextPage}')"
+							test="${boardPageHelper.curBlock <= boardPageHelper.totalBlock}">
+							<a href="javascript:list('${boardPageHelper.nextPage}')"
 								aria-label="Next"> <span aria-hidden="true">&gt;</span></a>
-							<a href="javascript:list('${map.boardPageHelper.totalPage}')"
+							<a href="javascript:list('${boardPageHelper.totalPage}')"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
 						</c:if></li>
 		</div>

@@ -15,7 +15,7 @@ public class UserService {
 	UserRepository userDao;
 
 	public void registerUser(BoardUser dto) {
-		userDao.registerUser(dto);
+		userDao.insertUser(dto);
 
 	}
 
@@ -31,7 +31,7 @@ public class UserService {
 	}
 
 	public BoardUser checkId(int userId) {
-		return userDao.ckeckId(userId);
+		return userDao.checkId(userId);
 
 	}
 }

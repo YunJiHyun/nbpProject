@@ -23,7 +23,7 @@
 				}
 			}
 		});
-});
+	});
 	
 	function viewFileList() {
 		$.ajax({
@@ -45,7 +45,7 @@
 <body>
 	<div id="wrapper">
 		<div id="boardHeader">
-			<div width="900" id="title">${BoardDTO.boardTitle }</div>
+			<div style="width:900px" id="boardTitle">${BoardDTO.boardTitle }</div>
 			<div id="idDiv">
 				<form id="logout" action="${pageContext.request.contextPath}/logout"
 					method="post">

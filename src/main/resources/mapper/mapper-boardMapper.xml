@@ -14,7 +14,7 @@
 			boardReadCount
 		FROM 
 			board b, user u
-		<include refid="search"></include>
+		<!-- <include refid="search"></include> -->
 		ORDER BY boardNum DESC
 		LIMIT #{startRow} ,#{pageScale}
 	</select>
@@ -102,7 +102,7 @@
 	</insert>
 
 	<select id="listCount" resultType="int">
-		SELECT COUNT(*) AS count
+		SELECT COUNT(boardNum) AS count
 		FROM board b, user u
 		<include refid="search"></include> 
 	</select>

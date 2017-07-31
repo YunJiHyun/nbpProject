@@ -24,6 +24,8 @@ td {
 	text-align: center;
 }
 
+
+
 #paging {
 	margin-top: 20pt;
 	text-align: center;
@@ -52,4 +54,8 @@ td {
 
 .table-borderless tr, .table-borderless td, .table-borderless th {
 	border-width: 0;
+}
+
+ #boardListTitle {
+	text-align: left;
 }

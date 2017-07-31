@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SearchPageHelper {
-	private String searchOption;
-	private String keyword;
+	private String searchOption = "all";
+	private String keyword = "";
 }
