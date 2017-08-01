@@ -11,7 +11,7 @@
 <script>
 	$(document).ready(function() {
 		viewFileList();
-		replyList();
+		replyList("1");
 		
 		$("#btnBack").click(function() {
 			location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}";
@@ -26,7 +26,7 @@
 				url: "${path}/reply/insert",
 				data: parameter,
 				success: function(){
-					replyList();
+					replyList("1");
 					$("#replyContent").val("");
 				}
 			}); 
@@ -71,10 +71,10 @@
 		});
 	}
 	
-	function replyList(){
+	function replyList(num){
 		$.ajax({
 			type: "GET",
-			url: "${path}/reply/list?boardNum=${BoardDTO.boardNum}",
+			url: "${path}/reply/list?boardNum=${BoardDTO.boardNum}&currentPage"+num,
 			success: function(result){
 				$("#replyList").html(result);
 			}
@@ -128,7 +128,7 @@
 				<br/><br/>
 				<div id="replyDiv" class="view" style=" display:none; width:70%; background-color: #a3ca61">
 					<div id="replyList"></div>
-
+					
 					<div id="writeReplyDiv"
 						style="width: 650px; display: inline; text-align: left;">
 						<br />

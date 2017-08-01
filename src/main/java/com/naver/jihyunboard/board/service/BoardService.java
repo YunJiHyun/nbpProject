@@ -27,13 +27,13 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 
-	public int listAll(SearchPageHelper searchPageHelper)
+	public int listCount(SearchPageHelper searchPageHelper)
 		throws Exception {
 		int count = boardRepository.listCount(searchPageHelper); //검색 결과에 따른 게시글의 갯수
 		return count;
 	}
 
-	public List<Board> listResult(BoardPageHelper boardPageHelper)
+	public List<Board> listAll(BoardPageHelper boardPageHelper)
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
 		return boardList;
@@ -111,10 +111,5 @@ public class BoardService {
 		String writerId = Integer.toString(boardRepository.viewBoard(boardNum).getBoardUserId());
 		return writerId;
 	}
-
-	/*public int countReply() {
-	
-		//return boardRepository.getReplyCount;
-	}*/
 
 }

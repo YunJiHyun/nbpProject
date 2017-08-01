@@ -6,7 +6,7 @@ import lombok.Data;
 public class BoardPageHelper extends SearchPageHelper {
 	private int pageScale = 10; // 10개씩 게시물
 	public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩
-	private int currentPage = 1; // 현재 페이지
+	private int currentPage; // 현재 페이지
 	private int prevPage;
 	private int nextPage;
 	private int totalPage; // 전체 게시물 갯수
@@ -24,6 +24,7 @@ public class BoardPageHelper extends SearchPageHelper {
 		curBlock = 1;
 		this.currentPage = currentPage;
 		setTotalPage(count);
+		setStartRow(currentPage);
 		setPageRange();
 		setTotalBlock();
 		setBlockRange();

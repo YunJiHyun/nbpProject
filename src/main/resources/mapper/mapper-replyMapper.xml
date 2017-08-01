@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.jihyunboard.reply.repository.ReplyRepository">
+
+
+	<insert id="insert">
+		INSERT INTO reply 
+		(
+			reply_board_num, 
+			reply_content, 
+			replyer
+		)
+		VALUES 
+		(
+			#{boardNum}, 
+			#{replyContent},
+			#{replyer}
+		)
+	</insert>
+	
+	 <select id="list" resultType="reply">
+		SELECT 
+			reply_num AS replyNum, 
+			reply_board_num AS boardNum, 
+			reply_content AS replyContent, 
+			replyer AS replyer, 
+			reply_Date AS replyDate,
+			userName AS replyUserName
+		FROM reply r, user u
+		WHERE r.replyer = u.userId 
+		ORDER BY reply_num DESC
+		LIMIT #{startRow} , #{pageScale}
+	</select>
+	
+	<select id="listCount" resultType="int">
+		SELECT COUNT(1)
+		FROM reply
+		WHERE reply_board_num = #{boardNum}
+	</select>
+</mapper>

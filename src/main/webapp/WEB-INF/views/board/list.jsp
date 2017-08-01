@@ -101,14 +101,16 @@
 									<a href="javascript:list('${num}')">${num}</a>&nbsp;
 								</c:otherwise>
 							</c:choose>
-						</c:forEach></li>
+						</c:forEach>
+					</li>
 					<li><c:if
 							test="${boardPageHelper.curBlock <= boardPageHelper.totalBlock}">
 							<a href="javascript:list('${boardPageHelper.nextPage}')"
 								aria-label="Next"> <span aria-hidden="true">&gt;</span></a>
 							<a href="javascript:list('${boardPageHelper.totalPage}')"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
-						</c:if></li>
+						</c:if>
+					</li>
 		</div>
 		<div id="btnWriteDiv">
 			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>

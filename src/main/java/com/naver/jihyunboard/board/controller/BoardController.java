@@ -39,17 +39,14 @@ public class BoardController {
 		Model model)
 		throws Exception {
 
-		int count = boardService.listAll(searchPageHelper); //갯수
-
+		int count = boardService.listCount(searchPageHelper); //갯수
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
-		model.addAttribute("boardList", boardService.listResult(boardPageHelper));
+		model.addAttribute("boardList", boardService.listAll(boardPageHelper));
 		model.addAttribute("count", count);
-
-		//int replyCount = boardService.countReply();
 
 		return "/board/list";
 	}
