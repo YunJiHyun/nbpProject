@@ -20,9 +20,10 @@ public class BoardPageHelper extends SearchPageHelper {
 	private int blockEnd;
 	private int startRow;
 
-	public BoardPageHelper(int count, int currentPage) {
+	public BoardPageHelper(int count, int currentPage, int pageScale) {
 		curBlock = 1;
 		this.currentPage = currentPage;
+		this.pageScale = pageScale;
 		setTotalPage(count);
 		setStartRow(currentPage);
 		setPageRange();

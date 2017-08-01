@@ -74,7 +74,7 @@
 	function replyList(num){
 		$.ajax({
 			type: "GET",
-			url: "${path}/reply/list?boardNum=${BoardDTO.boardNum}&currentPage"+num,
+			url: "${path}/reply/list?boardNum=${BoardDTO.boardNum}&currentPage="+num,
 			success: function(result){
 				$("#replyList").html(result);
 			}

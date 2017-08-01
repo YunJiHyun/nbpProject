@@ -40,7 +40,7 @@ public class BoardController {
 		throws Exception {
 
 		int count = boardService.listCount(searchPageHelper); //갯수
-		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage);
+		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 10);
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 

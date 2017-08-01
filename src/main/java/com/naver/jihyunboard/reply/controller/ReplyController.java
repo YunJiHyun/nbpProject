@@ -39,9 +39,7 @@ public class ReplyController {
 	@RequestMapping(value = "list", method = RequestMethod.GET)
 	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage, Model model) {
 		int count = replyService.listCount(boardNum);
-		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage);
-		System.out.println(count);
-		replyPageHelper.setPageScale(5); //한 페이지에 5개씩 보이도록
+		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
 
 		model.addAttribute("replyList", replyService.list(replyPageHelper));
 		model.addAttribute("replPageHelper", replyPageHelper);
