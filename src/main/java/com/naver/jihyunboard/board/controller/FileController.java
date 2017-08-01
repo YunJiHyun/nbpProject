@@ -1,5 +1,6 @@
 package com.naver.jihyunboard.board.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -41,21 +42,18 @@ public class FileController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping("/upload/displayFile")
+	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception {
 
 		System.out.println(fileName);
-		InputStream input = null;
 
 		ResponseEntity<byte[]> entity = null;
-		try {
+		try (InputStream input = new FileInputStream(BASE_PATH + fileName)) {
 
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mediaType = UploadFileHelper.getMediaType(formatName);
 
 			HttpHeaders headers = new HttpHeaders();
-
-			input = new FileInputStream(BASE_PATH + fileName);
 
 			if (mediaType != null) {
 				String fileLink = fileName.substring(14);
@@ -71,8 +69,6 @@ public class FileController {
 			}
 			// 바이트배열, 헤더, HTTP상태코드
 			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(input), headers, HttpStatus.OK);
-		} finally {
-			input.close();
 		}
 
 		return entity;
@@ -80,8 +76,14 @@ public class FileController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+
 	public void deleteFile(String fileName) {
 		System.out.println(fileName);
+		String filePath = BASE_PATH + fileName;
+		File file = new File(filePath);
+		if (file.exists() == true) {
+			file.delete();
+		}
 	}
 
 }

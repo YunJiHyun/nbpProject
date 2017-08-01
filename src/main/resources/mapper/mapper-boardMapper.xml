@@ -42,12 +42,13 @@
 		INSERT INTO file 
 		( 
 			file_name, 
-			file_board_num 
+			file_board_num
 		)
 		VALUES
 		(
 			#{fileName}, 
 			(select max(boardNum) from board)
+		
 		)
 
 	</insert>
