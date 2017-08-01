@@ -114,8 +114,7 @@
 			<div id="btnhidden">
 				<input type="hidden" name="boardNum" value="${BoardDTO.boardNum}">
 				<c:if test="${BoardDTO.boardUserId eq userId}">
-					<a
-						href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">수정하기</a>&nbsp;&nbsp;	
+					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">수정하기</a>&nbsp;&nbsp;	
 			     	<a href="${path }/board/delete?boardNum=${BoardDTO.boardNum}">삭제하기</a>
 					<br />
 				</c:if>

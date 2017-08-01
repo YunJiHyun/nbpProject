@@ -37,11 +37,18 @@ public class ReplyController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage, Model model) {
+	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage,
+		Authentication auth, Model model) {
+
+		auth = SecurityContextHolder.getContext().getAuthentication();
+		String userId = auth.getName();
+
 		int count = replyService.listCount(boardNum);
 
 		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
 		replyPageHelper.setBoardNum(boardNum);
+
+		model.addAttribute("userId", userId);
 		model.addAttribute("replyList", replyService.list(replyPageHelper));
 		model.addAttribute("replyPageHelper", replyPageHelper);
 

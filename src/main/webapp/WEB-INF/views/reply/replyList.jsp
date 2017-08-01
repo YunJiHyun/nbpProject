@@ -46,8 +46,10 @@
 				<td><b>${row.replyUserName}</b> &nbsp;&nbsp; <fmt:formatDate
 						value="${row.replyDate}" pattern="yyyy-MM-dd  HH:mm" />
 					&nbsp;&nbsp;&nbsp; 
-					<a href="javascript:replyModify('${row.replyNum }')">수정</a> &nbsp;
-					<a href="javascript:replyDelete('${row.replyNum }')">삭제</a> 
+					<c:if test="${row.replyer eq userId}">
+						<a href="javascript:replyModify('${row.replyNum }')">수정</a> &nbsp;
+						<a href="javascript:replyDelete('${row.replyNum }')">삭제</a> 
+					</c:if>
 					<br /> ${row.replyContent}
 					<hr /></td>
 
