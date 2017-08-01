@@ -36,15 +36,29 @@ public class ReplyController {
 		replyService.insert(reply);
 	}
 
-	@RequestMapping(value = "list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage, Model model) {
 		int count = replyService.listCount(boardNum);
-		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
 
+		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
+		replyPageHelper.setBoardNum(boardNum);
 		model.addAttribute("replyList", replyService.list(replyPageHelper));
 		model.addAttribute("replPageHelper", replyPageHelper);
 
-		return "board/replyList";
+		return "reply/replyList";
+	}
+
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String detail(@RequestParam int replyNum, Model model) {
+		Reply reply = replyService.detail(replyNum);
+		model.addAttribute("reply", reply);
+		return "reply/replyDetail";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void update(Reply reply, Model model) {
+		replyService.updateReply(reply);
 	}
 
 }

@@ -1,17 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="board_header.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="reply_header.jsp"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+    #modifyReply {
+        width: 600px;
+        height: 130px;
+        padding: 10px;
+        z-index: 10;
+        display: none;
+    }
+</style>
+
+<script>
+function replyModify(replyNumber){
+	$("#modifyReply").show();
+     $.ajax({
+        type: "GET",
+        url: "${path}/reply/detail?replyNum="+replyNumber,
+        success: function(result){
+            $("#modifyReply").html(result);
+        }
+    }) 
+}
+
+</script>
 </head>
 <body>
 	<table style="width: 700px">
 		<c:forEach var="row" items="${replyList}">
 			<tr>
 				<td><b>${row.replyUserName}</b> &nbsp;&nbsp; <fmt:formatDate value="${row.replyDate}" pattern="yyyy-MM-dd  HH:mm" />  
+				&nbsp;&nbsp;&nbsp; 
+				<a href="javascript:replyModify('${row.replyNum }')">수정</a>
+				&nbsp;
+				<a href="">삭제</a>
 				<br />
 					${row.replyContent}
 					<hr/>
@@ -21,6 +48,7 @@
 		</c:forEach>
 	
 	</table>
+	<div id="modifyReply"></div><br/>
 	<div id="paging">
 		<nav aria-label="Page navigation">
 			<ul class="pagination">

@@ -16,4 +16,8 @@ public interface ReplyRepository {
 
 	public int listCount(int boardNum);
 
+	public Reply detail(int replyNum);
+
+	public void updateReply(Reply reply);
+
 }

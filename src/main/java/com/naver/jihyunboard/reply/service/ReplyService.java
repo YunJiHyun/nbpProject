@@ -27,4 +27,12 @@ public class ReplyService {
 		return replyRepository.listCount(boardNum);
 	}
 
+	public Reply detail(int replyNum) {
+		return replyRepository.detail(replyNum);
+	}
+
+	public void updateReply(Reply reply) {
+		replyRepository.updateReply(reply);
+	}
+
 }

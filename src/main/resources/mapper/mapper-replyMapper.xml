@@ -27,7 +27,8 @@
 			reply_Date AS replyDate,
 			userName AS replyUserName
 		FROM reply r, user u
-		WHERE r.replyer = u.userId 
+		WHERE r.replyer = u.userId
+		AND reply_board_num = #{boardNum} 
 		ORDER BY reply_num DESC
 		LIMIT #{startRow} , #{pageScale}
 	</select>
@@ -37,4 +38,23 @@
 		FROM reply
 		WHERE reply_board_num = #{boardNum}
 	</select>
+	
+	<select id="detail" resultType="reply">
+		SELECT 
+			reply_num AS replyNum, 
+			reply_board_num AS boardNum, 
+			reply_content AS replyContent, 
+			replyer AS replyer, 
+			reply_Date AS replyDate
+		FROM reply 
+		WHERE reply_num = #{replyNum}
+	</select>
+	
+	<update id="updateReply">
+		UPDATE reply
+		SET
+			reply_content = #{replyContent}
+		WHERE reply_num = #{replyNum}
+	</update>
+
 </mapper>

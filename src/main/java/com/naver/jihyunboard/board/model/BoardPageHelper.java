@@ -19,6 +19,7 @@ public class BoardPageHelper extends SearchPageHelper {
 	private int blockBegin; // 현재 페이지 블록의 시작번호
 	private int blockEnd;
 	private int startRow;
+	private int boardNum;
 
 	public BoardPageHelper(int count, int currentPage, int pageScale) {
 		curBlock = 1;
