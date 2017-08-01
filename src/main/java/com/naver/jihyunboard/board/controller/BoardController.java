@@ -21,6 +21,7 @@ import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.service.BoardService;
+import com.naver.jihyunboard.reply.service.ReplyService;
 import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
@@ -32,6 +33,9 @@ public class BoardController {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	ReplyService replyService;
 
 	//게시글 리스트
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -78,6 +82,7 @@ public class BoardController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("replyCount", replyService.listCount(boardNum));
 		return "/board/board_view";
 
 	}
@@ -116,15 +121,15 @@ public class BoardController {
 			+ "&keyword=" + keyword;
 	}
 
-	@RequestMapping(value = "/delete")
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String delete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
 		if (!userId.equals(boardService.writerId(boardNum))) {
 			return "/board/authError";
 		}
-
 		boardService.deleteBoard(boardNum);
+
 		return "redirect:list";
 	}
 

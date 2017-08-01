@@ -55,6 +55,18 @@
 
 	});
 
+	function deleteBoard(){
+		var replyCount = "${replyCount}";
+		if(replyCount >0){
+			
+			alert("댓글이 있는 게시물은 삭제할 수 없습니다.");
+			return;
+		}
+		else{
+				location.href= "${path }/board/delete?boardNum=${BoardDTO.boardNum}";
+		}
+	}
+	
 	function viewFileList() {
 		$.ajax({
 			type : "POST",
@@ -80,6 +92,7 @@
 			}
 		});
 	}
+	
 
 </script>
 </head>
@@ -115,19 +128,22 @@
 				<input type="hidden" name="boardNum" value="${BoardDTO.boardNum}">
 				<c:if test="${BoardDTO.boardUserId eq userId}">
 					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">수정하기</a>&nbsp;&nbsp;	
-			     	<a href="${path }/board/delete?boardNum=${BoardDTO.boardNum}">삭제하기</a>
+			     	<a href="javascript:deleteBoard()">삭제하기</a>
 					<br />
 				</c:if>
 			</div>
 			<br /> <br />
 			<div id="replyOuter">
 				<button type="button" id="btnShowRelpy" class="btn btn-default ">
-					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> 댓글 보기
+					<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					댓글 보기
 				</button>
-				<br/><br/>
-				<div id="replyDiv" class="view" style=" display:none; width:70%; background-color: #a3ca61">
+				<br />
+				<br />
+				<div id="replyDiv" class="view"
+					style="display: none; width: 70%; background-color: #a3ca61">
 					<div id="replyList"></div>
-					
+
 					<div id="writeReplyDiv"
 						style="width: 650px; display: inline; text-align: left;">
 						<br />
@@ -135,18 +151,17 @@
 							<tr>
 								<td><textarea rows="3" cols="80" name="replyContent"
 										id="replyContent" style="resize: none;"
-										placeholder="댓글을 작성해주세요"></textarea>
-								</td>
+										placeholder="댓글을 작성해주세요"></textarea></td>
 								<td>
-									<button type="button" id="btnReply" class="btn btn-default" style="color:green;">COMMENT</button>
+									<button type="button" id="btnReply" class="btn btn-default"
+										style="color: green;">COMMENT</button>
 								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
 			</div>
-			<br />
-			<br />
+			<br /> <br />
 			<div id="btnInner">
 				<input type="button" id="btnBack" class="btn btn-primary" value="목록" />
 			</div>
