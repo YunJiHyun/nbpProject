@@ -35,4 +35,8 @@ public class ReplyService {
 		replyRepository.updateReply(reply);
 	}
 
+	public void deleteReply(Reply reply) {
+		replyRepository.deleteReply(reply);
+	}
+
 }

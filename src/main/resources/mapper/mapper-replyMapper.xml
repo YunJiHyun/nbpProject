@@ -56,5 +56,12 @@
 			reply_content = #{replyContent}
 		WHERE reply_num = #{replyNum}
 	</update>
+	
+	<delete id="deleteReply">
+		DELETE 
+		FROM reply
+		WHERE 
+			reply_num = #{replyNum}
+	</delete>
 
 </mapper>

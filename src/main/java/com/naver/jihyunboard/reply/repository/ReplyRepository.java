@@ -20,4 +20,6 @@ public interface ReplyRepository {
 
 	public void updateReply(Reply reply);
 
+	public void deleteReply(Reply reply);
+
 }

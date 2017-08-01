@@ -43,7 +43,7 @@ public class ReplyController {
 		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
 		replyPageHelper.setBoardNum(boardNum);
 		model.addAttribute("replyList", replyService.list(replyPageHelper));
-		model.addAttribute("replPageHelper", replyPageHelper);
+		model.addAttribute("replyPageHelper", replyPageHelper);
 
 		return "reply/replyList";
 	}
@@ -52,6 +52,7 @@ public class ReplyController {
 	public String detail(@RequestParam int replyNum, Model model) {
 		Reply reply = replyService.detail(replyNum);
 		model.addAttribute("reply", reply);
+
 		return "reply/replyDetail";
 	}
 
@@ -59,6 +60,12 @@ public class ReplyController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public void update(Reply reply, Model model) {
 		replyService.updateReply(reply);
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public void delete(Reply reply, Model model) {
+		replyService.deleteReply(reply);
 	}
 
 }
