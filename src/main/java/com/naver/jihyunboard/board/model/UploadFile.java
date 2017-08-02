@@ -14,4 +14,5 @@ import lombok.Data;
 public class UploadFile {
 	private String fileName;
 	private long fileSize;
+	private int boardNum;
 }

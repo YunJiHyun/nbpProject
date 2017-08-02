@@ -9,6 +9,6 @@
 </head>
 <body>
 <p>작성자가 아니군요!! 수정할 수 없습니다.</p>
-<a href="${path }/board/list"/>돌아가기</a>
+<a href="${path }/board/list">돌아가기</a>
 </body>
 </html>

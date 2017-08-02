@@ -33,7 +33,8 @@
 					cache : false,
 					success : function(data) {
 						var fileInfo = getFileInfo(data);
-						var html = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
+						var html = "<input type='hidden' name='updateFiles' class='updateFiles' value='"+fileInfo.fullName+"'>";
+						html += "<input type='hidden' name='updateFileSize' id='"+fileInfo.fullName+"' value='"+file.size+"'>";
 						var tag = createFile(
 							file.name,
 							file.size,
@@ -106,6 +107,7 @@
 							$("#fileTable").append(fileListHtml);
 							
 							var hiddenListHtml = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
+							hiddenListHtml += "<input type='hidden' name='fileSize' id='"+fileInfo.fullName+"' value='"+data[i].fileSize+"'>";
 							$("#uploadedList").append(hiddenListHtml); 
 				}
 			 }

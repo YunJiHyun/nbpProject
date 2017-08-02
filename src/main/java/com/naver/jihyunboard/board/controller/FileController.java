@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.naver.jihyunboard.board.model.UploadFileHelper;
+import com.naver.jihyunboard.board.service.BoardService;
 
 /**
  *
@@ -27,6 +29,9 @@ import com.naver.jihyunboard.board.model.UploadFileHelper;
 public class FileController {
 
 	public static final String BASE_PATH = "D:/fileUpload";
+
+	@Autowired
+	BoardService boardService;
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception {
@@ -76,14 +81,26 @@ public class FileController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-
 	public void deleteFile(String fileName) {
-		System.out.println(fileName);
 		String filePath = BASE_PATH + fileName;
 		File file = new File(filePath);
 		if (file.exists() == true) {
 			file.delete();
 		}
+
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/deleteFileModify", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+	public void deleteFileModify(String fileName) {
+		boardService.updateFileDeleteColumn(fileName);
+		String filePath = BASE_PATH + fileName;
+		System.out.println(fileName);
+		File file = new File(filePath);
+		if (file.exists() == true) {
+			file.delete();
+		}
+
 	}
 
 }

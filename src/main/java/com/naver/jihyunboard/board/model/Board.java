@@ -24,5 +24,7 @@ public class Board {
 	private String userName;
 	private String[] files;
 	private long[] fileSize;
+	private String[] updateFiles;
+	private long[] updateFileSize;
 	private int replyCount;
 }

@@ -93,6 +93,7 @@ public class BoardController {
 		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
+
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
 
@@ -114,6 +115,7 @@ public class BoardController {
 	public String update(@ModelAttribute Board dto,
 		@RequestParam("currentPage") int currentPage,
 		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
+
 		boardService.updateBoard(dto);
 
 		return "redirect:view?boardNum=" + dto.getBoardNum()
@@ -134,8 +136,8 @@ public class BoardController {
 		return "redirect:list";
 	}
 
-	@RequestMapping(value = "/getFileList/{boardNum}")
 	@ResponseBody
+	@RequestMapping(value = "/getFileList/{boardNum}")
 	public List<UploadFile> getFileList(@PathVariable("boardNum") int boardNum) {
 		return boardService.getFileList(boardNum);
 	}

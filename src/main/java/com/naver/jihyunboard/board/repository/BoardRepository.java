@@ -1,7 +1,6 @@
 package com.naver.jihyunboard.board.repository;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +20,7 @@ public interface BoardRepository {
 
 	public void updateBoard(Board dto) throws Exception;
 
-	public void updateFile(Map<String, Object> map) throws Exception;
+	public void updateFile(UploadFile fileList) throws Exception;
 
 	public void deleteBoard(int boardNum) throws Exception;
 
@@ -34,4 +33,7 @@ public interface BoardRepository {
 	public List<UploadFile> getFileList(int boardNum);
 
 	public void deleteFile(int boardNum);
+
+	public void updateFileDeleteColumn(String fileName);
+
 }

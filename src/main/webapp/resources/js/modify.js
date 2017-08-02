@@ -25,9 +25,8 @@
 				tag.append("<tr id='"+data+"'>");
 				tag.append('<td>' + this.name + '</td>');
 				tag.append('<td>' + this.size + '</td>');
-				tag
-						.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"
-								+ this.name + "'></input></td>");
+				tag.append("<td><input type='button' value='삭제' onclick='deleteFile(this)' id='"
+							+ this.name + "'></input></td>");
 				tag.append('</tr>');
 				return tag.toString();
 			}
@@ -56,8 +55,22 @@
 			if (this.value == dataSource) {
 				$(this).remove();
 			}
+			if (this.id == dataSource ){
+				$(this).remove();
+			}
 		});
-
+		
+		$.ajax({
+			url: "/jihyunboard/upload/deleteFileModify",
+			type: "POST",
+			data: {fileName: dataSource}, 
+			dataType: "text",
+			success: function(result){
+			
+			}
+		});
+		
+		
 		$(event).parents('tr').remove(); //upload한 리스트에서 제거
 
 	}

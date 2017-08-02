@@ -90,6 +90,8 @@
 							aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 						</a>
 					</c:if></li>
+			</ul>
+		</nav>
 	</div>
 
 </body>

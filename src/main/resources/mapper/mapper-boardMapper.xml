@@ -95,13 +95,15 @@
 	<insert id="updateFile">
 		INSERT INTO file 
 		(
-			file_name, 
-			file_board_num
+			file_board_num, 
+			file_name,
+			file_size
 		)
 		VALUES
 		(
+			#{boardNum},
 			#{fileName}, 
-			#{boardNum}
+			#{fileSize}
 		)
 	</insert>
 
@@ -150,8 +152,16 @@
 			file_name AS fileName, 
 			file_size AS fileSize
  		FROM file
-		WHERE 
-			file_board_num = #{boardNum}
+		WHERE file_board_num = #{boardNum}
+		AND	file_delete = 'N'
 	</select>
-
+	
+	<update id="updateFileDeleteColumn">
+		UPDATE file
+		SET
+			file_delete = 'Y'
+		WHERE
+			file_name = #{fileName}
+	</update>
+	
 </mapper>

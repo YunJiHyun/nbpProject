@@ -92,17 +92,20 @@ public class BoardService {
 	public void updateBoard(Board dto) throws Exception {
 		boardRepository.updateBoard(dto);
 
-		String[] files = dto.getFiles();
-		Map<String, Object> map = new HashMap<String, Object>();
+		String[] updateFiles = dto.getUpdateFiles();
 
-		if (files == null) {
+		if (updateFiles == null) {
 			return;
-		}
-		for (String fileName : files) {
-			map.put("boardNum", dto.getBoardNum());
-			map.put("fileName", fileName);
-			System.out.println(dto.getBoardNum() + fileName);
-			boardRepository.updateFile(map);
+		} else {
+			long[] updateFileSizes = dto.getUpdateFileSize();
+
+			UploadFile fileList = new UploadFile();
+			fileList.setBoardNum(dto.getBoardNum());
+			for (int i = 0; i < updateFiles.length; i++) {
+				fileList.setFileName(updateFiles[i]);
+				fileList.setFileSize(updateFileSizes[i]);
+				boardRepository.updateFile(fileList);
+			}
 		}
 
 	}
@@ -120,6 +123,11 @@ public class BoardService {
 	public String writerId(int boardNum) throws Exception {
 		String writerId = Integer.toString(boardRepository.viewBoard(boardNum).getBoardUserId());
 		return writerId;
+	}
+
+	public void updateFileDeleteColumn(String fileName) {
+		boardRepository.updateFileDeleteColumn(fileName);
+
 	}
 
 }

@@ -111,6 +111,8 @@
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
 						</c:if>
 					</li>
+				</ul>
+			</nav>	
 		</div>
 		<div id="btnWriteDiv">
 			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
