@@ -42,12 +42,14 @@
 		INSERT INTO file 
 		( 
 			file_name, 
-			file_board_num
+			file_board_num,
+			file_size
 		)
 		VALUES
 		(
 			#{fileName}, 
-			(select max(boardNum) from board)
+			(select max(boardNum) from board),
+			#{fileSize}
 		
 		)
 
@@ -143,9 +145,11 @@
 		) AS replyCount
 	</sql>
 	
-	<select id="getFileList" resultType="String">
-		SELECT file_name
-		FROM file
+	<select id="getFileList" resultType="uploadFile">
+		SELECT 
+			file_name AS fileName, 
+			file_size AS fileSize
+ 		FROM file
 		WHERE 
 			file_board_num = #{boardNum}
 	</select>

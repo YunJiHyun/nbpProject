@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
+import com.naver.jihyunboard.board.model.UploadFile;
 
 @Repository
 public interface BoardRepository {
@@ -28,9 +29,9 @@ public interface BoardRepository {
 
 	public void increaseReadCount(int boardNum) throws Exception;
 
-	public void addAttach(String fileName);
+	public void addAttach(UploadFile fileList);
 
-	public List<String> getFileList(int boardNum);
+	public List<UploadFile> getFileList(int boardNum);
 
 	public void deleteFile(int boardNum);
 }

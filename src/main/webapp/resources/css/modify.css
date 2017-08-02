@@ -32,8 +32,8 @@ h1 {
 	margin: 0 auto;
 }
 .fileDrop {
-	width: 600px;
-	height: 150px;
+	width: 615px;
+	height: 200px;
 	border: 2px dotted gray;
 	background-color: white;
 	padding-top: 30px;
@@ -43,14 +43,14 @@ h1 {
 }
 
 #tabFileName {
-	width: 470px;
+	width: 430px;
 	text-align: left;
 }
 
 #tabFileSize {
-	width: 70px;
+	width: 120px;
 }
 
 #tabFileDel {
-	width: 50px;
+	width: 65px;
 }

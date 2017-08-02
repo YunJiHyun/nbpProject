@@ -30,7 +30,7 @@ public class FileController {
 
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadFile(MultipartFile file) throws Exception {
-
+		file.getSize();
 		return new ResponseEntity<String>(
 			UploadFileHelper.uploadFile(BASE_PATH, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 	}

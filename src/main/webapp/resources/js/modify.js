@@ -34,7 +34,21 @@
 		}
 		return file.format().tag();
 	}
-
+	
+	function getFileSize(originFileSize) {
+			var sizeKB = originFileSize / 1024;
+			
+			if (parseInt(sizeKB) > 1024) {
+				var sizeMB = sizeKB / 1024;
+				originFileSize = sizeMB.toFixed(2) + " MB";
+			} else {
+				originFileSize = sizeKB.toFixed(2) + " KB";
+			}
+			
+			return originFileSize;
+	}
+	
+	
 	function deleteFile(event) {
 		dataSource = $(event).parents('tr').attr("id");
 

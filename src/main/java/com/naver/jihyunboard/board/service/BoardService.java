@@ -19,6 +19,7 @@ import com.mysql.jdbc.StringUtils;
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
+import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.repository.BoardRepository;
 
 @Service
@@ -45,14 +46,23 @@ public class BoardService {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
 		dto.setBoardUserId(Integer.parseInt(userId));
+
 		boardRepository.insertBoard(dto); //호출한 후 파일 이름을 추가
 
 		String[] files = dto.getFiles();
+
 		if (files == null) {
 			return;
-		}
-		for (String fileName : files) {
-			boardRepository.addAttach(fileName);
+		} else {
+			long[] fileSizes = dto.getFileSize();
+
+			UploadFile fileList = new UploadFile();
+
+			for (int i = 0; i < files.length; i++) {
+				fileList.setFileName(files[i]);
+				fileList.setFileSize(fileSizes[i]);
+				boardRepository.addAttach(fileList);
+			}
 		}
 	}
 
@@ -103,7 +113,7 @@ public class BoardService {
 		boardRepository.deleteBoard(boardNum);
 	}
 
-	public List<String> getFileList(int bno) {
+	public List<UploadFile> getFileList(int bno) {
 		return boardRepository.getFileList(bno);
 	}
 

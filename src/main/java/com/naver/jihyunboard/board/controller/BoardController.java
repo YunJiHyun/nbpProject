@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
+import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.reply.service.ReplyService;
 import com.naver.jihyunboard.user.service.UserService;
@@ -99,7 +100,7 @@ public class BoardController {
 			return "/board/authError";
 		}
 
-		List<String> list = boardService.getFileList(boardNum);
+		List<UploadFile> list = boardService.getFileList(boardNum);
 		model.addAttribute("list", list);
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("currentPage", currentPage);
@@ -135,7 +136,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/getFileList/{boardNum}")
 	@ResponseBody
-	public List<String> getFileList(@PathVariable("boardNum") int boardNum) {
+	public List<UploadFile> getFileList(@PathVariable("boardNum") int boardNum) {
 		return boardService.getFileList(boardNum);
 	}
 

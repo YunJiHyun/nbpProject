@@ -2,7 +2,7 @@
  * 
  */
 	$(document).ready( function() {
-		//listAttach();
+		
 		$(".fileDrop").on("dragenter dragover", function(event) {
 			event.preventDefault();
 		});
@@ -19,6 +19,7 @@
 			}
 			
 			var formData = new FormData();
+
 			formData.append("file", file);
 			$.ajax({
 				type : "POST",
@@ -31,6 +32,7 @@
 					alert(data);
 				var fileInfo = getFileInfo(data);
 				var html = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
+				html += "<input type='hidden' name='fileSize' id='"+fileInfo.fullName+"' value='"+file.size+"'>";
 				var tag = createFile(
 							file.name,
 							file.size,
@@ -46,6 +48,7 @@
 			var boardTitle = $("#boardTitle").val();
 			var boardCategory = $("select[name='boardCategory']").val();
 			var boardContent = CKEDITOR.instances.boardContent.getData();
+			 
 			
 			if (boardTitle == "") {
 				alert("제목을 입력하세요");
@@ -122,6 +125,9 @@
 
 		$("input[type='hidden']").each(function() {
 			if (this.value == dataSource) {
+				$(this).remove();
+			}
+			if (this.id == dataSource ){
 				$(this).remove();
 			}
 		});

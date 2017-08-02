@@ -94,20 +94,22 @@
 			type : "POST",
 			url : "${path}/board/getFileList/${BoardDTO.boardNum}",
 			success : function(data) {
-				$(data).each(
-						function() {
-							var fileInfo = getFileInfo(this);
+				fileData = JSON.stringify(data);
+			 	for(var i = 0 ; i < data.length ; i++){
+						
+							var fileInfo = getFileInfo(data[i].fileName);
 							
 							var fileListHtml = "<tr id='"+fileInfo.fullName +"'><td>"+ fileInfo.fileName +"</td>";
-							fileListHtml += "<td></td>";
+							fileListHtml += "<td>"+getFileSize(data[i].fileSize)+"</td>";
 							fileListHtml += "<td><input type='button' value='삭제' onclick='deleteFile(this)' id='" +fileInfo.fullName + "'></input></td>";
 							fileListHtml += "</tr>";	
 							$("#fileTable").append(fileListHtml);
 							
 							var hiddenListHtml = "<input type='hidden' name='files' class='file' value='"+fileInfo.fullName+"'>";
-							$("#uploadedList").append(hiddenListHtml);
-						});
-			}
+							$("#uploadedList").append(hiddenListHtml); 
+				}
+			 }
+			
 		});
 	}
 	

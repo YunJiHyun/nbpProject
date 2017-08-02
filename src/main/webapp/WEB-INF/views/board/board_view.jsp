@@ -72,14 +72,16 @@
 			type : "POST",
 			url : "${path}/board/getFileList/${BoardDTO.boardNum}",
 			success : function(data) {
-				$(data).each(
-						function() {
-							var fileInfo = getFileInfo(this);
+				fileData = JSON.stringify(data);
+				for(var i = 0 ; i < data.length ; i++){
+						
+							var fileInfo = getFileInfo(data[i].fileName);
 							var html = "<li><a href='"+fileInfo.getLink+"'>"
 									+ fileInfo.fileName + "</li>";
 							$("#uploadedList").append(html);
-						});
+				}
 			}
+			
 		});
 	}
 	
