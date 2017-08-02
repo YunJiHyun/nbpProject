@@ -68,9 +68,14 @@
 					<tr>
 						<td width="70">${row.boardNum}</td>
 						<td width="150">${row.userName}</td>
-						<td style="width:750; text-align:left"><a 
-							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">
-							${row.boardTitle}&nbsp;<span style="color:red">[${row.replyCount}]</span></a>
+						<td style="width:750; text-align:left">
+							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
+									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;
+							</a>
+							<span style="color:red">[${row.replyCount}]</span>
+							<c:if test="${row.fileCount > 0}">
+								<span><img src="<c:url value='/resources/img/file.png'></c:url>" style="width:30px;height:30px"/></span>
+							</c:if>
 						</td>
 						<td width="100">${row.boardCategory}</td>
 						<td width="150"><fmt:formatDate value="${row.boardDate}"

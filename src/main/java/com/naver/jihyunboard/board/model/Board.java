@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Alias("boardDto")
 @Data
-public class Board {
+public class Board extends FileInfo {
 	private int boardNum;
 	private int boardUserId;
 	private String boardTitle;
@@ -22,9 +22,6 @@ public class Board {
 	private Timestamp boardDate;
 	private int boardReadCount;
 	private String userName;
-	private String[] files;
-	private long[] fileSize;
-	private String[] updateFiles;
-	private long[] updateFileSize;
+	private int fileCount;
 	private int replyCount;
 }

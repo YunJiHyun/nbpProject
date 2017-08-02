@@ -13,6 +13,7 @@
 			boardDate,
 			boardReadCount,
 		<include refid="replyCount"></include>
+		<include refid="fileCount"></include>
 		FROM 
 			board b, user u
 		<include refid="search"></include>
@@ -144,7 +145,16 @@
 			SELECT COUNT(1) 
 			FROM reply 
 			WHERE reply_board_num=boardNum
-		) AS replyCount
+		) AS replyCount,
+	</sql>
+	
+	<sql id="fileCount">
+		(
+			SELECT COUNT(1) 
+			FROM file 
+			WHERE file_board_num = boardNum
+			AND file_delete = 'N'
+		) AS fileCount
 	</sql>
 	
 	<select id="getFileList" resultType="uploadFile">

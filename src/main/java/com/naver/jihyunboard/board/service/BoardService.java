@@ -64,6 +64,7 @@ public class BoardService {
 				boardRepository.addAttach(fileList);
 			}
 		}
+
 	}
 
 	public Board viewBoard(int boardNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -107,7 +108,6 @@ public class BoardService {
 				boardRepository.updateFile(fileList);
 			}
 		}
-
 	}
 
 	@Transactional
