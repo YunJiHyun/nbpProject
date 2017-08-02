@@ -14,7 +14,8 @@
 		replyList("1");
 		
 		$("#btnBack").click(function() {
-			location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}";
+			location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
+							+"&keyword=${searchPageHelper.keyword}";	
 		});
 		
 		$("#btnReply").click(function(){
@@ -129,7 +130,10 @@
 			<div id="btnhidden">
 				<input type="hidden" name="boardNum" value="${BoardDTO.boardNum}">
 				<c:if test="${BoardDTO.boardUserId eq userId}">
-					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}">수정하기</a>&nbsp;&nbsp;	
+					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}
+							&searchOption=${searchPageHelper.searchOption}&keyword=${searchPageHelper.keyword}">수정하기
+					</a>
+					&nbsp;&nbsp;	
 			     	<a href="javascript:deleteBoard()">삭제하기</a>
 					<br />
 				</c:if>

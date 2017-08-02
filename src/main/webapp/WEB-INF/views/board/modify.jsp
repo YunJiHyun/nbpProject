@@ -73,7 +73,8 @@
 			$('#boardUpdateForm')
 			.attr(
 					{
-						action : action="${path}/board/update?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}",
+						action : action="${path}/board/update?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}"
+										+"&searchOption=${searchPageHelper.searchOption}&keyword=${searchPageHelper.keyword}",
 						method : 'post'
 					}).submit();
 
@@ -86,7 +87,8 @@
 		});
 
 		$("#btnBack").click(function() {
-			location.href = "${path}/board/view?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}&searchOption=${searchOption}&keyword=${keyword}";
+			location.href = "${path}/board/view?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}"
+							+"&searchOption=${searchPageHelper.searchOption}&keyword=${searchPageHelper.keyword}";
 		});
 	});
 	

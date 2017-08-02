@@ -71,18 +71,17 @@ public class BoardController {
 
 	//게시물 상세보기
 	@RequestMapping(value = "/view")
-	public String view(@RequestParam("boardNum") int boardNum, @RequestParam("currentPage") int currentPage,
-		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword,
-		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response, Board board)
+	public String view(@RequestParam("boardNum") int boardNum, @RequestParam(defaultValue = "1") int currentPage,
+		SearchPageHelper searchPageHelper,
+		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
 
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("userId", userId);
+		model.addAttribute("searchPageHelper", searchPageHelper);
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("searchOption", searchOption);
 		model.addAttribute("replyCount", replyService.listCount(boardNum));
 		return "/board/board_view";
 
@@ -91,8 +90,7 @@ public class BoardController {
 	@RequestMapping(value = "/modify")
 	public String modify(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
 		HttpServletResponse response, Authentication auth,
-		@RequestParam("currentPage") int currentPage,
-		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
+		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
 
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
@@ -105,32 +103,32 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		return "/board/modify";
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(@ModelAttribute Board dto,
-		@RequestParam("currentPage") int currentPage,
-		@RequestParam("searchOption") String searchOption, @RequestParam("keyword") String keyword) throws Exception {
+		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
 
 		boardService.updateBoard(dto);
 
 		return "redirect:view?boardNum=" + dto.getBoardNum()
 			+ "&currentPage=" + currentPage
-			+ "&searchOption=" + searchOption
-			+ "&keyword=" + keyword;
+			+ "&searchOption=" + searchPageHelper.getSearchOption()
+			+ "&keyword=" + searchPageHelper.getKeyword();
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String delete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
 		auth = SecurityContextHolder.getContext().getAuthentication();
 		String userId = auth.getName();
+
 		if (!userId.equals(boardService.writerId(boardNum))) {
 			return "/board/authError";
 		}
+
 		boardService.deleteBoard(boardNum);
 
 		return "redirect:list";
