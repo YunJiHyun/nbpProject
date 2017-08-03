@@ -42,15 +42,25 @@
 						<c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
 				</select>
 				<div class="col-xs-2">
-					<input class="form-control" name="keyword" value="${boardPageHelper.keyword}">
+					<input class="form-control" name="keyword"
+						value="${boardPageHelper.keyword}">
 				</div>
 			</div>
-			<input type="submit" class="btn btn-success" value="조회"> <input
-				type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<input type="submit" class="btn btn-success" value="조회">
 		</form>
-
+		<br />
 		<div id="listCount" style="textalign: right">
-			 총 <span style="color: blue;">${count }</span>개 
+			<table style="width: 100%">
+				<tr>
+					<td style="text-align: left"><a href="${path }/board/myList"
+						class="burlywoodBtn generalBtn"> <img id="mydocument"
+							src="<c:url value='/resources/img/mypen.png'></c:url>" />내가 작성한 글
+							보기
+					</a></td>
+					<td style="text-align: right">총 <span style="color: blue;">${count }</span>개
+					</td>
+				</tr>
+			</table>
 		</div>
 		<table class="table table-borderless table-hover">
 			<thead>
@@ -68,15 +78,16 @@
 					<tr>
 						<td width="70">${row.boardNum}</td>
 						<td width="150">${row.userName}</td>
-						<td style="width:750; text-align:left">
-							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;
-							</a>
-							<span style="color:red">[${row.replyCount}]</span>
-							<c:if test="${row.fileCount > 0}">
-								<span><img src="<c:url value='/resources/img/file.png'></c:url>" style="width:30px;height:30px"/></span>
-							</c:if>
-						</td>
+						<td style="width: 750; text-align: left"><a
+							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
+										&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;
+						</a> <c:if test="${row.replyCount > 0}">
+								<span class="label label-danger">댓글:${row.replyCount}</span>
+							</c:if> <c:if test="${row.fileCount > 0}">
+								<span><img
+									src="<c:url value='/resources/img/file.png'></c:url>"
+									style="width: 30px; height: 30px" /></span>
+							</c:if></td>
 						<td width="100">${row.boardCategory}</td>
 						<td width="150"><fmt:formatDate value="${row.boardDate}"
 								pattern="yyyy-MM-dd" /></td>
@@ -95,29 +106,26 @@
 							<a href="javascript:list('${boardPageHelper.prevPage}')"
 								aria-label="Previous"> <span aria-hidden="true">&lt;</span></a>
 						</c:if></li>
-					<li><c:forEach var="num"
-							begin="${boardPageHelper.blockBegin}"
+					<li><c:forEach var="num" begin="${boardPageHelper.blockBegin}"
 							end="${boardPageHelper.blockEnd}">
 							<c:choose>
 								<c:when test="${num == boardPageHelper.currentPage}">
 									<span style="color: black">${num}</span>&nbsp;
-								</c:when>
+									</c:when>
 								<c:otherwise>
 									<a href="javascript:list('${num}')">${num}</a>&nbsp;
-								</c:otherwise>
+									</c:otherwise>
 							</c:choose>
-						</c:forEach>
-					</li>
+						</c:forEach></li>
 					<li><c:if
 							test="${boardPageHelper.curBlock <= boardPageHelper.totalBlock}">
 							<a href="javascript:list('${boardPageHelper.nextPage}')"
 								aria-label="Next"> <span aria-hidden="true">&gt;</span></a>
 							<a href="javascript:list('${boardPageHelper.totalPage}')"
 								aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
-						</c:if>
-					</li>
+						</c:if></li>
 				</ul>
-			</nav>	
+			</nav>
 		</div>
 		<div id="btnWriteDiv">
 			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>

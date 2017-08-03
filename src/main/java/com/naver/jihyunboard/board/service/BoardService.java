@@ -130,4 +130,8 @@ public class BoardService {
 
 	}
 
+	public List<Board> myList(String userId) {
+		return boardRepository.myList(Integer.parseInt(userId));
+	}
+
 }

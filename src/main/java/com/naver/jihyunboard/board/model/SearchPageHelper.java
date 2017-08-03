@@ -6,4 +6,5 @@ import lombok.Data;
 public class SearchPageHelper {
 	private String searchOption = "all";
 	private String keyword = "";
+	private int searchUserId;
 }

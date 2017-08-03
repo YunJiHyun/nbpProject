@@ -111,7 +111,10 @@
 	<select id="listCount" resultType="int">
 		SELECT COUNT(boardNum) AS count
 		FROM board b, user u
-		<include refid="search"></include> 
+		<include refid="search"></include>
+		<if test="searchUserId != 0">
+    		AND boardUserId = #{searchUserId}
+  		</if> 
 	</select>
 
 	<update id="increaseReadCount">
@@ -173,5 +176,21 @@
 		WHERE
 			file_name = #{fileName}
 	</update>
+	
+	<select id="myList" resultType="boardDto">
+		SELECT 
+			boardNum, 
+			userName, 
+			boardTitle, 
+			boardCategory, 
+			boardDate,
+			boardReadCount
+		FROM 
+			board b, user u
+		WHERE b.boardUserId = u.userId
+		AND boardUserId = #{userId}
+		ORDER BY boardNum DESC
+		
+	</select>
 	
 </mapper>
