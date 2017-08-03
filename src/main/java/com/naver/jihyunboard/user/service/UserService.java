@@ -12,10 +12,10 @@ import com.naver.jihyunboard.user.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	UserRepository userDao;
+	UserRepository userRepository;
 
 	public void registerUser(BoardUser dto) {
-		userDao.insertUser(dto);
+		userRepository.insertUser(dto);
 
 	}
 
@@ -27,11 +27,15 @@ public class UserService {
 	}
 
 	public BoardUser userInfo(BoardUser dto) {
-		return userDao.userInfo(dto);
+		return userRepository.userInfo(dto);
 	}
 
 	public BoardUser checkId(int userId) {
-		return userDao.checkId(userId);
+		return userRepository.checkId(userId);
 
+	}
+
+	public BoardUser userInformation(int userId) {
+		return userRepository.userInformation(userId);
 	}
 }

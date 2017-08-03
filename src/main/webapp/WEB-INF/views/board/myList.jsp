@@ -13,7 +13,7 @@
 	function list(page) {
 		location.href = "/jihyunboard/board/myList?currentPage=" + page
 				+ "&searchOption=${boardPageHelper.searchOption}"
-				+ "&keyword=${boardPageHelper.keyword}";
+				+ "&keyword=${boardPageHelper.keyword}&dateKeyword=${boardPageHelper.dateKeyword}";
 	}
 </script>
 </head>

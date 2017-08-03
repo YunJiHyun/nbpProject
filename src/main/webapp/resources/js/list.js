@@ -3,8 +3,21 @@
  */
 
 $(document).ready(function() {
-			$("#btnWrite").click(function() {
-				// 페이지 주소 변경(이동)
-				location.href = "/jihyunboard/board/write";
-			});
-		});
+	$( "#dialog" ).dialog({
+		autoOpen: false,
+		modal: true,
+		position:{ my: "center", at: "center", of: window }, 
+		show: {
+			effect: "blind",
+			duration: 1000
+		},
+		hide: {
+			effect: "explode",
+			duration: 1000
+		}
+	});
+	
+	$("#btnWrite").click(function() {
+		location.href = "/jihyunboard/board/write";
+	});
+});

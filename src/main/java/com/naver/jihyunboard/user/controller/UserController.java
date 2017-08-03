@@ -2,6 +2,7 @@ package com.naver.jihyunboard.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,12 @@ public class UserController {
 		dto.setUserPw(shaEncoder.saltEncoding(dto.getUserPw(), dto.getUserId()));
 		userService.registerUser(dto);
 		return "redirect:/login";
+	}
+
+	@RequestMapping(value = "/userInfo", method = RequestMethod.POST)
+	public String userInfo(int userId, Model model) {
+		model.addAttribute("boardUser", userService.userInformation(userId));
+		return "user/userInfo";
 	}
 
 }

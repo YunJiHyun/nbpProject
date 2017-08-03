@@ -14,4 +14,6 @@ public interface UserRepository {
 	public BoardUser userInfo(BoardUser dto);
 
 	public BoardUser checkId(int userId);
+
+	public BoardUser userInformation(int userId);
 }
