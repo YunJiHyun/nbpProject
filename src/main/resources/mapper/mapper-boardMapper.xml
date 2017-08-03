@@ -114,9 +114,11 @@
 	<select id="listCount" resultType="int">
 		SELECT COUNT(boardNum) AS count
 		FROM board b, user u
-		<include refid="search"></include>
 		<if test="searchUserId != 0">
-    		AND boardUserId = #{searchUserId}
+			<include refid="searchInMyList"></include>
+  		</if>
+  		<if test="searchUserId == 0">
+    		<include refid="search"></include>
   		</if> 
 	</select>
 
@@ -157,6 +159,11 @@
 					OR
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 				)
+			</when>
+			<when test="searchOption == 'boardDate'">
+				WHERE b.boardUserId = u.userId
+				AND boardUserId = #{searchUserId}
+				AND boardDate LIKE CONCAT( #{dateKeyword},'%')
 			</when>
 			<otherwise>
 				WHERE b.boardUserId = u.userId

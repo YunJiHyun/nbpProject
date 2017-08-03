@@ -151,10 +151,12 @@ public class BoardController {
 		searchPageHelper.setSearchUserId(Integer.parseInt(userId));
 
 		int count = boardService.listCount(searchPageHelper); //갯수
+
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 10);
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 		boardPageHelper.setSearchUserId(searchPageHelper.getSearchUserId());
+		boardPageHelper.setDateKeyword(searchPageHelper.getDateKeyword());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper));

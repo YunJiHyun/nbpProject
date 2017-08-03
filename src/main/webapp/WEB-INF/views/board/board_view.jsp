@@ -65,12 +65,11 @@
 	function deleteBoard(){
 		var replyCount = "${replyCount}";
 		if(replyCount >0){
-			
 			alert("댓글이 있는 게시물은 삭제할 수 없습니다.");
 			return;
 		}
 		else{
-				location.href= "${path }/board/delete?boardNum=${BoardDTO.boardNum}";
+			location.href= "${path }/board/delete?boardNum=${BoardDTO.boardNum}";
 		}
 	}
 	
@@ -81,16 +80,15 @@
 			success : function(data) {
 				fileData = JSON.stringify(data);
 				for(var i = 0 ; i < data.length ; i++){
-						
-							var fileInfo = getFileInfo(data[i].fileName);
-							var html = "<li><a href='"+fileInfo.getLink+"'>"
-									+ fileInfo.fileName + "</li>";
-							$("#uploadedList").append(html);
+					var fileInfo = getFileInfo(data[i].fileName);
+					var html = "<li><a href='"+fileInfo.getLink+"'>"
+								+ fileInfo.fileName + "</li>";
+					$("#uploadedList").append(html);
 				}
 			}
-			
 		});
 	}
+	
 	function replyList(num){
 		$.ajax({
 			type: "GET",
