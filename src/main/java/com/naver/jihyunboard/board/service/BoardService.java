@@ -130,8 +130,9 @@ public class BoardService {
 
 	}
 
-	public List<Board> myList(String userId) {
-		return boardRepository.myList(Integer.parseInt(userId));
+	public List<Board> listMyBoard(BoardPageHelper boardPageHelper) throws Exception {
+		List<Board> boardMyList = boardRepository.listAll(boardPageHelper);
+		return boardMyList;
 	}
 
 }

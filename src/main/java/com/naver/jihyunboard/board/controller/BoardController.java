@@ -81,6 +81,7 @@ public class BoardController {
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("userId", userId);
 		model.addAttribute("searchPageHelper", searchPageHelper);
+
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("replyCount", replyService.listCount(boardNum));
 		return "/board/board_view";
@@ -153,6 +154,7 @@ public class BoardController {
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 10);
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
+		boardPageHelper.setSearchUserId(searchPageHelper.getSearchUserId());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper));

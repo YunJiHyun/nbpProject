@@ -36,6 +36,4 @@ public interface BoardRepository {
 
 	public void updateFileDeleteColumn(String fileName);
 
-	public List<Board> myList(int userId);
-
 }

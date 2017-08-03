@@ -6,16 +6,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글 읽기</title>
+<script src="<c:url value="/resources/js/board_view.js"></c:url>"></script>
 <link rel="stylesheet"
 	href="<c:url value='/resources/css/board_view.css'></c:url>" />
 <script>
 	$(document).ready(function() {
 		viewFileList();
 		replyList("1");
-		
 		$("#btnBack").click(function() {
-			location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
-							+"&keyword=${searchPageHelper.keyword}";	
+			var params = getParams();
+			if(params["dateKeyword"] == undefined){
+				location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
+								+"&keyword=${searchPageHelper.keyword}";
+			}else {
+				location.href = "${path}/board/myList?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
+					+"&keyword=${searchPageHelper.keyword}&dateKeyword=${searchPageHelper.dateKeyword}";
+			}
 		});
 		
 		$("#btnReply").click(function(){
@@ -85,7 +91,6 @@
 			
 		});
 	}
-	
 	function replyList(num){
 		$.ajax({
 			type: "GET",
@@ -94,9 +99,7 @@
 				$("#replyList").html(result);
 			}
 		});
-	}
-	
-
+	}	
 </script>
 </head>
 <body>
