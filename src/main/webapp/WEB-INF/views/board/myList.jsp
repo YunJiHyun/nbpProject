@@ -46,8 +46,8 @@
 				<div class="col-xs-2">
 					<input id="searchNotDate"class="form-control" name="keyword"
 						value="${boardPageHelper.keyword}"> 
-					<input type="date" style="display: none" class="form-control" name="dateKeyword"
-						value="${boardPageHelper.keyword}">
+					<input type="date"  id="searchDate" style="display: none" class="form-control" name="dateKeyword"
+						value="${boardPageHelper.dateKeyword}">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-success" value="조회">
