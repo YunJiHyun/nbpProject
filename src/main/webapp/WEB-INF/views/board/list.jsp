@@ -8,19 +8,20 @@
 <title>게시글 목록</title>
 <script src="<c:url value="/resources/js/list.js"></c:url>"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/list.css"></c:url>" />
 <script>
-	function viewUserInfo(userId){
+	function viewUserInfo(userId) {
 		$.ajax({
-			type: "POST",
-			url: "${path}/user/userInfo?userId="+userId,
-			success: function(result){
+			type : "POST",
+			url : "${path}/user/userInfo?userId=" + userId,
+			success : function(result) {
 				$("#dialog").html(result);
 			}
-		}); 
-		$("#dialog").dialog( "open" );
+		});
+		$("#dialog").dialog("open");
 	}
 
 	function list(page) {
@@ -67,8 +68,8 @@
 				<tr>
 					<td style="text-align: left"><a href="${path }/board/myList"
 						class="burlywoodBtn generalBtn"> <img id="mydocument"
-							src="<c:url value='/resources/img/mypen.png'></c:url>" />내가 작성한 글
-							보기
+							src="<c:url value='/resources/img/mypen.png'></c:url>" />내가 작성한
+							글 보기
 					</a></td>
 					<td style="text-align: right">총 <span style="color: blue;">${count }</span>개
 					</td>
@@ -90,17 +91,18 @@
 				<tbody>
 					<tr>
 						<td width="70">${row.boardNum}</td>
-						<td width="150"><a href='javascript:viewUserInfo("${row.boardUserId}")'>${row.userName}</a></td>
-						<td style="width: 750; text-align: left"><a
-							href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-										&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;
-						</a><c:if test="${row.replyCount > 0}">
+						<td width="150"><a
+							href='javascript:viewUserInfo("${row.boardUserId}")'>${row.userName}</a></td>
+						<td style="width: 750; text-align: left">
+							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
+									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;</a>
+							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>
-							</c:if> <c:if test="${row.fileCount > 0}">
-								<span><img
-									src="<c:url value='/resources/img/file.png'></c:url>"
-									style="width: 30px; height: 30px" /></span>
-							</c:if></td>
+							</c:if> 
+							<c:if test="${row.fileCount > 0}">
+								<span><img src="<c:url value='/resources/img/file.png'></c:url>" style="width: 30px; height: 30px" /></span>
+							</c:if>
+						</td>
 						<td width="100">${row.boardCategory}</td>
 						<td width="150"><fmt:formatDate value="${row.boardDate}"
 								pattern="yyyy-MM-dd" /></td>
@@ -143,8 +145,7 @@
 		<div id="btnWriteDiv">
 			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
 		</div>
-		<div id="dialog" title="사용자 정보 보기">
-		</div>
+		<div id="dialog" title="사용자 정보 보기"></div>
 	</div>
 </body>
 </html>

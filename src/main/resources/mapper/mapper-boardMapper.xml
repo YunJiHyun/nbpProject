@@ -137,7 +137,7 @@
 				WHERE b.boardUserId = u.userId
 				AND 
 				(
-					boardUserId LIKE CONCAT('%' ,#{keyword},'%')
+					u.userName LIKE CONCAT('%' ,#{keyword},'%')
 					OR
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 				)
@@ -156,7 +156,7 @@
 				AND boardUserId = #{searchUserId}
 				AND 
 				(
-					boardUserId LIKE CONCAT('%' ,#{keyword},'%')
+					u.userName LIKE CONCAT('%' ,#{keyword},'%')
 					OR
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 				)
@@ -222,7 +222,12 @@
 		WHERE b.boardUserId = u.userId
 		AND boardUserId = #{userId}
 		ORDER BY boardNum DESC
-		
+	</select>
+	
+	<select id="getReplyCount" resultType="int">
+		SELECT COUNT(1) 
+		FROM reply 
+		WHERE reply_board_num = #{boardNum}
 	</select>
 	
 </mapper>

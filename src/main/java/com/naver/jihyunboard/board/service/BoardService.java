@@ -111,9 +111,15 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void deleteBoard(int boardNum) throws Exception {
-		boardRepository.deleteFile(boardNum);
-		boardRepository.deleteBoard(boardNum);
+	public String deleteBoard(int boardNum) throws Exception {
+		int replyCount = boardRepository.getReplyCount(boardNum);
+		if (replyCount > 0) {
+			return "no";
+		} else {
+			boardRepository.deleteFile(boardNum);
+			boardRepository.deleteBoard(boardNum);
+			return "ok";
+		}
 	}
 
 	public List<UploadFile> getFileList(int bno) {

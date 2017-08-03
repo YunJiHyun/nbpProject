@@ -97,7 +97,7 @@ public class BoardController {
 		String userId = auth.getName();
 
 		if (!userId.equals(boardService.writerId(boardNum))) {
-			return "/board/authError";
+			return "/error/authError";
 		}
 
 		List<UploadFile> list = boardService.getFileList(boardNum);
@@ -127,12 +127,16 @@ public class BoardController {
 		String userId = auth.getName();
 
 		if (!userId.equals(boardService.writerId(boardNum))) {
-			return "/board/authError";
+			return "/error/authError";
 		}
 
-		boardService.deleteBoard(boardNum);
+		String result = boardService.deleteBoard(boardNum);
 
-		return "redirect:list";
+		if (result.equals("ok")) {
+			return "redirect:list";
+		} else {
+			return "/error/deleteError";
+		}
 	}
 
 	@ResponseBody

@@ -10,4 +10,7 @@
 <link rel="stylesheet" href="<c:url value="/resources/bootstrap/css/bootstrap.css"></c:url>"/>
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"></c:url>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"></c:url>"></script>
+<script type="text/javascript" src="../resources/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/stringBuffer.js"></c:url>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/fileUpload.js"></c:url>"></script>
 </head>
