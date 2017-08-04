@@ -94,8 +94,7 @@ public class BoardController {
 			return "/error/authError";
 		}
 
-		List<UploadFile> list = boardService.getFileList(boardNum);
-		model.addAttribute("list", list);
+		model.addAttribute("list", boardService.getFileList(boardNum));
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("searchPageHelper", searchPageHelper);

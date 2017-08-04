@@ -48,7 +48,7 @@
 					<option value="boardTitle" <c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
 				</select>
 				<div class="col-xs-2">
-					<input class="form-control" name="keyword" value="${boardPageHelper.keyword}">
+					<input class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>">
 				</div>
 			</div>
 			<input type="submit" class="btn btn-success" value="조회">

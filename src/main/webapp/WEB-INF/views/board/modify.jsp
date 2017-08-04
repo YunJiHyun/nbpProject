@@ -19,7 +19,13 @@
 				event.preventDefault(); // 기본효과 제한
 				var files = event.originalEvent.dataTransfer.files; // 드래그한 파일들
 				var file = files[0];
-	
+				
+
+				if(file.size > 10000000){
+					alert("10MB 이하의 파일만 업로드 가능합니다.");
+					return false;
+				}
+				
 				var formData = new FormData();
 				formData.append("file", file);
 				$.ajax({
