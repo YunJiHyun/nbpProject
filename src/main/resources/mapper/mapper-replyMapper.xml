@@ -65,5 +65,11 @@
 		WHERE 
 			reply_num = #{replyNum}
 	</delete>
+	
+	<select id="replyerId" resultType="int">
+		SELECT replyer
+		FROM reply
+		WHERE reply_num = #{replyNum}
+	</select>
 
 </mapper>

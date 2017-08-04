@@ -39,4 +39,8 @@ public class ReplyService {
 		replyRepository.deleteReply(reply);
 	}
 
+	public String replyerId(int replyNum) {
+		return Integer.toString(replyRepository.replyerId(replyNum));
+	}
+
 }

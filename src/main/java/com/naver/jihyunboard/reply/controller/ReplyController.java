@@ -58,14 +58,25 @@ public class ReplyController {
 
 	@ResponseBody
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void update(Reply reply, Model model) {
-		replyService.updateReply(reply);
+	public String update(Reply reply, Authentication auth, Model model) {
+		if (boardService.authUserId(auth).equals(replyService.replyerId(reply.getReplyNum()))) {
+			replyService.updateReply(reply);
+			return "ok";
+		} else {
+			return "permission denied";
+		}
+
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public void delete(Reply reply, Model model) {
-		replyService.deleteReply(reply);
+	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = "text/plain")
+	public String delete(Reply reply, Authentication auth, Model model) {
+		if (boardService.authUserId(auth).equals(replyService.replyerId(reply.getReplyNum()))) {
+			replyService.deleteReply(reply);
+			return "ok";
+		} else {
+			return "permission denied";
+		}
 	}
 
 }

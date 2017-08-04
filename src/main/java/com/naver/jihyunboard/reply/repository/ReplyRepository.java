@@ -22,4 +22,6 @@ public interface ReplyRepository {
 
 	public void deleteReply(Reply reply);
 
+	public int replyerId(int replyNum);
+
 }
