@@ -81,7 +81,11 @@ public class FileController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public void deleteFile(String fileName) {
+	public void deleteFile(String fileName, String isUpdateFile) {
+		if (isUpdateFile.equals("yes")) {
+			boardService.updateFileDeleteColumn(fileName);
+		}
+
 		String filePath = BASE_PATH + fileName;
 		File file = new File(filePath);
 		if (file.exists() == true) {
@@ -89,17 +93,4 @@ public class FileController {
 		}
 
 	}
-
-	@ResponseBody
-	@RequestMapping(value = "/deleteFileModify", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
-	public void deleteFileModify(String fileName) {
-		boardService.updateFileDeleteColumn(fileName);
-		String filePath = BASE_PATH + fileName;
-		System.out.println(fileName);
-		File file = new File(filePath);
-		if (file.exists() == true) {
-			file.delete();
-		}
-	}
-
 }

@@ -64,9 +64,9 @@ function deleteFile(event) {
 	});
 		
 	$.ajax({
-		url: "/jihyunboard/upload/deleteFileModify",
+		url: "/jihyunboard/upload/deleteFile",
 		type: "POST",
-		data: {fileName: dataSource}, 
+		data: {fileName: dataSource, isUpdateFile : "yes"}, 
 		dataType: "text",
 		success: function(result){
 		}

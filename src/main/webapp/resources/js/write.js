@@ -121,7 +121,7 @@ function deleteFile(event) {
 	$.ajax({
 		url: "/jihyunboard/upload/deleteFile",
 		type: "POST",
-		data: {fileName: dataSource}, // json방식
+		data: {fileName: dataSource, isUpdateFile : "no"}, // json방식
 		dataType: "text",
 		success: function(result){
 		}

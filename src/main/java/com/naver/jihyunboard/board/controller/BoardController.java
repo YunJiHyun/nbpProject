@@ -37,9 +37,16 @@ public class BoardController {
 	@Autowired
 	ReplyService replyService;
 
-	//게시글 리스트
+	/**
+	 * 검색기능과 페이징 기능을 포함한 게시글 가져오기
+	 * @param currentPage
+	 * @param searchPageHelper
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@RequestParam(defaultValue = "1") int currentPage,
+	public String getBoardList(@RequestParam(defaultValue = "1") int currentPage,
 		SearchPageHelper searchPageHelper, Model model)
 		throws Exception {
 
@@ -55,26 +62,34 @@ public class BoardController {
 		return "/board/list";
 	}
 
+	/**
+	 * 새 글 작성하기 페이지로 이동
+	 * @return
+	 */
 	@RequestMapping(value = "/write", method = RequestMethod.GET)
-	public String write() {
+	public String goBoardWritePage() {
 		return "/board/write";
 	}
 
-	//새 글 등록하기
+	/**
+	 * 작성완료 시 board 테이블에 게시글 INSERT
+	 * @param dto
+	 * @param auth
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insert(@ModelAttribute Board dto, Authentication auth) throws Exception {
+	public String boardDataInsert(@ModelAttribute Board dto, Authentication auth) throws Exception {
 		boardService.insertBoard(dto, auth);
-		System.out.println(dto.getBoardContent());
 		return "redirect:list";
 	}
 
-	//게시물 상세보기
+	//글 읽기 (게시글 상세보기)
 	@RequestMapping(value = "/view")
-	public String view(@RequestParam("boardNum") int boardNum, @RequestParam(defaultValue = "1") int currentPage,
-		SearchPageHelper searchPageHelper,
+	public String boardDetailView(@RequestParam("boardNum") int boardNum,
+		@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
-
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
 		model.addAttribute("userId", boardService.authUserId(auth));
 		model.addAttribute("searchPageHelper", searchPageHelper);
@@ -82,11 +97,11 @@ public class BoardController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("replyCount", replyService.listCount(boardNum));
 		return "/board/board_view";
-
 	}
 
+	//글 수정하기 페이지
 	@RequestMapping(value = "/modify")
-	public String modify(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
+	public String goBoardModifyPage(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
 		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
 
@@ -102,10 +117,10 @@ public class BoardController {
 		return "/board/modify";
 	}
 
+	//수정완료 시 해당 board테이블의 게시글 UPDATE
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute Board dto,
-		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
-
+	public String boardDataUpdate(@ModelAttribute Board dto, @RequestParam("currentPage") int currentPage,
+		SearchPageHelper searchPageHelper) throws Exception {
 		boardService.updateBoard(dto);
 
 		return "redirect:view?boardNum=" + dto.getBoardNum()
@@ -114,9 +129,9 @@ public class BoardController {
 			+ "&keyword=" + searchPageHelper.getKeyword();
 	}
 
+	//삭제하기 해당 board테이블의 게시글 DELETE
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
-
+	public String boardDataDelete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
 		if (!boardService.authUserId(auth).equals(boardService.writerId(boardNum))) {
 			return "/error/authError";
 		}
@@ -137,10 +152,9 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/myList", method = RequestMethod.GET)
-	public String myList(@RequestParam(defaultValue = "1") int currentPage, Authentication auth,
+	public String getMyBoardList(@RequestParam(defaultValue = "1") int currentPage, Authentication auth,
 		SearchPageHelper searchPageHelper, Model model)
 		throws Exception {
-
 		searchPageHelper.setSearchUserId(Integer.parseInt(boardService.authUserId(auth)));
 
 		int count = boardService.listCount(searchPageHelper); //갯수
