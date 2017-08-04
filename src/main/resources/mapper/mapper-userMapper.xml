@@ -6,28 +6,21 @@
 	<insert id="insertUser" parameterType="userDto">
 		INSERT INTO user
 		(
-		userId,
-		userPw,
-		userName,
-		userMajor,
-		userPhoneNum
+			userId,
+			userPw,
+			userName,
+			userMajor,
+			userPhoneNum
 		)
 		VALUES
 		(
-		#{userId},
-		#{userPw},
-		#{userName},
-		#{userMajor},
-		#{userPhoneNum}
+			#{userId},
+			#{userPw},
+			#{userName},
+			#{userMajor},
+			#{userPhoneNum}
 		)
 	</insert>
-
-	<select id="loginCheck" resultType="String">
-		SELECT userName
-		FROM user
-		WHERE userId = #{userId}
-		AND userPw = #{userPw}
-	</select>
 
 	<select id="userInfo" resultType="userDto">
 		SELECT *

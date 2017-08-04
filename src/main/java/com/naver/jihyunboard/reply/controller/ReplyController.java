@@ -2,7 +2,6 @@ package com.naver.jihyunboard.reply.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,10 +28,7 @@ public class ReplyController {
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public void insert(@ModelAttribute Reply reply, Authentication auth) {
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-		System.out.println(userId);
-		reply.setReplyer(userId);
+		reply.setReplyer(boardService.authUserId(auth));
 		replyService.insert(reply);
 	}
 
@@ -40,15 +36,12 @@ public class ReplyController {
 	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage,
 		Authentication auth, Model model) {
 
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-
 		int count = replyService.listCount(boardNum);
 
 		BoardPageHelper replyPageHelper = new BoardPageHelper(count, currentPage, 5);
 		replyPageHelper.setBoardNum(boardNum);
 
-		model.addAttribute("userId", userId);
+		model.addAttribute("userId", boardService.authUserId(auth));
 		model.addAttribute("replyList", replyService.list(replyPageHelper));
 		model.addAttribute("replyPageHelper", replyPageHelper);
 

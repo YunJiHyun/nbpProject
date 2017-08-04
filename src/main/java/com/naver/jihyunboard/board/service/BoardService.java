@@ -38,14 +38,11 @@ public class BoardService {
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
 		return boardList;
-
 	}
 
 	@Transactional
 	public void insertBoard(Board dto, Authentication auth) throws Exception {
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-		dto.setBoardUserId(Integer.parseInt(userId));
+		dto.setBoardUserId(Integer.parseInt(authUserId(auth)));
 
 		boardRepository.insertBoard(dto); //호출한 후 파일 이름을 추가
 
@@ -55,9 +52,7 @@ public class BoardService {
 			return;
 		} else {
 			long[] fileSizes = dto.getFileSize();
-
 			UploadFile fileList = new UploadFile();
-
 			for (int i = 0; i < files.length; i++) {
 				fileList.setFileName(files[i]);
 				fileList.setFileSize(fileSizes[i]);
@@ -139,6 +134,12 @@ public class BoardService {
 	public List<Board> listMyBoard(BoardPageHelper boardPageHelper) throws Exception {
 		List<Board> boardMyList = boardRepository.listAll(boardPageHelper);
 		return boardMyList;
+	}
+
+	public String authUserId(Authentication auth) {
+		auth = SecurityContextHolder.getContext().getAuthentication();
+		String userId = auth.getName();
+		return userId;
 	}
 
 }

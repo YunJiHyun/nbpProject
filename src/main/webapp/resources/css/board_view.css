@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+
 #boardHeader {
 	margin-top: 50px;
 }
@@ -45,23 +46,25 @@
 }
 
 #replyOuter {
-	text-align :left;
+	text-align: left;
 }
+
 textarea {
-	margin-left : 10px;
+	margin-left: 10px;
 }
 
 #btnReply {
-	margin-left : 20px;
-}
-#replyList, #replyContent {
-	margin-left : 20px;
-}
-#replyDiv {
-	padding-top : 40px;
+	margin-left: 20px;
 }
 
- #replyContent {
-	margin-bottom : 20px;
-	
- }
+#replyList, #replyContent {
+	margin-left: 20px;
+}
+
+#replyDiv {
+	padding-top: 40px;
+}
+
+#replyContent {
+	margin-bottom: 20px;
+}

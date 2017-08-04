@@ -100,7 +100,6 @@ public class FileController {
 		if (file.exists() == true) {
 			file.delete();
 		}
-
 	}
 
 }

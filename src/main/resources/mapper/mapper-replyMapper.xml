@@ -47,14 +47,16 @@
 			replyer AS replyer, 
 			reply_Date AS replyDate
 		FROM reply 
-		WHERE reply_num = #{replyNum}
+		WHERE 
+			reply_num = #{replyNum}
 	</select>
 	
 	<update id="updateReply">
 		UPDATE reply
 		SET
 			reply_content = #{replyContent}
-		WHERE reply_num = #{replyNum}
+		WHERE 
+			reply_num = #{replyNum}
 	</update>
 	
 	<delete id="deleteReply">

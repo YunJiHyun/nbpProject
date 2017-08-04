@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,11 +74,9 @@ public class BoardController {
 		SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
 
 		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
-		model.addAttribute("userId", userId);
+		model.addAttribute("userId", boardService.authUserId(auth));
 		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		model.addAttribute("currentPage", currentPage);
@@ -93,10 +90,7 @@ public class BoardController {
 		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
 
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-
-		if (!userId.equals(boardService.writerId(boardNum))) {
+		if (!boardService.authUserId(auth).equals(boardService.writerId(boardNum))) {
 			return "/error/authError";
 		}
 
@@ -123,10 +117,8 @@ public class BoardController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String delete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
 
-		if (!userId.equals(boardService.writerId(boardNum))) {
+		if (!boardService.authUserId(auth).equals(boardService.writerId(boardNum))) {
 			return "/error/authError";
 		}
 
@@ -150,9 +142,7 @@ public class BoardController {
 		SearchPageHelper searchPageHelper, Model model)
 		throws Exception {
 
-		auth = SecurityContextHolder.getContext().getAuthentication();
-		String userId = auth.getName();
-		searchPageHelper.setSearchUserId(Integer.parseInt(userId));
+		searchPageHelper.setSearchUserId(Integer.parseInt(boardService.authUserId(auth)));
 
 		int count = boardService.listCount(searchPageHelper); //갯수
 

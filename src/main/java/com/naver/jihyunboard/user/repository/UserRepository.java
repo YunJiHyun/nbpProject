@@ -9,8 +9,6 @@ public interface UserRepository {
 
 	public void insertUser(BoardUser dto);
 
-	public boolean loginCheck(BoardUser dto);
-
 	public BoardUser userInfo(BoardUser dto);
 
 	public BoardUser checkId(int userId);

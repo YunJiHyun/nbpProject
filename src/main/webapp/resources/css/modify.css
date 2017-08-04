@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+
 #wrapper {
 	margin: 0 auto;
 	padding-top: 20pt;
@@ -31,6 +32,7 @@ h1 {
 	width: 40%;
 	margin: 0 auto;
 }
+
 .fileDrop {
 	width: 615px;
 	height: 200px;

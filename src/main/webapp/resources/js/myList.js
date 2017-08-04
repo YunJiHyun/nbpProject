@@ -8,8 +8,7 @@ $(document).ready(function() {
 			$("#searchNotDate").val("");
 			$("#searchNotDate").hide();
 			$("input[type='date']").show();
-		}
-		else {
+		} else {
 			$("input[type='date']").hide();
 			$("#searchNotDate").show();
 			$("#searchDate").val("");	

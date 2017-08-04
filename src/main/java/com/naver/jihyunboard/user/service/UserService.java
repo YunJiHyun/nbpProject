@@ -1,7 +1,5 @@
 package com.naver.jihyunboard.user.service;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +14,6 @@ public class UserService {
 
 	public void registerUser(BoardUser dto) {
 		userRepository.insertUser(dto);
-
-	}
-
-	public void loginCheck(BoardUser dto, HttpSession session) {
-
-		BoardUser userDto = userInfo(dto);
-		session.setAttribute("userId", userDto.getUserId());
-
 	}
 
 	public BoardUser userInfo(BoardUser dto) {

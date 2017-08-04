@@ -14,5 +14,4 @@ public class BoardUser {
 	private String userMajor;
 	private String userPhoneNum;
 	private String userRole;
-	//private List<Board> boardList;
 }

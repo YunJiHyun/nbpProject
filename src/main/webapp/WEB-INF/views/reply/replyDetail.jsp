@@ -1,34 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="reply_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script>
-
-	$("#btnReplyUpdate").click(function() {
-		var replyContent = $("#replyContent").val();
-		$.ajax({
-			type : "POST",
-			url : "${path}/reply/update?replyNum=${reply.replyNum}",
-			data :  ({
-				replyContent : replyContent
-            }),
-			dataType : "text",
-			success : function(result) {
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>댓글 디테일</title>
+	<script>
+		$("#btnReplyUpdate").click(function() {
+			var replyContent = $("#replyContent").val();
+			$.ajax({
+				type : "POST",
+				url : "${path}/reply/update?replyNum=${reply.replyNum}",
+				data :  ({ replyContent : replyContent }),
+				dataType : "text",
+				success : function(result) {
 					$("#modifyReply").hide();
 					replyList("1");
-			}
+				}
+			});
 		});
-	});
-
-	$("#btnReplyClose").click(function() {
-		$("#modifyReply").hide();
-	});
-
-</script>
+	
+		$("#btnReplyClose").click(function() {
+			$("#modifyReply").hide();
+		});
+	</script>
 </head>
 <body>
 	댓글 번호 : <b>${reply.replyNum}</b>
