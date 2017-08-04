@@ -10,13 +10,13 @@ import com.naver.jihyunboard.reply.model.Reply;
 @Repository
 public interface ReplyRepository {
 
-	public void insert(Reply reply);
+	public void insertReply(Reply reply);
 
-	public List<Reply> list(BoardPageHelper replyPageHelper);
+	public List<Reply> replyList(BoardPageHelper replyPageHelper);
 
 	public int listCount(int boardNum);
 
-	public Reply detail(int replyNum);
+	public Reply detailReply(int replyNum);
 
 	public void updateReply(Reply reply);
 

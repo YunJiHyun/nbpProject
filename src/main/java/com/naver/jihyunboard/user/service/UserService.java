@@ -12,13 +12,13 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	public void registerUser(BoardUser dto) {
+	public void insertUser(BoardUser dto) {
 		userRepository.insertUser(dto);
 	}
 
-	public BoardUser userInfo(BoardUser dto) {
+	/*public BoardUser userInfo(BoardUser dto) {
 		return userRepository.userInfo(dto);
-	}
+	}*/
 
 	public BoardUser checkId(int userId) {
 		return userRepository.checkId(userId);

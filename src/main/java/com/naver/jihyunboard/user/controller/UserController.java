@@ -23,8 +23,12 @@ public class UserController {
 	@Autowired
 	private ShaEncoder shaEncoder;
 
+	/**
+	 * 회원가입 페이지로 이동
+	 * @return
+	 */
 	@RequestMapping("/register")
-	public String register() {
+	public String goRegisterPage() {
 		return "/user/register";
 	}
 
@@ -37,9 +41,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute BoardUser dto) {
+	public String insertUserData(@ModelAttribute BoardUser dto) {
 		dto.setUserPw(shaEncoder.saltEncoding(dto.getUserPw(), dto.getUserId()));
-		userService.registerUser(dto);
+		userService.insertUser(dto);
 		return "redirect:/login";
 	}
 

@@ -27,13 +27,13 @@ public class ReplyController {
 
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public void insert(@ModelAttribute Reply reply, Authentication auth) {
+	public void insertReplyData(@ModelAttribute Reply reply, Authentication auth) {
 		reply.setReplyer(boardService.authUserId(auth));
-		replyService.insert(reply);
+		replyService.insertReply(reply);
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage,
+	public String getReplyList(@RequestParam int boardNum, @RequestParam(defaultValue = "1") int currentPage,
 		Authentication auth, Model model) {
 
 		int count = replyService.listCount(boardNum);
@@ -42,15 +42,15 @@ public class ReplyController {
 		replyPageHelper.setBoardNum(boardNum);
 
 		model.addAttribute("userId", boardService.authUserId(auth));
-		model.addAttribute("replyList", replyService.list(replyPageHelper));
+		model.addAttribute("replyList", replyService.replyList(replyPageHelper));
 		model.addAttribute("replyPageHelper", replyPageHelper);
 
 		return "reply/replyList";
 	}
 
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String detail(@RequestParam int replyNum, Model model) {
-		Reply reply = replyService.detail(replyNum);
+	public String viewReplyDetail(@RequestParam int replyNum, Model model) {
+		Reply reply = replyService.detailReply(replyNum);
 		model.addAttribute("reply", reply);
 
 		return "reply/replyDetail";
@@ -58,7 +58,7 @@ public class ReplyController {
 
 	@ResponseBody
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(Reply reply, Authentication auth, Model model) {
+	public String updateReplyData(Reply reply, Authentication auth, Model model) {
 		if (boardService.authUserId(auth).equals(replyService.replyerId(reply.getReplyNum()))) {
 			replyService.updateReply(reply);
 			return "ok";
@@ -70,7 +70,7 @@ public class ReplyController {
 
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.GET, produces = "text/plain")
-	public String delete(Reply reply, Authentication auth, Model model) {
+	public String deleteReplyData(Reply reply, Authentication auth, Model model) {
 		if (boardService.authUserId(auth).equals(replyService.replyerId(reply.getReplyNum()))) {
 			replyService.deleteReply(reply);
 			return "ok";

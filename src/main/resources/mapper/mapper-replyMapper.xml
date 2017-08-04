@@ -3,7 +3,7 @@
 <mapper namespace="com.naver.jihyunboard.reply.repository.ReplyRepository">
 
 
-	<insert id="insert">
+	<insert id="insertReply">
 		INSERT INTO reply 
 		(
 			reply_board_num, 
@@ -18,7 +18,7 @@
 		)
 	</insert>
 	
-	 <select id="list" resultType="reply">
+	 <select id="replyList" resultType="reply">
 		SELECT 
 			reply_num AS replyNum, 
 			reply_board_num AS boardNum, 
@@ -39,7 +39,7 @@
 		WHERE reply_board_num = #{boardNum}
 	</select>
 	
-	<select id="detail" resultType="reply">
+	<select id="detailReply" resultType="reply">
 		SELECT 
 			reply_num AS replyNum, 
 			reply_board_num AS boardNum, 

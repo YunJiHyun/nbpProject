@@ -34,7 +34,7 @@
 					<option value="boardDate" <c:out value="${boardPageHelper.searchOption == 'boardDate'?'selected':''}"/>>날짜</option>
 				</select>
 				<div class="col-xs-2">
-					<input id="searchNotDate"class="form-control" name="keyword" value="${boardPageHelper.keyword}"> 
+					<input id="searchNotDate"class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>"> 
 					<input type="date"  id="searchDate" style="display: none" class="form-control" name="dateKeyword" value="${boardPageHelper.dateKeyword}">
 				</div>
 			</div>
@@ -73,7 +73,7 @@
 						<td width="150">${row.userName}</td>
 						<td style="width: 750; text-align: left">
 							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}&dateKeyword=${boardPageHelper.dateKeyword}">${row.boardTitle}&nbsp;
+									&searchOption=${boardPageHelper.searchOption}&keyword=<c:out value='${boardPageHelper.keyword}'/>&dateKeyword=${boardPageHelper.dateKeyword}">${row.boardTitle}&nbsp;
 							</a> 
 							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>

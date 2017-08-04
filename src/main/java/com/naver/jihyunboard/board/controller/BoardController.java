@@ -22,7 +22,6 @@ import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.reply.service.ReplyService;
-import com.naver.jihyunboard.user.service.UserService;
 
 @Controller
 @RequestMapping("/board/")
@@ -30,9 +29,6 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
-	@Autowired
-	UserService userService;
 
 	@Autowired
 	ReplyService replyService;
