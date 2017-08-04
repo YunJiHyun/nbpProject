@@ -79,14 +79,14 @@ public class BoardController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String boardDataInsert(@ModelAttribute Board dto, Authentication auth) throws Exception {
+	public String insertBoardData(@ModelAttribute Board dto, Authentication auth) throws Exception {
 		boardService.insertBoard(dto, auth);
 		return "redirect:list";
 	}
 
 	//글 읽기 (게시글 상세보기)
 	@RequestMapping(value = "/view")
-	public String boardDetailView(@RequestParam("boardNum") int boardNum,
+	public String viewBoardDetail(@RequestParam("boardNum") int boardNum,
 		@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
@@ -119,7 +119,7 @@ public class BoardController {
 
 	//수정완료 시 해당 board테이블의 게시글 UPDATE
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String boardDataUpdate(@ModelAttribute Board dto, @RequestParam("currentPage") int currentPage,
+	public String updateBoardData(@ModelAttribute Board dto, @RequestParam("currentPage") int currentPage,
 		SearchPageHelper searchPageHelper) throws Exception {
 		boardService.updateBoard(dto);
 
@@ -131,13 +131,11 @@ public class BoardController {
 
 	//삭제하기 해당 board테이블의 게시글 DELETE
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String boardDataDelete(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
+	public String deleteBoardData(@RequestParam("boardNum") int boardNum, Authentication auth) throws Exception {
 		if (!boardService.authUserId(auth).equals(boardService.writerId(boardNum))) {
 			return "/error/authError";
 		}
-
 		String result = boardService.deleteBoard(boardNum);
-
 		if (result.equals("ok")) {
 			return "redirect:list";
 		} else {

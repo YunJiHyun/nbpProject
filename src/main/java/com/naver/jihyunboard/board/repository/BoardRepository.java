@@ -28,7 +28,7 @@ public interface BoardRepository {
 
 	public void increaseReadCount(int boardNum) throws Exception;
 
-	public void addAttach(UploadFile fileList);
+	public void insertFile(UploadFile fileList);
 
 	public List<UploadFile> getFileList(int boardNum);
 

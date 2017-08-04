@@ -56,7 +56,7 @@ public class BoardService {
 			for (int i = 0; i < files.length; i++) {
 				fileList.setFileName(files[i]);
 				fileList.setFileSize(fileSizes[i]);
-				boardRepository.addAttach(fileList);
+				boardRepository.insertFile(fileList);
 			}
 		}
 
