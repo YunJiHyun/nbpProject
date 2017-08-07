@@ -1,16 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="board_header.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="board_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>게시글 목록</title>
 	<script src="<c:url value="/resources/js/list.js"></c:url>"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<link rel="stylesheet"
-		href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet"
-		href="<c:url value="/resources/css/list.css"></c:url>" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="<c:url value="/resources/css/list.css"></c:url>" />
 	<script>
 		function viewUserInfo(userId) {
 			$.ajax({

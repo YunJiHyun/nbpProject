@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="board_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="board_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>내가 쓴 게시물</title>
 	<script src="<c:url value="/resources/js/myList.js"></c:url>"></script>

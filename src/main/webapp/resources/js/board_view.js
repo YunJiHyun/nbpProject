@@ -1,6 +1,7 @@
 /**
  * board_view.jsp의 js파일
  */
+
 function getParams() {
 	// 파라미터 배열
 	var param = new Array();

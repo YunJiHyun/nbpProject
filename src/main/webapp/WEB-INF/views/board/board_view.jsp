@@ -1,16 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="board_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="board_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>글 읽기</title>
 	<script src="<c:url value="/resources/js/board_view.js"></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value='/resources/css/board_view.css'></c:url>"/>
+	<script src="<c:url value="/resources/js/jquery-ui.js"></c:url>"></script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css"></c:url>">
 	<script>
+	var dialog;
 		$(document).ready(function() {
 			viewFileList();
 			replyList("1");
+			
+			 dialog = $( "#dialog" ).dialog({
+				autoOpen: false,
+				height: 700,
+				width: 600,
+				position:{ my: "center", at: "center", of: window }
+			});
+			
 			$("#btnBack").click(function() {
 				var params = getParams();
 				if(params["dateKeyword"] == undefined){
@@ -36,7 +47,7 @@
 					}
 				}); 
 			});
-	
+			
 			$(document).keydown(function(e) {
 				if (e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA") {
 					if (e.keyCode === 8) {
@@ -45,7 +56,7 @@
 				}
 			});
 			
-			 $("#btnShowRelpy").click(function() {
+			$("#btnShowRelpy").click(function() {
 				if($("#replyDiv").hasClass("view")){
 					$("#replyDiv").show();
 					$("#replyDiv").removeClass('view')
@@ -55,7 +66,8 @@
 					$("#replyDiv").addClass("view");
 					$("#btnShowRelpy span").attr("class","glyphicon glyphicon-chevron-down");
 				}		 	
-			});  
+			});
+			
 		});
 	
 		function deleteBoard(){
@@ -91,7 +103,18 @@
 					$("#replyList").html(result);
 				}
 			});
-		}	
+		}
+		
+	 	function addMyKanban(){
+	 		$.ajax({
+				type: "POST",
+				url: "${path}/kanban/write?boardNum=${BoardDTO.boardNum}",
+				success: function(result){
+					$("#dialog").html(result);
+				}
+			});
+	 		dialog.dialog("open");	 
+		} 
 	</script>
 </head>
 <body>
@@ -106,8 +129,11 @@
 				</form>
 			</div>
 			<br />
-			<div id="categoryAndDate">${BoardDTO.boardCategory }
+			<div id="categoryAndDate">${BoardDTO.boardCategory } &nbsp;|&nbsp;
 				<fmt:formatDate value="${BoardDTO.boardDate }" pattern="yyyy-MM-dd HH:mm:ss" />
+			</div>
+			<div id="addKanban">
+				<input type="button" class="btn btn-warning" id="addMyKanban" value="kanban board에 추가" onclick="addMyKanban()"/>
 			</div>
 		</div>
 		<hr />
@@ -156,5 +182,6 @@
 			</div>
 		</div>
 	</div>
+	<div id="dialog" title="Kanban"></div>
 </body>
 </html>

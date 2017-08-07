@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="board_header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="board_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>글 수정</title>
 	<link rel="stylesheet" href="<c:url value='/resources/css/modify.css'></c:url>"/>
