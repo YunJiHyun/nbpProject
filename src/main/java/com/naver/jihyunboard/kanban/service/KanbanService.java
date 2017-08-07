@@ -32,4 +32,14 @@ public class KanbanService {
 	public List<Kanban> kanbanListAll(int userId) {
 		return kanbanRepository.kanbanListAll(userId);
 	}
+
+	public void updateKanban(Kanban kanban) {
+		String kanbanState = kanban.getKanbanState();
+
+		if (kanbanState.equals("TODO") || kanbanState.equals("DOING")) {
+			kanbanRepository.updateKanban(kanban);
+		} else {
+			kanbanRepository.deleteKanban(kanban);
+		}
+	}
 }

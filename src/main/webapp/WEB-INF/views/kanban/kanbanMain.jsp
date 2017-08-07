@@ -7,52 +7,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanbanMain.css'></c:url>"/>
+	<script src="<c:url value="/resources/js/kanbanMain.js"></c:url>"></script>
 	<title>kanban</title>
-	<style>
-		#todo {
-			list-style-type: none;
-			margin-top : 20px; 
-			margin-left: 0; 
-			padding: 0;
-		}
-		 #todo li { 
-			position : relative;
-		 	margin: 10px;
-		 	padding: 1px; 
-		 	float: left; 
-		 	width: 120px; 
-		 	height: 140px; 
-		 	font-size: 10pt; 
-		 	text-align: center; 
-		 	border:1px solid;
-		 	box-shadow : 5px 5px gray;
-		 }
-		 .deadline {
-		 	position : absolute;
-		 	bottom : 1px;
-		 	left : 0;
-		 	font-size: 8pt;
-		 }
-		 .navbar-btn {
-		 	position : absolute;
-		 	right : 2px;
-		 	top : 0;
-		 }
-	</style>
-	<script>
-		$(document).ready(function() {
-			$("#goBoardMain").click(function() {
-				// 페이지 주소 변경(이동)
-				alert("게시판 화면으로 돌아갑니다");
-				location.href = "${path}/board/list";
-			});
-			$(".moveDoing").click(function() {
-				// 페이지 주소 변경(이동)
-				alert("게시판 화면으로 돌아갑니다");
-				//location.href = "${path}/board/list";
-			});
-		});
-	</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -119,28 +75,38 @@
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'TODO'}">
 										<li class="todoList">
-											<button class="btn btn-default navbar-btn btn-sm moveDoing"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
+											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDoing">
+												<span class="glyphicon glyphicon-hand-right"></span>
+											</button><br/>
 											<br/>${row.kanbanContent} <br/>
-											<span class="deadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+											<span class="todoDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
 										</li>
 									</c:if>
 								</c:forEach>			
 							</ul>
 						</td>
 						<td width="35%" id="kanbanDoing">
-							<ul class="doing">
+							<ul id="doing">
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'DOING'}">
-										<li>${row.kanbanContent}</li>
+										<li class="doingList">
+											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
+											<br/>${row.kanbanContent} <br/>
+											<span class="doingDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+										</li>
 									</c:if>
 								</c:forEach>			
 							</ul>
 						</td>
 						<td width="35%" id="kanbanDone">
-							<ul class="done">
+							<ul id="done">
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'DONE'}">
-										<li>${row.kanbanContent}</li>
+										<li class="doneList">
+											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete"><span class="glyphicon glyphicon-remove"></span></button><br/>
+											<br/>${row.kanbanContent} <br/>
+											<span class="doneDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+										</li>
 									</c:if>
 								</c:forEach>			
 							</ul>

@@ -50,4 +50,10 @@ public class KanbanController {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		kanbanService.insertKanban(kanban, userId);
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void updateKanbanData(Kanban kanban) throws Exception {
+		kanbanService.updateKanban(kanban);
+	}
 }

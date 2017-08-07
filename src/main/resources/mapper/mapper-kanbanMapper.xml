@@ -4,6 +4,7 @@
 	
 	<select id="kanbanListAll" resultType="Kanban">
 		SELECT 
+			kanban_num AS kanbanNum,
 			kanban_content AS kanbanContent,
 			kanban_importance AS kanbanImportance,
 			kanban_state AS kanbanState,
@@ -33,5 +34,22 @@
 			#{kanbanBoardNum}
 		)
 	</insert>
+	
+	<update id="updateKanban">
+		UPDATE kanban
+		<if test="kanbanState == 'TODO'">
+			SET kanban_State = "DOING"
+		</if>
+		<if test="kanbanState == 'DOING'">
+			SET kanban_State = "DONE"
+		</if>
+		WHERE kanban_num = #{kanbanNum}
+	</update>
+	
+	<delete id="deleteKanban">
+		DELETE FROM kanban
+		WHERE
+			kanban_num = #{kanbanNum}
+	</delete>
 	
 </mapper>

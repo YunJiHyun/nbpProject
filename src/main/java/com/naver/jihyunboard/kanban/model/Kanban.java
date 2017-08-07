@@ -15,6 +15,7 @@ import lombok.Data;
 @Alias("Kanban")
 @Data
 public class Kanban {
+	private int kanbanNum;
 	private int kanbanUserId;
 	private int kanbanBoardNum;
 	private String kanbanContent;

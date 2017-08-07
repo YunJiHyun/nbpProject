@@ -13,4 +13,8 @@ public interface KanbanRepository {
 
 	public void insertKanban(Kanban kanban);
 
+	public void updateKanban(Kanban kanban);
+
+	public void deleteKanban(Kanban kanban);
+
 }
