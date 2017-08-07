@@ -1,6 +1,7 @@
 package com.naver.jihyunboard.kanban.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
 
@@ -18,6 +19,7 @@ public class Kanban {
 	private int kanbanBoardNum;
 	private String kanbanContent;
 	private int kanbanImportance;
-	private int kanbanState;
+	private String kanbanState;
 	private Date kanbanDeadline;
+	private Timestamp kanbanModifyTime;
 }

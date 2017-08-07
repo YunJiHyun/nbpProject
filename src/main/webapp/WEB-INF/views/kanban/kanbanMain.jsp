@@ -6,15 +6,52 @@
 	<%@ include file="kanban_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
+	<link rel="stylesheet" href="<c:url value='/resources/css/kanbanMain.css'></c:url>"/>
 	<title>kanban</title>
 	<style>
-		#extraKanban {
-			color : blue;
-			font-weight : bold;
+		#todo {
+			list-style-type: none;
+			margin-top : 20px; 
+			margin-left: 0; 
+			padding: 0;
 		}
+		 #todo li { 
+			position : relative;
+		 	margin: 10px;
+		 	padding: 1px; 
+		 	float: left; 
+		 	width: 120px; 
+		 	height: 140px; 
+		 	font-size: 10pt; 
+		 	text-align: center; 
+		 	border:1px solid;
+		 	box-shadow : 5px 5px gray;
+		 }
+		 .deadline {
+		 	position : absolute;
+		 	bottom : 1px;
+		 	left : 0;
+		 	font-size: 8pt;
+		 }
+		 .navbar-btn {
+		 	position : absolute;
+		 	right : 2px;
+		 	top : 0;
+		 }
 	</style>
 	<script>
-	
+		$(document).ready(function() {
+			$("#goBoardMain").click(function() {
+				// 페이지 주소 변경(이동)
+				alert("게시판 화면으로 돌아갑니다");
+				location.href = "${path}/board/list";
+			});
+			$(".moveDoing").click(function() {
+				// 페이지 주소 변경(이동)
+				alert("게시판 화면으로 돌아갑니다");
+				//location.href = "${path}/board/list";
+			});
+		});
 	</script>
 </head>
 <body>
@@ -77,9 +114,39 @@
 				</thead>
 				<tbody>
 					<tr id="kanbanBody">
-						<td id="kanbanTodo">해야할일 리스트... </td>
-						<td id="kanbanDoing">하는 중 리스트...</td>
-						<td id="kanbanDone">완료된 일 리스트...</td>
+						<td width="35%" id="kanbanTodo">
+							<ul id="todo">
+								<c:forEach var="row" items="${kanbanList}">	
+									<c:if test="${row.kanbanState == 'TODO'}">
+										<li class="todoList">
+											<button class="btn btn-default navbar-btn btn-sm moveDoing"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
+											<br/>${row.kanbanContent} <br/>
+											<span class="deadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+										</li>
+									</c:if>
+								</c:forEach>			
+							</ul>
+						</td>
+						<td width="35%" id="kanbanDoing">
+							<ul class="doing">
+								<c:forEach var="row" items="${kanbanList}">	
+									<c:if test="${row.kanbanState == 'DOING'}">
+										<li>${row.kanbanContent}</li>
+									</c:if>
+								</c:forEach>			
+							</ul>
+						</td>
+						<td width="35%" id="kanbanDone">
+							<ul class="done">
+								<c:forEach var="row" items="${kanbanList}">	
+									<c:if test="${row.kanbanState == 'DONE'}">
+										<li>${row.kanbanContent}</li>
+									</c:if>
+								</c:forEach>			
+							</ul>
+						</td>
+						
+					
 					</tr>
 				</tbody>
 			</table>

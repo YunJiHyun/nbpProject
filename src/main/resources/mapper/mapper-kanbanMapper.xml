@@ -4,12 +4,12 @@
 	
 	<select id="kanbanListAll" resultType="Kanban">
 		SELECT 
-			kanban_content,
-			kanban_importance,
-			kanban_state,
-			kanban_deadline,
-			kanban_boardNum,
-			kanban_modifyTime
+			kanban_content AS kanbanContent,
+			kanban_importance AS kanbanImportance,
+			kanban_state AS kanbanState,
+			kanban_deadline AS kanbanDeadline,
+			kanban_boardNum AS kanbanBoardNum,
+			kanban_modifyTime AS kanbanContent
 		FROM kanban
 		WHERE kanban_userId = #{userId}
 		ORDER BY kanban_modifyTime ASC

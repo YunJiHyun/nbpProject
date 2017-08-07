@@ -38,7 +38,7 @@
 						kanbanDeadline : kanbanDeadline
 					},
 					success: function(){
-						alert("등록 성공");
+						alert("등록되었습니다");
 					}
 				});
 		});
