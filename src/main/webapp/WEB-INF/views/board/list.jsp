@@ -31,7 +31,8 @@
 </head>
 <body>
 	<div id="wrapper">
-		<p id="boardTitle">학교 게시판</p>
+		<span id="boardTitle">학교 게시판 | </span> 
+		<a href="${path }/kanban/mainList" id="goKanbanMain">Kanban</a>
 		<div id="idDiv">
 			<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
 				<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다. 

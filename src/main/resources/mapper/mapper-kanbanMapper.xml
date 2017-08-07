@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.jihyunboard.kanban.repository.KanbanRepository">
-
+	
+	<select id="kanbanListAll" resultType="Kanban">
+		SELECT 
+			kanban_content,
+			kanban_importance,
+			kanban_state,
+			kanban_deadline,
+			kanban_boardNum,
+			kanban_modifyTime
+		FROM kanban
+		WHERE kanban_userId = #{userId}
+		ORDER BY kanban_modifyTime ASC
+	</select>
+	
 	<insert id="insertKanban" parameterType="Kanban">
 		INSERT INTO kanban 
 		(
@@ -20,5 +33,5 @@
 			#{kanbanBoardNum}
 		)
 	</insert>
-
+	
 </mapper>

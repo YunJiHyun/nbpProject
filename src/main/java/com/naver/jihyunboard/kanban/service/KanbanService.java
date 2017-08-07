@@ -1,5 +1,7 @@
 package com.naver.jihyunboard.kanban.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +25,11 @@ public class KanbanService {
 
 	public void insertKanban(Kanban kanban, int userId) {
 		kanban.setKanbanUserId(userId);
-		System.out.println("dkjlwjkdljkl" + kanban.getKanbanUserId());
-		System.out.println("ffffffffffff" + kanban.getKanbanBoardNum());
-		System.out.println("ffffffffffff" + kanban.getKanbanContent());
-		System.out.println("ffffffffffff" + kanban.getKanbanImportance());
-		System.out.println("ffffffffffff" + kanban.getKanbanDeadline());
 		kanbanRepository.insertKanban(kanban);
 
+	}
+
+	public List<Kanban> kanbanListAll(int userId) {
+		return kanbanRepository.kanbanListAll(userId);
 	}
 }

@@ -7,10 +7,19 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
 	<title>kanban</title>
-
+	<style>
+		#extraKanban {
+			color : blue;
+			font-weight : bold;
+		}
+	</style>
+	<script>
+	
+	</script>
 </head>
 <body>
 	<div id="wrapper">
+		<button  class="btn btn-primary btn-lg" id="goBoardMain"> 게시판 화면으로 </button> 
 		<div id="idDiv">
 			<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
 				<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다. 
@@ -22,16 +31,16 @@
 			<div class="jumboInner">
 				<h1>My Kanban</h1>
 				<br/>
-				<div>
-					게시글 번호 : ${board.boardNum } <br/>
-					게시글 제목 : ${board.boardTitle }
+				<div id="extraKanban">
+					추가로 해야할 일이 있다면 등록해주세요!
 				</div>
 				<br/>
 				<form class="form-inline" id="kanbanWriteForm" name="kanbanWriteForm" method="post">
 					<div class="form-group" id="centerForm">
 						<label>해야할 일:</label> 
 						<input type="text" class="form-control" name="kanbanContent" id="kanbanContent" size="100" placeholder="해야할 일을 입력해주세요">
-					</div> &nbsp;&nbsp;
+					</div> 
+					<br/><br/>
 					<div class="form-group">
 						<label>중요도 : </label> 
 						<select name="kanbanImportance" class="form-control">

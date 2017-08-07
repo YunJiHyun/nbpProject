@@ -16,6 +16,13 @@
 	font-size: 30pt;
 }
 
+#goKanbanMain {
+	font-size: 30pt;
+	font-family : Monospace;
+	font-weight : bold;
+	text-decoration: none; 
+	color: #39EA71;
+}
 th {
 	background-color: lightgray;
 	text-align: center;

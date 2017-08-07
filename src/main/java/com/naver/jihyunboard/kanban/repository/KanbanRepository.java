@@ -1,5 +1,7 @@
 package com.naver.jihyunboard.kanban.repository;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.naver.jihyunboard.kanban.model.Kanban;
@@ -7,8 +9,8 @@ import com.naver.jihyunboard.kanban.model.Kanban;
 @Repository
 public interface KanbanRepository {
 
-	public void insertKanban(Kanban kanban);
+	public List<Kanban> kanbanListAll(int userId);
 
-	//public Board writeKanban(Board board);
+	public void insertKanban(Kanban kanban);
 
 }
