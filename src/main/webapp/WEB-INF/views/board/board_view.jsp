@@ -133,7 +133,16 @@
 				<fmt:formatDate value="${BoardDTO.boardDate }" pattern="yyyy-MM-dd HH:mm:ss" />
 			</div>
 			<div id="addKanban">
-				<input type="button" class="btn btn-warning" id="addMyKanban" value="kanban board에 추가" onclick="addMyKanban()"/>
+				<table style="width : 100%">
+					<tr>
+						<td id="kanbanTd">
+							<input type="button" class="btn btn-warning" id="addMyKanban" value="kanban board에 추가" onclick="addMyKanban()"/>
+						</td>
+						<td align="right">
+							조회수 <span class="badge">${BoardDTO.boardReadCount}</span>
+						</td>
+					</tr>
+				</table>			
 			</div>
 		</div>
 		<hr />

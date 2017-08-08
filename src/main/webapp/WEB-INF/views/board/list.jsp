@@ -77,7 +77,6 @@
 					<th>제목</th>
 					<th>카테고리</th>
 					<th>날짜</th>
-					<th>조회수</th>
 				</tr>
 			</thead>
 			<c:forEach var="row" items="${boardList}">
@@ -100,9 +99,6 @@
 						<td width="100">${row.boardCategory}</td>
 						<td width="150">
 							<fmt:formatDate value="${row.boardDate}" pattern="yyyy-MM-dd" />
-						</td>
-						<td width="70">
-							<span class="badge">${row.boardReadCount}</span>
 						</td>
 					</tr>
 				</tbody>

@@ -10,7 +10,6 @@
 			boardTitle, 
 			boardCategory, 
 			boardDate,
-			boardReadCount,
 		<include refid="replyCount"></include>
 		<include refid="fileCount"></include>
 		FROM 
@@ -67,6 +66,7 @@
 			boardTitle, 
 			boardContent, 
 			boardCategory,
+			boardReadCount,
 			boardDate
 		FROM board
 		WHERE 
