@@ -9,4 +9,6 @@ public interface BookmarkRepository {
 
 	public void insertBookmark(Bookmark bookmark);
 
+	public int bookmarkListCount(Bookmark bookmark);
+
 }

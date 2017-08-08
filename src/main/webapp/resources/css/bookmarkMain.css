@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+#wrapper {
+	margin: 0 auto;
+	padding-top: 20pt;
+	width: 90%;
+}
+
+#idDiv {
+	text-align: right;
+	margin-top : 20pt;
+	margin-bottom: 80pt;
+}

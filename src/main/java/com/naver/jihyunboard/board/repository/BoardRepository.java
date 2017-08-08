@@ -8,6 +8,7 @@ import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
+import com.naver.jihyunboard.bookmark.model.Bookmark;
 
 @Repository
 public interface BoardRepository {
@@ -37,5 +38,7 @@ public interface BoardRepository {
 	public void updateFileDeleteColumn(String fileName);
 
 	public int getReplyCount(int boardNum);
+
+	public List<Board> bookmarkListAll(Bookmark bookmark);
 
 }

@@ -95,7 +95,6 @@
 			boardNum = #{boardNum}
 	</update>
 	
-	
 	<insert id="updateFile">
 		INSERT INTO file 
 		(
@@ -227,6 +226,24 @@
 		SELECT COUNT(1) 
 		FROM reply 
 		WHERE reply_board_num = #{boardNum}
+	</select>
+	
+	<select id="bookmarkListAll" resultType="boardDto">
+		SELECT 
+			boardNum, 
+			userName, 
+			boardTitle, 
+			boardCategory, 
+			boardDate,
+		<include refid="replyCount"></include>
+		<include refid="fileCount"></include>
+		FROM 
+			board b, user u, bookmark bm
+		WHERE b.boardUserId = u.userId
+		AND b.boardNum = bm.mark_boardNum
+		AND boardUserId = #{markUserId}
+		AND bm.bookmark = 'Y'
+		ORDER BY bm.mark_date DESC
 	</select>
 	
 </mapper>

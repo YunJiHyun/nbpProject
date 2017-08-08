@@ -17,4 +17,11 @@
 		)
 	</insert>
 	
+	<select id="bookmarkListCount" resultType="int">
+		SELECT COUNT(1) 
+		FROM bookmark 
+		WHERE mark_userId = #{markUserId}
+		AND bookmark = 'Y'
+	</select>
+	
 </mapper>

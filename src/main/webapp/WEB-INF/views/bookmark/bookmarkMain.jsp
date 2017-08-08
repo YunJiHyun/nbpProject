@@ -1,40 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="board_header.jsp"%>
+	<%@ include file="bookmark_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>게시글 목록</title>
-	<script src="<c:url value="/resources/js/list.js"></c:url>"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="<c:url value="/resources/css/list.css"></c:url>" />
-	<script>
-		function viewUserInfo(userId) {
-			$.ajax({
-				type : "POST",
-				url : "${path}/user/userInfo?userId=" + userId,
-				success : function(result) {
-					$("#dialog").html(result);
-				}
-			});
-			$("#dialog").dialog("open");
-		}
-	
-		function list(page) {
-			location.href = "/jihyunboard/board/list?currentPage=" + page
-							+ "&searchOption=${boardPageHelper.searchOption}"
-							+ "&keyword=<c:out value='${boardPageHelper.keyword}'/>";
-		}
-	</script>
+	<link rel="stylesheet" href="<c:url value="/resources/css/bookmarkMain.css"></c:url>" />
+	<title>즐겨찾기 페이지</title>
 </head>
 <body>
-	<div id="wrapper">
+<div id="wrapper">
 		<ul class="nav nav-tabs nav-justified">
-			<li class="active"><a href="#" id="boardTitle">학교 게시판</a></li> 
+			<li><a href="${path }/board/list" id="boardTitle">학교 게시판</a></li> 
 			<li><a href="${path }/kanban/mainList" id="goKanbanMain">Kanban</a></li>	
-			<li><a href="${path }/bookmark/mainList" id="goBookmarkMain">즐겨찾기</a></li>
+			<li class="active"><a href="#" id="goBookmarkMain">즐겨찾기</a></li>
 		</ul>
 		<div id="idDiv">
 			<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
@@ -44,32 +22,6 @@
 			</form>
 		</div>
 		<br />
-		<div id="listCount" style="textalign: right">
-			<table style="width: 100%">
-				<tr>
-					<td style="text-align: left">
-						<a href="${path }/board/myList" class="burlywoodBtn generalBtn"> 
-							<img id="mydocument" src="<c:url value='/resources/img/mypen.png'></c:url>" />
-								내가 작성한 글 보기
-						</a>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<form class="form-inline" name="searchForm" method="get" action="${path }/board/list">
-			<div id="searchDiv" class="form-group">
-				<select name="searchOption" class="form-control" style="width: 100pt">
-					<option value="all" <c:out value="${boardPageHelper.searchOption == 'all'?'selected':''}"/>>전체</option>
-					<option value="userName" <c:out value="${boardPageHelper.searchOption == 'userName'?'selected':''}"/>>작성자</option>
-					<option value="boardTitle" <c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
-				</select>
-				<div class="col-xs-2">
-					<input class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>">
-				</div>
-			</div>
-			<input type="submit" class="btn btn-success" value="조회">
-		</form>
-		
 		<div id="listCount" style="textalign: right">
 			<table style="width: 100%">
 				<tr>
@@ -90,11 +42,11 @@
 					<th>날짜</th>
 				</tr>
 			</thead>
-			<c:forEach var="row" items="${boardList}">
+			<c:forEach var="row" items="${bookmarkList}">
 				<tbody>
 					<tr>
 						<td width="70" id="${row.boardNum}" class="starTd">
-							<img class="bookmarkStar" src="<c:url value="/resources/img/blackstar.png"></c:url>" width="30" height="30"/>
+							<img class="bookmarkStar" src="<c:url value="/resources/img/goldstar.png"></c:url>" width="30" height="30"/>
 						</td>
 						<td width="70">${row.boardNum}</td>
 						<td width="150">
@@ -119,7 +71,7 @@
 			</c:forEach>
 		</table>
 
-		<div id="paging">
+		<%-- <div id="paging">
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
 					<li>
@@ -156,13 +108,8 @@
 					</li>
 				</ul>
 			</nav>
-		</div>
-		
-		<div id="btnWriteDiv">
-			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
-		</div>
-		
-		<div id="dialog" title="사용자 정보 보기"></div>
+		</div>	
+		<div id="dialog" title="사용자 정보 보기"></div> --%>
 	</div>
 </body>
 </html>

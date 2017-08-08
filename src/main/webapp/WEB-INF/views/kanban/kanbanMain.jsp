@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +11,11 @@
 </head>
 <body>
 	<div id="wrapper">
-		<button  class="btn btn-primary btn-lg" id="goBoardMain"> 게시판 화면으로 </button> 
+		<ul class="nav nav-tabs nav-justified">
+			<li><a href="${path }/board/list" id="boardTitle">학교 게시판</a></li> 
+			<li class="active"><a href="#" id="goKanbanMain">Kanban</a></li>	
+			<li><a href="${path }/bookmark/mainList" id="goBookmarkMain">즐겨찾기</a></li>
+		</ul>
 		<div id="idDiv">
 			<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
 				<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다. 
