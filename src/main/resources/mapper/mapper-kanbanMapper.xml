@@ -19,19 +19,23 @@
 	<insert id="insertKanban" parameterType="Kanban">
 		INSERT INTO kanban 
 		(
+			<if test="kanbanBoardNum != 0" >
+				kanban_boardNum,
+			</if>
 			kanban_userId,
 			kanban_content,
 			kanban_importance,
-			kanban_deadline,
-			kanban_boardNum
+			kanban_deadline
 		)
 		VALUES 
 		(
+			<if test="kanbanBoardNum != 0" >
+				#{kanbanBoardNum},
+			</if>
 			#{kanbanUserId},
 			#{kanbanContent},
 			#{kanbanImportance},
-			#{kanbanDeadline},
-			#{kanbanBoardNum}
+			#{kanbanDeadline}
 		)
 	</insert>
 	

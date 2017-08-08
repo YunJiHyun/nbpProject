@@ -25,6 +25,7 @@ public class KanbanService {
 
 	public void insertKanban(Kanban kanban, int userId) {
 		kanban.setKanbanUserId(userId);
+		System.out.println("sdjwkljfkldjklwjkljwdkljklwf" + kanban.getKanbanBoardNum());
 		kanbanRepository.insertKanban(kanban);
 
 	}
