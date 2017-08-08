@@ -73,13 +73,20 @@
 						<td width="33%" id="kanbanTodo">
 							<ul id="todo">
 								<c:forEach var="row" items="${kanbanList}">	
+									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
+									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
 									<c:if test="${row.kanbanState == 'TODO'}">
 										<li class="todoList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDoing">
 												<span class="glyphicon glyphicon-hand-right"></span>
 											</button><br/>
 											<br/>${row.kanbanContent} <br/>
-											<span class="todoDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+											<c:if test="${today >= deadline}"> 
+												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+											</c:if>
+											<c:if test="${today < deadline}"> 
+												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+											</c:if>
 										</li>
 									</c:if>
 								</c:forEach>			
@@ -88,11 +95,18 @@
 						<td width="33%" id="kanbanDoing">
 							<ul id="doing">
 								<c:forEach var="row" items="${kanbanList}">	
+									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
+									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
 									<c:if test="${row.kanbanState == 'DOING'}">
 										<li class="doingList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
 											<br/>${row.kanbanContent} <br/>
-											<span class="doingDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+											<c:if test="${today >= deadline}"> 
+												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+											</c:if>
+											<c:if test="${today < deadline}"> 
+												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+											</c:if>
 										</li>
 									</c:if>
 								</c:forEach>			
@@ -100,12 +114,19 @@
 						</td>
 						<td width="33%" id="kanbanDone">
 							<ul id="done">
-								<c:forEach var="row" items="${kanbanList}">	
+								<c:forEach var="row" items="${kanbanList}">
+									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
+									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	
 									<c:if test="${row.kanbanState == 'DONE'}">
 										<li class="doneList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete"><span class="glyphicon glyphicon-remove"></span></button><br/>
 											<br/>${row.kanbanContent} <br/>
-											<span class="doneDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
+											<c:if test="${today >= deadline}"> 
+												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+											</c:if>
+											<c:if test="${today < deadline}"> 
+												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+											</c:if>
 										</li>
 									</c:if>
 								</c:forEach>			

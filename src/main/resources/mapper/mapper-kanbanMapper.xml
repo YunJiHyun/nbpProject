@@ -10,7 +10,7 @@
 			kanban_state AS kanbanState,
 			kanban_deadline AS kanbanDeadline,
 			kanban_boardNum AS kanbanBoardNum,
-			kanban_modifyTime AS kanbanContent
+			kanban_modifyTime AS kanbanModifyTime
 		FROM kanban
 		WHERE kanban_userId = #{userId}
 		ORDER BY kanban_modifyTime ASC
@@ -42,11 +42,12 @@
 	<update id="updateKanban">
 		UPDATE kanban
 		<if test="kanbanState == 'TODO'">
-			SET kanban_State = "DOING"
+			SET kanban_State = "DOING",
 		</if>
 		<if test="kanbanState == 'DOING'">
-			SET kanban_State = "DONE"
+			SET kanban_State = "DONE",
 		</if>
+		 		kanban_modifyTime = CURRENT_TIMESTAMP
 		WHERE kanban_num = #{kanbanNum}
 	</update>
 	

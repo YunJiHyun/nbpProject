@@ -8,4 +8,5 @@
 <script src="<c:url value="/resources/js/jquery-3.2.1.min.js"></c:url>"></script>
 <script src="<c:url value="/resources/bootstrap/js/bootstrap.min.js"></c:url>"></script>
 <script src="<c:url value="/resources/js/jquery-ui.js"></c:url>"></script>
+<jsp:useBean id="now" class="java.util.Date" />
 

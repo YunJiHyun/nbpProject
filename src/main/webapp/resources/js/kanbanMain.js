@@ -2,7 +2,13 @@
  * kanbanMain.jsp의 javascript 파일입니다.
  */
 $(document).ready(function() {
-	$( "#kanbanDeadline" ).datepicker({dateFormat : "yy-mm-dd", minDate: +1, maxDate: "+1M" });
+	
+	$( "#kanbanDeadline" ).datepicker({
+		dateFormat : "yy-mm-dd", 
+		minDate: +1, 
+		maxDate: "+1M"
+	});
+	
 	
 	$("#goBoardMain").click(function() {
 		alert("게시판 화면으로 돌아갑니다");
