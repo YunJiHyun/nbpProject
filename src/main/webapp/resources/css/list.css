@@ -115,3 +115,7 @@ td {
 	-webkit-box-shadow: 0 0 0 5px #B87333, 1px 1px 4px 6px #7F7F7F;
 	-o-box-shadow: 0 0 0 5px #B87333, 1px 1px 4px 6px #7F7F7F;
 }
+
+#starTd {
+	margin: 0;
+}

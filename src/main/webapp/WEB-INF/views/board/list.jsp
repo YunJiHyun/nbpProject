@@ -72,6 +72,7 @@
 		<table class="table table-borderless table-hover">
 			<thead>
 				<tr>
+					<th></th>
 					<th>번호</th>
 					<th>작성자</th>
 					<th>제목</th>
@@ -82,6 +83,9 @@
 			<c:forEach var="row" items="${boardList}">
 				<tbody>
 					<tr>
+						<td width="70" id="${row.boardNum}" class="starTd">
+							<img class="bookmarkStar" src="<c:url value="/resources/img/blackstar.png"></c:url>" width="30" height="30"/>
+						</td>
 						<td width="70">${row.boardNum}</td>
 						<td width="150">
 							<a href='javascript:viewUserInfo("${row.boardUserId}")'>${row.userName}</a>

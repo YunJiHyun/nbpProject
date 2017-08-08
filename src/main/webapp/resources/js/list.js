@@ -1,7 +1,6 @@
 /**
  * 
  */
-
 $(document).ready(function() {
 	$( "#dialog" ).dialog({
 		autoOpen: false,
@@ -19,5 +18,20 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		location.href = "/jihyunboard/board/write";
+	});
+	
+	$(".starTd").click(function() {
+		var markBoardNum =this.id;
+		$.ajax({
+			type: "POST",
+			url:  "/jihyunboard/bookmark/insert",
+			data : {
+				markBoardNum:markBoardNum 
+			},
+			success: function(){
+				alert("즐겨찾기 등록");
+				location.reload(); 
+			} 
+		});
 	});
 });
