@@ -21,9 +21,19 @@
 	width: 120px; 
 	height: 140px; 
 	font-size: 10pt; 
+	font-weight : bold;
 	text-align: center; 
-	border:1px solid;
-	box-shadow : 5px 5px gray;
+	box-shadow : 5px 5px 2px #b4b4b4;
+}
+
+li[data-importance='1'] {
+	background-color: #ea6953;
+}
+li[data-importance='2'] {
+	background-color: #ffc845;
+}
+li[data-importance='3'] {
+	background-color: #4c868f;
 }
 
 .todoDeadline, .doingDeadline, .doneDeadline {
@@ -38,6 +48,3 @@
 	right : 2px;
 	top : 0;
 }
-
-
-

@@ -46,7 +46,7 @@
 					<br/><br/>
 					<div class="form-group">
 						<label>마감날짜 : </label> 
-						<input type="date"  id="kanbanDeadline" class="form-control" name="kanbanDeadline">
+						<input type="text" id="kanbanDeadline" class="form-control" name="kanbanDeadline" size="20">
 					</div>
 					<br /> <br />
 					<div class="form-group" id="btnDiv">
@@ -70,11 +70,11 @@
 				</thead>
 				<tbody>
 					<tr id="kanbanBody">
-						<td width="35%" id="kanbanTodo">
+						<td width="33%" id="kanbanTodo">
 							<ul id="todo">
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'TODO'}">
-										<li class="todoList">
+										<li class="todoList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDoing">
 												<span class="glyphicon glyphicon-hand-right"></span>
 											</button><br/>
@@ -85,11 +85,11 @@
 								</c:forEach>			
 							</ul>
 						</td>
-						<td width="35%" id="kanbanDoing">
+						<td width="33%" id="kanbanDoing">
 							<ul id="doing">
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'DOING'}">
-										<li class="doingList">
+										<li class="doingList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
 											<br/>${row.kanbanContent} <br/>
 											<span class="doingDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
@@ -98,11 +98,11 @@
 								</c:forEach>			
 							</ul>
 						</td>
-						<td width="35%" id="kanbanDone">
+						<td width="33%" id="kanbanDone">
 							<ul id="done">
 								<c:forEach var="row" items="${kanbanList}">	
 									<c:if test="${row.kanbanState == 'DONE'}">
-										<li class="doneList">
+										<li class="doneList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete"><span class="glyphicon glyphicon-remove"></span></button><br/>
 											<br/>${row.kanbanContent} <br/>
 											<span class="doneDeadline label label-default">마감기한 : <fmt:formatDate value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" /></span>
