@@ -5,7 +5,7 @@ $(document).ready(function() {
 	
 	$( "#kanbanDeadline" ).datepicker({
 		dateFormat : "yy-mm-dd", 
-		minDate: +1, 
+		minDate: 0, 
 		maxDate: "+1M"
 	});
 	
@@ -45,7 +45,7 @@ $(document).ready(function() {
 			},
 			success: function(){
 				alert("새로운 해야할 일이 등록되었습니다");
-				location.reload(); 
+				window.location.reload(true);
 			}
 		});
 	});
@@ -59,7 +59,7 @@ $(document).ready(function() {
 			type: "POST",
 			url: movingUrl + kanbanNum + "&kanbanState=TODO",
 			success: function(){
-				location.reload(); 
+				window.location.reload(true);
 			} 
 		});
 	});
@@ -70,7 +70,7 @@ $(document).ready(function() {
 			type: "POST",
 			url: movingUrl + kanbanNum + "&kanbanState=DOING",
 			success: function(){
-				location.reload(); 
+				window.location.reload(true);
 			} 
 		});
 	});
@@ -81,7 +81,7 @@ $(document).ready(function() {
 			type: "POST",
 			url: movingUrl + kanbanNum + "&kanbanState=DONE",
 			success: function(){
-				location.reload(); 
+				window.location.reload(true);   
 			} 
 		});
 	});
