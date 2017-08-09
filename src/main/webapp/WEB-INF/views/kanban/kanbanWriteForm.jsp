@@ -9,7 +9,8 @@
 	<title>칸반</title>
 	<script>
 		$(document).ready( function() {
-			$( "#kanbanDeadline" ).datepicker({dateFormat : "yy-mm-dd", minDate: 0, maxDate: "+1M" });
+			$("#kanbanDeadline").datepicker('disable').removeAttr("readonly",true);
+			$("#kanbanDeadline").datepicker({dateFormat : "yy-mm-dd", minDate: 0, maxDate: "+2M" });
 			$("#btnSave").click(function() {
 				var kanbanContent = $("#kanbanContent").val();
 				var kanbanImportance = $("select[name='kanbanImportance']").val();
@@ -76,7 +77,7 @@
 					<br/><br/>
 					<div class="form-group">
 						<label>마감날짜 : </label>
-						<input type="text" id="kanbanDeadline" class="form-control" name="kanbanDeadline" size="20"> 
+						<input type="text" id="kanbanDeadline" class="form-control" name="kanbanDeadline" onkeyup="checkWord(this, 0)" size="20"> 
 					</div>
 					<br /> <br />
 					<div class="form-group" id="btnDiv">

@@ -2,6 +2,7 @@
  * kanbanMain.jsp의 javascript 파일입니다.
  */
 $(document).ready(function() {
+	$("input[name='kanbanDeadline']").datepicker('disable').removeAttr("readonly",true);
 	
 	$( "#kanbanDeadline" ).datepicker({
 		dateFormat : "yy-mm-dd", 
@@ -122,7 +123,11 @@ function checkWord(obj, maxByte) {
 
 	// 글자 초과시 마지막 글자 자르기.
 	if (totalByte > maxByte) {
-		alert(maxByte/2 + "글자를 초과 할 수 없습니다.");
+		if(maxByte>0){
+			alert(maxByte/2 + "글자를 초과 할 수 없습니다.");
+		} else{
+			alert("날짜는 직접입력할 수 없습니다, 달력에서 선택해주세요");
+		}
 		str2 = strValue.substr(0, len);
 		obj.value = str2;
 	}

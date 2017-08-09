@@ -49,7 +49,7 @@
 					<br/><br/>
 					<div class="form-group">
 						<label>마감날짜 : </label> 
-						<input type="text" id="kanbanDeadline" class="form-control" name="kanbanDeadline" size="20">
+						<input type="text" id="kanbanDeadline" class="form-control" name="kanbanDeadline" onkeyup="checkWord(this, 0)" size="20">
 					</div>
 					<br /> <br />
 					<div class="form-group" id="btnDiv">
