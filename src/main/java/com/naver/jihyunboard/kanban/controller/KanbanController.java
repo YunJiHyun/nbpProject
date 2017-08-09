@@ -56,4 +56,10 @@ public class KanbanController {
 	public void updateKanbanData(Kanban kanban) throws Exception {
 		kanbanService.updateKanban(kanban);
 	}
+
+	@RequestMapping(value = "/viewDetailDialog", method = RequestMethod.POST)
+	public String viewDetailDialog(Board board, Model model) throws Exception {
+		model.addAttribute("board", kanbanService.viewDetailDialog(board));
+		return "kanban/viewDetailDialog";
+	}
 }

@@ -66,9 +66,9 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>TODO</th>
-						<th>DOING</th>
-						<th>DONE</th>
+						<th style="text-align:center" >TODO</th>
+						<th style="text-align:center">DOING</th>
+						<th style="text-align:center">DONE</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -82,8 +82,13 @@
 										<li class="todoList" data-importance="${row.kanbanImportance}">
 											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDoing">
 												<span class="glyphicon glyphicon-hand-right"></span>
-											</button><br/>
-											<br/>${row.kanbanContent} <br/>
+											</button><br/><br/>
+											<c:if test="${row.kanbanBoardNum eq ''}"> 
+												${row.kanbanContent} <br/>
+											</c:if>
+											<c:if test="${row.kanbanBoardNum ne ''}"> 
+												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											</c:if>
 											<c:if test="${today >= deadline}"> 
 												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
 											</c:if>
@@ -102,8 +107,15 @@
 									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
 									<c:if test="${row.kanbanState == 'DOING'}">
 										<li class="doingList" data-importance="${row.kanbanImportance}">
-											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone"><span class="glyphicon glyphicon-hand-right"></span></button><br/>
-											<br/>${row.kanbanContent} <br/>
+											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone">
+												<span class="glyphicon glyphicon-hand-right"></span>
+											</button><br/><br/>
+											<c:if test="${row.kanbanBoardNum eq ''}"> 
+												${row.kanbanContent} <br/>
+											</c:if>
+											<c:if test="${row.kanbanBoardNum ne ''}"> 
+												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											</c:if>
 											<c:if test="${today >= deadline}"> 
 												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
 											</c:if>
@@ -122,8 +134,15 @@
 									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	
 									<c:if test="${row.kanbanState == 'DONE'}">
 										<li class="doneList" data-importance="${row.kanbanImportance}">
-											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete"><span class="glyphicon glyphicon-remove"></span></button><br/>
-											<br/>${row.kanbanContent} <br/>
+											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete">
+												<span class="glyphicon glyphicon-remove"></span>
+											</button><br/><br/>
+											<c:if test="${row.kanbanBoardNum eq ''}"> 
+												${row.kanbanContent} <br/>
+											</c:if>
+											<c:if test="${row.kanbanBoardNum ne ''}"> 
+												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											</c:if>
 											<c:if test="${today >= deadline}"> 
 												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
 											</c:if>
@@ -135,12 +154,11 @@
 								</c:forEach>			
 							</ul>
 						</td>
-						
-					
 					</tr>
 				</tbody>
 			</table>
 		</div>
-	</div> 
+	</div>
+	<div id="dialog" title="해당 게시물 내용"></div> 
 </body>
 </html>

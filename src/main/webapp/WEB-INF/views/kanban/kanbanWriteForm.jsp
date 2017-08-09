@@ -8,7 +8,7 @@
 	<title>칸반</title>
 	<script>
 		$(document).ready( function() {
-			$( "#kanbanDeadline" ).datepicker({dateFormat : "yy-mm-dd", minDate: +1, maxDate: "+1M" });
+			$( "#kanbanDeadline" ).datepicker({dateFormat : "yy-mm-dd", minDate: 0, maxDate: "+1M" });
 			$("#btnSave").click(function() {
 				var kanbanContent = $("#kanbanContent").val();
 				var kanbanImportance = $("select[name='kanbanImportance']").val();

@@ -9,6 +9,12 @@ $(document).ready(function() {
 		maxDate: "+1M"
 	});
 	
+	dialog = $( "#dialog" ).dialog({
+		autoOpen: false,
+		height: 700,
+		width: 600,
+		position:{ my: "center", at: "center", of: window }
+	});
 	
 	$("#goBoardMain").click(function() {
 		alert("게시판 화면으로 돌아갑니다");
@@ -86,3 +92,14 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function viewDetailDialog(boardNum){
+	$.ajax({
+		type: "POST",
+		url: "/jihyunboard/kanban/viewDetailDialog?boardNum="+boardNum,
+		success: function(result){
+			$("#dialog").html(result);
+		} 
+	});
+	dialog.dialog("open");	 
+}

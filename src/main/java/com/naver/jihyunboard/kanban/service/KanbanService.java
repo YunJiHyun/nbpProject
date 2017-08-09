@@ -42,4 +42,9 @@ public class KanbanService {
 			kanbanRepository.deleteKanban(kanban);
 		}
 	}
+
+	public Board viewDetailDialog(Board board) throws Exception {
+		return boardRepository.viewBoard(board.getBoardNum());
+
+	}
 }

@@ -38,13 +38,14 @@ li[data-importance='2'] {
 	background-color: #ffc845;
 }
 li[data-importance='3'] {
-	background-color: #4c868f;
+	background-color: #3CB371;
 }
 
 .todoDeadline, .doingDeadline, .doneDeadline {
-	position : absolute;
-	bottom : 1px;
-	left : 0;
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	right:0;
 	font-size: 8pt;
 }
 
@@ -53,3 +54,4 @@ li[data-importance='3'] {
 	right : 2px;
 	top : 0;
 }
+
