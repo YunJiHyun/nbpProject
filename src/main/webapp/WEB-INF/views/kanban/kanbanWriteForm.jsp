@@ -4,6 +4,7 @@
 <head>
 	<%@ include file="kanban_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="<c:url value='/resources/js/kanbanWriteForm.js'></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
 	<title>칸반</title>
 	<script>
@@ -60,7 +61,7 @@
 				<form class="form-inline" id="kanbanWriteForm" name="kanbanWriteForm" method="post">
 					<div class="form-group" id="centerForm">
 						<label>해야할 일:</label> 
-						<textarea class="form-control" name="kanbanContent" id="kanbanContent" rows="2" cols="40" style="resize: none; " placeholder="해야할 일을 입력해주세요"></textarea>
+						<textarea class="form-control" name="kanbanContent" id="kanbanContent" rows="2" cols="40" onkeyup="checkWord(this, 60)" style="resize: none; " placeholder="해야할 일을 입력해주세요"></textarea>
 					</div>
 					<br/><br/>
 					<div class="form-group">

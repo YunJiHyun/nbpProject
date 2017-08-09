@@ -34,7 +34,7 @@
 				<form class="form-inline" id="kanbanWriteForm" name="kanbanWriteForm" method="post">
 					<div class="form-group" id="centerForm">
 						<label>해야할 일:</label> 
-						<input type="text" class="form-control" name="kanbanContent" id="kanbanContent" size="100" placeholder="해야할 일을 입력해주세요">
+						<input type="text" class="form-control" name="kanbanContent" id="kanbanContent" onkeyup="checkWord(this, 60)" size="100" placeholder="해야할 일을 입력해주세요">
 					</div> 
 					<br/><br/>
 					<div class="form-group">
