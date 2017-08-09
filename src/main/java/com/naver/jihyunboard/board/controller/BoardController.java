@@ -43,7 +43,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getBoardList(@RequestParam(defaultValue = "1") int currentPage,
-		SearchPageHelper searchPageHelper, Model model)
+		SearchPageHelper searchPageHelper, Authentication auth, Model model)
 		throws Exception {
 
 		int count = boardService.listCount(searchPageHelper); //갯수
@@ -53,10 +53,9 @@ public class BoardController {
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
-		model.addAttribute("boardList", boardService.listAll(boardPageHelper));
+		model.addAttribute("boardList", boardService.listAll(boardPageHelper, auth));
 		model.addAttribute("count", count);
 
-		System.out.println("wjlkjdfkljwkljkl" + boardService.listAll(boardPageHelper));
 		return "/board/list";
 	}
 
@@ -162,7 +161,7 @@ public class BoardController {
 		boardPageHelper.setDateKeyword(searchPageHelper.getDateKeyword());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
-		model.addAttribute("boardList", boardService.listAll(boardPageHelper));
+		model.addAttribute("boardList", boardService.listAll(boardPageHelper, auth));
 		model.addAttribute("count", count);
 
 		return "/board/myList";

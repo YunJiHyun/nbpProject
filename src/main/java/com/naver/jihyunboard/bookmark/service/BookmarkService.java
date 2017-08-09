@@ -31,4 +31,8 @@ public class BookmarkService {
 		return bookmarkRepository.bookmarkListCount(bookmark);
 	}
 
+	public List<Integer> checkBookmark(int userId) {
+		return bookmarkRepository.checkBookmark(userId);
+	}
+
 }

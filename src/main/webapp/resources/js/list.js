@@ -20,7 +20,7 @@ $(document).ready(function() {
 		location.href = "/jihyunboard/board/write";
 	});
 	
-	$(".starTd").click(function() {
+	$(".blackStarTd").click(function() {
 		var markBoardNum =this.id;
 		$.ajax({
 			type: "POST",

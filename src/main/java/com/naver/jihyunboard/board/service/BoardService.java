@@ -38,10 +38,18 @@ public class BoardService {
 		return count;
 	}
 
-	public List<Board> listAll(BoardPageHelper boardPageHelper)
+	public List<Board> listAll(BoardPageHelper boardPageHelper, Authentication auth)
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
-		//bookmarkService.checkBookmark(boardList.)
+		List<Integer> bookmarkListForLoginId = bookmarkService.checkBookmark(Integer.parseInt(authUserId(auth)));
+
+		for (Board list : boardList) {
+			for (int i = 0; i < bookmarkListForLoginId.size(); i++) {
+				if (list.getBoardNum() == bookmarkListForLoginId.get(i)) {
+					list.setBoardBookmark("Y");
+				}
+			}
+		}
 		return boardList;
 	}
 
