@@ -29,13 +29,15 @@ public class BookmarkController {
 		Authentication auth, Model model) throws Exception {
 		bookmark.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
 		int count = bookmarkService.bookmarkListCount(bookmark);
+		int pageScale = 5;
 
-		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 5);
+		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, pageScale);
 		boardPageHelper.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("bookmarkList", bookmarkService.bookmarkListAll(boardPageHelper));
 		model.addAttribute("count", count);
+		model.addAttribute("pageScale", pageScale);
 
 		return "bookmark/bookmarkMain";
 	}
