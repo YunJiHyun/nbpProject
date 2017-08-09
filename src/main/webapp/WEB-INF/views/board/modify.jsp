@@ -52,7 +52,10 @@
 				var boardTitle = $("#boardTitle").val();
 				var boardCategory = $("select[name='boardCategory']").val();
 				var boardContent = CKEDITOR.instances.boardContent.getData();
-	
+				
+				var replaced_text = boardContent.replace("<script>", "&lt;script&gt;");
+				CKEDITOR.instances.boardContent.setData(replaced_text);
+				
 				if (boardTitle == "") {
 					alert("제목을 입력하세요");
 					document.boardUpdateForm.boardTitle.focus();
