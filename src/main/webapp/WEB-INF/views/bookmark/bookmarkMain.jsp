@@ -19,11 +19,14 @@
 					},
 					success: function(){
 						alert("즐겨찾기 해제");
-						var removeLastPage =( ${count} % ${pageScale} ) == 1;
-						var isLastPage = (${boardPageHelper.currentPage}==${boardPageHelper.totalPage}) ;
+						var count ="${count}";
+						var pageScale="${pageScale}";
 						
-						if( removeLastPage && isLastPage){
-							list(${boardPageHelper.currentPage-1});
+						var currentPage ="${boardPageHelper.currentPage}";
+						var totalPage = "${boardPageHelper.totalPage}";
+						
+						if((count % pageScale == 1) && (currentPage == totalPage)){
+							list(currentPage-1);
 						} else {
 							location.reload();
 						}
