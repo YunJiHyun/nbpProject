@@ -241,7 +241,7 @@
 			board b, user u, bookmark bm
 		WHERE b.boardUserId = u.userId
 		AND b.boardNum = bm.mark_boardNum
-		AND boardUserId = #{markUserId}
+		AND mark_userId = #{markUserId}
 		AND bm.bookmark = 'Y'
 		ORDER BY bm.mark_date DESC
 	</select>

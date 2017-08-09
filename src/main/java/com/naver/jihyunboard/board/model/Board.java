@@ -24,4 +24,5 @@ public class Board extends FileInfo {
 	private String userName;
 	private int fileCount;
 	private int replyCount;
+	private String boardBookmark = "N";
 }

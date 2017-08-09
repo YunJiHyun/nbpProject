@@ -27,9 +27,10 @@ public class BookmarkController {
 	public String goBookmarkMainPage(@RequestParam(defaultValue = "1") int currentPage, Bookmark bookmark,
 		Authentication auth, Model model) throws Exception {
 		bookmark.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
-
+		System.out.println(bookmark.getMarkUserId());
 		model.addAttribute("bookmarkList", bookmarkService.bookmarkListAll(bookmark));
 		model.addAttribute("count", bookmarkService.bookmarkListCount(bookmark));
+		System.out.println(bookmarkService.bookmarkListAll(bookmark));
 		return "bookmark/bookmarkMain";
 	}
 

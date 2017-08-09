@@ -55,6 +55,8 @@ public class BoardController {
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper));
 		model.addAttribute("count", count);
+
+		System.out.println("wjlkjdfkljwkljkl" + boardService.listAll(boardPageHelper));
 		return "/board/list";
 	}
 

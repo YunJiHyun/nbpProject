@@ -21,12 +21,16 @@ import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.repository.BoardRepository;
+import com.naver.jihyunboard.bookmark.service.BookmarkService;
 
 @Service
 public class BoardService {
 
 	@Autowired
 	BoardRepository boardRepository;
+
+	@Autowired
+	BookmarkService bookmarkService;
 
 	public int listCount(SearchPageHelper searchPageHelper)
 		throws Exception {
@@ -37,6 +41,7 @@ public class BoardService {
 	public List<Board> listAll(BoardPageHelper boardPageHelper)
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
+		//bookmarkService.checkBookmark(boardList.)
 		return boardList;
 	}
 
