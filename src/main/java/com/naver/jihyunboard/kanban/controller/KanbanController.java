@@ -45,10 +45,16 @@ public class KanbanController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public void insertKanbanData(Kanban kanban, Authentication auth) throws Exception {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	public String insertKanbanData(Kanban kanban, Authentication auth) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
-		kanbanService.insertKanban(kanban, userId);
+		int todoNum = kanbanService.getTodoStateNum(userId);
+		if (todoNum >= 10) {
+			return "해야할 일이 10개 등록되어있는 상태라 더 이상 등록할 수 없습니다.";
+		} else {
+			kanbanService.insertKanban(kanban, userId);
+			return "등록되었습니다";
+		}
 	}
 
 	@ResponseBody

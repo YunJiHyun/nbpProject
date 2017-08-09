@@ -9,7 +9,7 @@
 	<title>칸반</title>
 	<script>
 		$(document).ready( function() {
-			$("#kanbanDeadline").datepicker('disable').removeAttr("readonly",true);
+			$("input[name='kanbanDeadline']").datepicker('disable').removeAttr("readonly",true);
 			$("#kanbanDeadline").datepicker({dateFormat : "yy-mm-dd", minDate: 0, maxDate: "+2M" });
 			$("#btnSave").click(function() {
 				var kanbanContent = $("#kanbanContent").val();
@@ -40,8 +40,8 @@
 						kanbanImportance : kanbanImportance,
 						kanbanDeadline : kanbanDeadline
 					},
-					success: function(){
-						alert("등록되었습니다");
+					success: function(message){
+						alert(message);
 					}
 				});
 			});

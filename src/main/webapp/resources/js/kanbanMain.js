@@ -56,9 +56,9 @@ $(document).ready(function() {
 				kanbanImportance : kanbanImportance,
 				kanbanDeadline : kanbanDeadline
 			},
-			success: function(){
+			success: function(message){
 				window.location.reload(true);
-				alert("새로운 해야할 일이 등록되었습니다");
+				alert(message);
 			}
 		});
 	});

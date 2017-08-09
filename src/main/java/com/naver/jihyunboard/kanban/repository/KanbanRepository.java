@@ -17,4 +17,6 @@ public interface KanbanRepository {
 
 	public void deleteKanban(Kanban kanban);
 
+	public int getTodoStateNum(int userId);
+
 }

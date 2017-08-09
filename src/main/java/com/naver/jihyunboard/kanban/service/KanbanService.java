@@ -47,4 +47,8 @@ public class KanbanService {
 		return boardRepository.viewBoard(board.getBoardNum());
 
 	}
+
+	public int getTodoStateNum(int userId) {
+		return kanbanRepository.getTodoStateNum(userId);
+	}
 }

@@ -16,6 +16,13 @@
 		ORDER BY kanban_modifyTime ASC
 	</select>
 	
+	<select id="getTodoStateNum" resultType="int">
+		SELECT COUNT(1)
+		FROM kanban
+		WHERE kanban_userId = #{userId}
+		AND kanban_state = "TODO"
+	</select>
+	
 	<insert id="insertKanban" parameterType="Kanban">
 		INSERT INTO kanban 
 		(
