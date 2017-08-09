@@ -41,4 +41,10 @@ public class BookmarkController {
 		bookmarkService.insertBookmark(bookmark);
 	}
 
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public void deleteBookmarkData(Bookmark bookmark, Authentication auth) throws Exception {
+		bookmark.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
+		bookmarkService.deleteBookmark(bookmark);
+	}
 }

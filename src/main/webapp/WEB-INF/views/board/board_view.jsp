@@ -10,7 +10,8 @@
 	<script src="<c:url value="/resources/js/jquery-ui.js"></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css"></c:url>">
 	<script>
-	var dialog;
+		var dialog;
+		
 		$(document).ready(function() {
 			viewFileList();
 			replyList("1");
@@ -68,6 +69,36 @@
 				}		 	
 			});
 			
+			$(".blackStarTd").click(function() {
+				var markBoardNum =this.id;
+				$.ajax({
+					type: "POST",
+					url:  "${path}/bookmark/insert",
+					data : {
+						markBoardNum:markBoardNum 
+					},
+					success: function(){
+						alert("즐겨찾기 등록");
+						location.reload(); 
+					} 
+				});
+			});
+			
+			$(".goldStarTd").click(function() {
+				var markBoardNum =this.id;
+				$.ajax({
+					type: "POST",
+					url:  "${path}/bookmark/delete",
+					data : {
+						markBoardNum:markBoardNum 
+					},
+					success: function(){
+						alert("즐겨찾기 해제");
+						location.reload(); 
+					} 
+				});
+			});
+			
 		});
 	
 		function deleteBoard(){
@@ -120,6 +151,16 @@
 <body>
 	<div id="wrapper">
 		<div id="boardHeader">
+			<c:if test="${BoardDTO.boardBookmark == 'N'}">
+				<div id="${BoardDTO.boardNum}" class="blackStarTd" style="width:100px; height:50px;">
+					<img class="bookmarkblackStar" src="<c:url value="/resources/img/blackstar.png"></c:url>" width="50" height="50"/>
+				</div>
+			</c:if>
+			<c:if test="${BoardDTO.boardBookmark == 'Y'}">
+				<div id="${BoardDTO.boardNum}" class="goldStarTd" style="width:100px; height:50px;">
+					<img class="bookmarkgoldStar" src="<c:url value="/resources/img/goldstar.png"></c:url>" width="50" height="50"/>
+				</div>
+			</c:if>
 			<div style="width: 900px" id="boardTitle">${BoardDTO.boardTitle }</div>
 			<div id="idDiv">
 				<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">

@@ -34,4 +34,19 @@ $(document).ready(function() {
 			} 
 		});
 	});
+	
+	$(".goldStarTd").click(function() {
+		var markBoardNum =this.id;
+		$.ajax({
+			type: "POST",
+			url:  "/jihyunboard/bookmark/delete",
+			data : {
+				markBoardNum:markBoardNum 
+			},
+			success: function(){
+				alert("즐겨찾기 해제");
+				location.reload(); 
+			} 
+		});
+	});
 });

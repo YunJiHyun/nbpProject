@@ -4,6 +4,7 @@
 <head>
 	<%@ include file="bookmark_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script src="<c:url value="/resources/js/bookmarkMain.js"></c:url>" ></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/bookmarkMain.css"></c:url>" />
 	<title>즐겨찾기 페이지</title>
 </head>
@@ -45,7 +46,7 @@
 			<c:forEach var="row" items="${bookmarkList}">
 				<tbody>
 					<tr>
-						<td width="70" id="${row.boardNum}" class="starTd">
+						<td width="70" id="${row.boardNum}" class="bookmarkTd">
 							<img class="bookmarkStar" src="<c:url value="/resources/img/goldstar.png"></c:url>" width="30" height="30"/>
 						</td>
 						<td width="70">${row.boardNum}</td>

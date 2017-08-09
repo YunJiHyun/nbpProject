@@ -83,31 +83,32 @@ public class BoardController {
 
 	//글 읽기 (게시글 상세보기)
 	@RequestMapping(value = "/view")
-	public String viewBoardDetail(@RequestParam("boardNum") int boardNum,
+	public String viewBoardDetail(Board board,
 		@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
-		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
+		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
 		model.addAttribute("userId", boardService.authUserId(auth));
 		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("replyCount", replyService.listCount(boardNum));
+		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
+		System.out.println(boardService.viewBoard(board, request, response, auth));
 		return "/board/board_view";
 	}
 
 	//글 수정하기 페이지
 	@RequestMapping(value = "/modify")
-	public String goBoardModifyPage(@RequestParam("boardNum") int boardNum, Model model, HttpServletRequest request,
+	public String goBoardModifyPage(Board board, Model model, HttpServletRequest request,
 		HttpServletResponse response, Authentication auth,
 		@RequestParam("currentPage") int currentPage, SearchPageHelper searchPageHelper) throws Exception {
 
-		if (!boardService.authUserId(auth).equals(boardService.writerId(boardNum))) {
+		if (!boardService.authUserId(auth).equals(boardService.writerId(board.getBoardNum()))) {
 			return "/error/authError";
 		}
 
-		model.addAttribute("list", boardService.getFileList(boardNum));
-		model.addAttribute("BoardDTO", boardService.viewBoard(boardNum, request, response));
+		model.addAttribute("list", boardService.getFileList(board.getBoardNum()));
+		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("searchPageHelper", searchPageHelper);
 

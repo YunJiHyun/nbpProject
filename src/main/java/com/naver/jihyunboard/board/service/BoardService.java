@@ -21,7 +21,7 @@ import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.repository.BoardRepository;
-import com.naver.jihyunboard.bookmark.service.BookmarkService;
+import com.naver.jihyunboard.bookmark.repository.BookmarkRepository;
 
 @Service
 public class BoardService {
@@ -30,7 +30,7 @@ public class BoardService {
 	BoardRepository boardRepository;
 
 	@Autowired
-	BookmarkService bookmarkService;
+	BookmarkRepository bookmarkRepository;
 
 	public int listCount(SearchPageHelper searchPageHelper)
 		throws Exception {
@@ -41,7 +41,7 @@ public class BoardService {
 	public List<Board> listAll(BoardPageHelper boardPageHelper, Authentication auth)
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
-		List<Integer> bookmarkListForLoginId = bookmarkService.checkBookmark(Integer.parseInt(authUserId(auth)));
+		List<Integer> bookmarkListForLoginId = bookmarkRepository.checkBookmark(Integer.parseInt(authUserId(auth)));
 
 		for (Board list : boardList) {
 			for (int i = 0; i < bookmarkListForLoginId.size(); i++) {
@@ -75,7 +75,8 @@ public class BoardService {
 
 	}
 
-	public Board viewBoard(int boardNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public Board viewBoard(Board board, HttpServletRequest request, HttpServletResponse response, Authentication auth)
+		throws Exception {
 
 		Cookie[] cookies = request.getCookies();
 		Map<String, Object> mapCookie = new HashMap<String, Object>();
@@ -86,15 +87,22 @@ public class BoardService {
 			}
 		}
 		String cookieReadCount = (String)mapCookie.get("read_count");
-		String newCookieReadCount = "|" + boardNum;
+		String newCookieReadCount = "|" + board.getBoardNum();
 
 		if (StringUtils.indexOfIgnoreCase(cookieReadCount, newCookieReadCount) == -1) {
 			Cookie cookie = new Cookie("read_count", cookieReadCount + newCookieReadCount);
 			cookie.setMaxAge(6 * 60 * 60); //6시간
 			response.addCookie(cookie);
-			boardRepository.increaseReadCount(boardNum);
+			boardRepository.increaseReadCount(board.getBoardNum());
 		}
-		return boardRepository.viewBoard(boardNum);
+
+		board = boardRepository.viewBoard(board.getBoardNum());
+		board.setBoardUserId(Integer.parseInt(authUserId(auth)));
+		if (bookmarkRepository.isBookmark(board) != null) {
+			board.setBoardBookmark("Y");
+		}
+
+		return board;
 	}
 
 	@Transactional
