@@ -72,7 +72,7 @@
 			</c:forEach>
 		</table>
 
-		<%-- <div id="paging">
+		<div id="paging">
 			<nav aria-label="Page navigation">
 				<ul class="pagination">
 					<li>
@@ -110,7 +110,6 @@
 				</ul>
 			</nav>
 		</div>	
-		<div id="dialog" title="사용자 정보 보기"></div> --%>
 	</div>
 </body>
 </html>

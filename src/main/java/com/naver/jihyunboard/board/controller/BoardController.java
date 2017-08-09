@@ -93,7 +93,7 @@ public class BoardController {
 
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
-		System.out.println(boardService.viewBoard(board, request, response, auth));
+
 		return "/board/board_view";
 	}
 

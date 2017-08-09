@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.naver.jihyunboard.board.model.Board;
+import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.repository.BoardRepository;
 import com.naver.jihyunboard.bookmark.model.Bookmark;
 import com.naver.jihyunboard.bookmark.repository.BookmarkRepository;
@@ -23,8 +24,8 @@ public class BookmarkService {
 		bookmarkRepository.insertBookmark(bookmark);
 	}
 
-	public List<Board> bookmarkListAll(Bookmark bookmark) {
-		return boardRepository.bookmarkListAll(bookmark);
+	public List<Board> bookmarkListAll(BoardPageHelper boardPageHelper) {
+		return boardRepository.bookmarkListAll(boardPageHelper);
 	}
 
 	public int bookmarkListCount(Bookmark bookmark) {

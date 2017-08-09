@@ -18,3 +18,7 @@ $(document).ready(function() {
 		});
 	});
 });
+
+function list(page) {
+	location.href = "/jihyunboard/bookmark/mainList?currentPage=" + page;
+}

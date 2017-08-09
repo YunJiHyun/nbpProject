@@ -244,6 +244,7 @@
 		AND mark_userId = #{markUserId}
 		AND bm.bookmark = 'Y'
 		ORDER BY bm.mark_date DESC
+		LIMIT #{startRow} ,#{pageScale}
 	</select>
 	
 </mapper>

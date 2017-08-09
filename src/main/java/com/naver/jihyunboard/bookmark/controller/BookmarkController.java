@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.bookmark.model.Bookmark;
 import com.naver.jihyunboard.bookmark.service.BookmarkService;
@@ -27,10 +28,15 @@ public class BookmarkController {
 	public String goBookmarkMainPage(@RequestParam(defaultValue = "1") int currentPage, Bookmark bookmark,
 		Authentication auth, Model model) throws Exception {
 		bookmark.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
-		System.out.println(bookmark.getMarkUserId());
-		model.addAttribute("bookmarkList", bookmarkService.bookmarkListAll(bookmark));
-		model.addAttribute("count", bookmarkService.bookmarkListCount(bookmark));
-		System.out.println(bookmarkService.bookmarkListAll(bookmark));
+		int count = bookmarkService.bookmarkListCount(bookmark);
+
+		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 5);
+		boardPageHelper.setMarkUserId(Integer.parseInt(boardService.authUserId(auth)));
+
+		model.addAttribute("boardPageHelper", boardPageHelper);
+		model.addAttribute("bookmarkList", bookmarkService.bookmarkListAll(boardPageHelper));
+		model.addAttribute("count", count);
+
 		return "bookmark/bookmarkMain";
 	}
 
