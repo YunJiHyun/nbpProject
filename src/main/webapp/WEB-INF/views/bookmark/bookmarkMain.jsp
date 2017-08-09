@@ -7,6 +7,32 @@
 	<script src="<c:url value="/resources/js/bookmarkMain.js"></c:url>" ></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/bookmarkMain.css"></c:url>" />
 	<title>즐겨찾기 페이지</title>
+	<script>
+		$(document).ready(function() {
+			$(".bookmarkTd").click(function() {
+				var markBoardNum =this.id;
+				$.ajax({
+					type: "POST",
+					url:  "/jihyunboard/bookmark/delete",
+					data : {
+						markBoardNum:markBoardNum 
+					},
+					success: function(){
+						alert("즐겨찾기 해제");
+						if(( ${count} % 5 == 1 ) && (${boardPageHelper.currentPage}==${boardPageHelper.totalPage})){
+							list(${boardPageHelper.currentPage-1});
+						} else {
+							location.reload();
+						}
+					} 
+				});
+			});
+		});
+	
+		function list(page) {
+			location.href = "/jihyunboard/bookmark/mainList?currentPage=" + page;
+		}
+	</script>
 </head>
 <body>
 <div id="wrapper">
