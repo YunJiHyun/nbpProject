@@ -36,7 +36,7 @@ public class KanbanService {
 	public void updateKanban(Kanban kanban) {
 		String kanbanState = kanban.getKanbanState();
 
-		if (kanbanState.equals("TODO") || kanbanState.equals("DOING")) {
+		if (kanbanState.equals("DOING") || kanbanState.equals("DONE")) {
 			kanbanRepository.updateKanban(kanban);
 		} else {
 			kanbanRepository.deleteKanban(kanban);
@@ -48,7 +48,8 @@ public class KanbanService {
 
 	}
 
-	public int getTodoStateNum(int userId) {
-		return kanbanRepository.getTodoStateNum(userId);
+	public int getStateNum(Kanban kanban, int userId) {
+		kanban.setKanbanUserId(userId);
+		return kanbanRepository.getStateNum(kanban);
 	}
 }

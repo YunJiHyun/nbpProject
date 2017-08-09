@@ -34,14 +34,16 @@
 				
 				$.ajax({
 					type: "POST",
-					url: "${path}/kanban/insert?kanbanBoardNum=${board.boardNum }",
+					url: "${path}/kanban/insert?kanbanBoardNum=${board.boardNum }&kanbanState=TODO",
 					data : { 
 						kanbanContent : kanbanContent,
 						kanbanImportance : kanbanImportance,
 						kanbanDeadline : kanbanDeadline
 					},
-					success: function(message){
-						alert(message);
+					success: function(todoNum){
+						if(todoNum >= 10){
+							alert("TODO가 현재 10개가 있어 더 이상 추가가 불가능합니다");
+						}
 					}
 				});
 			});

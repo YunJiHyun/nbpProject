@@ -45,22 +45,32 @@ public class KanbanController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/text; charset=utf8")
-	public String insertKanbanData(Kanban kanban, Authentication auth) throws Exception {
+	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public int insertKanbanData(Kanban kanban, Authentication auth) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
-		int todoNum = kanbanService.getTodoStateNum(userId);
-		if (todoNum >= 10) {
-			return "해야할 일이 10개 등록되어있는 상태라 더 이상 등록할 수 없습니다.";
-		} else {
+		int todoNum = kanbanService.getStateNum(kanban, userId);
+
+		if (todoNum < 10) {
 			kanbanService.insertKanban(kanban, userId);
-			return "등록되었습니다";
+			return todoNum;
 		}
+		return todoNum;
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public void updateKanbanData(Kanban kanban) throws Exception {
-		kanbanService.updateKanban(kanban);
+	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	public int updateKanbanData(Kanban kanban, Authentication auth) throws Exception {
+		int userId = Integer.parseInt(boardService.authUserId(auth));
+		int stateNum = kanbanService.getStateNum(kanban, userId);
+
+		if (kanban.getKanbanState().equals("DOING") && stateNum < 6) {
+			kanbanService.updateKanban(kanban);
+			return stateNum;
+		} else if (kanban.getKanbanState().equals("DONE") && stateNum < 8) {
+			kanbanService.updateKanban(kanban);
+			return stateNum;
+		}
+		return stateNum;
 	}
 
 	@RequestMapping(value = "/viewDetailDialog", method = RequestMethod.POST)

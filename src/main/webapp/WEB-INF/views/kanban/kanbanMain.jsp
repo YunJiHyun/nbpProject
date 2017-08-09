@@ -66,7 +66,7 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th style="text-align:center" >TODO</th>
+						<th id="todotodo" style="text-align:center" >TODO</th>
 						<th style="text-align:center">DOING</th>
 						<th style="text-align:center">DONE</th>
 					</tr>

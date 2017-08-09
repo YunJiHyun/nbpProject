@@ -16,11 +16,11 @@
 		ORDER BY kanban_modifyTime ASC
 	</select>
 	
-	<select id="getTodoStateNum" resultType="int">
+	<select id="getStateNum" resultType="int">
 		SELECT COUNT(1)
 		FROM kanban
-		WHERE kanban_userId = #{userId}
-		AND kanban_state = "TODO"
+		WHERE kanban_userId = #{kanbanUserId}
+		AND kanban_state = #{kanbanState}
 	</select>
 	
 	<insert id="insertKanban" parameterType="Kanban">
@@ -48,10 +48,10 @@
 	
 	<update id="updateKanban">
 		UPDATE kanban
-		<if test="kanbanState == 'TODO'">
+		<if test="kanbanState == 'DOING'">
 			SET kanban_State = "DOING",
 		</if>
-		<if test="kanbanState == 'DOING'">
+		<if test="kanbanState == 'DONE'">
 			SET kanban_State = "DONE",
 		</if>
 		 		kanban_modifyTime = CURRENT_TIMESTAMP

@@ -50,15 +50,17 @@ $(document).ready(function() {
 		}
 		$.ajax({
 			type: "POST",
-			url: "/jihyunboard/kanban/insert?kanbanBoardNum="+ kanbanBoardNum,
+			url: "/jihyunboard/kanban/insert?kanbanBoardNum="+ kanbanBoardNum +"&kanbanState=TODO",
 			data : { 
 				kanbanContent : kanbanContent,
 				kanbanImportance : kanbanImportance,
 				kanbanDeadline : kanbanDeadline
 			},
-			success: function(message){
+			success: function(todoNum){
+				if(todoNum >= 10){
+					alert("TODO는 10개까지만 가능합니다");
+				}
 				window.location.reload(true);
-				alert(message);
 			}
 		});
 	});
@@ -70,8 +72,11 @@ $(document).ready(function() {
 		var kanbanNum = this.id;
 		$.ajax({
 			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=TODO",
-			success: function(){
+			url: movingUrl + kanbanNum + "&kanbanState=DOING",
+			success: function(doingNum){
+				if(doingNum >= 6){
+					alert("DOING은 6개까지만 가능합니다");
+				}
 				window.location.reload(true);
 			} 
 		});
@@ -81,8 +86,11 @@ $(document).ready(function() {
 		var kanbanNum = this.id;
 		$.ajax({
 			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=DOING",
-			success: function(){
+			url: movingUrl + kanbanNum + "&kanbanState=DONE",
+			success: function(doneNum){
+				if(doneNum >= 8){
+					alert("DONE은 6개까지만 가능합니다");
+				}
 				window.location.reload(true);
 			} 
 		});
@@ -92,7 +100,7 @@ $(document).ready(function() {
 		var kanbanNum = this.id;
 		$.ajax({
 			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=DONE",
+			url: movingUrl + kanbanNum + "&kanbanState=DELETE",
 			success: function(){
 				window.location.reload(true);   
 			} 
