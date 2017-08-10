@@ -33,14 +33,16 @@ public class KanbanService {
 		return kanbanRepository.kanbanListAll(userId);
 	}
 
-	public void updateKanban(Kanban kanban) {
-		String kanbanState = kanban.getKanbanState();
+	public void updateKanban(Kanban kanban, int stateNum) {
 
-		if (kanbanState.equals("DOING") || kanbanState.equals("DONE")) {
+		String kanbanState = kanban.getKanbanState();
+		if ((kanbanState.equals("DOING") && stateNum < 6) || (kanbanState.equals("DONE") && stateNum < 8)) {
 			kanbanRepository.updateKanban(kanban);
-		} else {
+		}
+		if (kanbanState.equals("DELETE")) {
 			kanbanRepository.deleteKanban(kanban);
 		}
+
 	}
 
 	public Board viewDetailDialog(Board board) throws Exception {

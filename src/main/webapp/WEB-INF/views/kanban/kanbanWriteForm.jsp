@@ -33,7 +33,7 @@
 				}
 				
 				$.ajax({
-					type: "POST",
+					type: "GET",
 					url: "${path}/kanban/insert?kanbanBoardNum=${board.boardNum }&kanbanState=TODO",
 					data : { 
 						kanbanContent : kanbanContent,
@@ -43,6 +43,8 @@
 					success: function(todoNum){
 						if(todoNum >= 10){
 							alert("TODO가 현재 10개가 있어 더 이상 추가가 불가능합니다");
+						}else {
+							alert("칸반보드에 등록되었습니다.");
 						}
 					}
 				});

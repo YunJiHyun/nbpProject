@@ -8,6 +8,72 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanbanMain.css'></c:url>"/>
 	<script src="<c:url value="/resources/js/kanbanMain.js"></c:url>"></script>
 	<title>kanban</title>
+	<script>
+		$(document).ready(function() {
+			kanbanList();
+			$("input[name='kanbanDeadline']").datepicker('disable').removeAttr("readonly",true);
+			
+			$( "#kanbanDeadline" ).datepicker({
+				dateFormat : "yy-mm-dd", 
+				minDate: 0, 
+				maxDate: "+1M"
+			});
+			
+			dialog = $( "#dialog" ).dialog({
+				autoOpen: false,
+				height: 700,
+				width: 600,
+				position:{ my: "center", at: "center", of: window }
+			});
+			
+			$("#goBoardMain").click(function() {
+				alert("게시판 화면으로 돌아갑니다");
+				location.href = "/jihyunboard/board/list";
+			});
+			
+			$("#btnSave").click(function() {
+				var kanbanContent = $("#kanbanContent").val();
+				var kanbanImportance = $("select[name='kanbanImportance']").val();
+				var kanbanDeadline = $("#kanbanDeadline").val();
+				var kanbanBoardNum = 0;
+				
+				if (kanbanContent == "") {
+					alert("할 일을 입력하세요");
+					document.kanbanWriteForm.kanbanContent.focus();
+					return false;
+				}								
+				if (kanbanImportance == "checking") {
+					alert("중요도를 선택하세요");
+					document.kanbanWriteForm.kanbanImportance.focus();
+					return false;
+				}								
+				if (kanbanDeadline == "") {
+					alert("마감날짜를 입력하세요");
+					document.kanbanWriteForm.kanbanDeadline.focus();
+					return false;
+				}
+				
+				$.ajax({
+					type: "GET",
+					url: "/jihyunboard/kanban/insert?kanbanBoardNum="+ kanbanBoardNum +"&kanbanState=TODO",
+					data : { 
+						kanbanContent : kanbanContent,
+						kanbanImportance : kanbanImportance,
+						kanbanDeadline : kanbanDeadline
+					},
+					async: false, 
+					success: function(data){
+						if(data >= 10){
+							alert("TODO가 현재 10개가 있어 더 이상 추가가 불가능합니다");
+						}else {
+							alert("칸반보드에 등록되었습니다.");
+						}
+						//kanbanList();
+					}			
+				});
+			});
+		});
+	</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -62,103 +128,9 @@
 				</form>
 			</div>
 		</div>
-		<div id="kanbanBoard">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th id="todotodo" style="text-align:center" >TODO</th>
-						<th style="text-align:center">DOING</th>
-						<th style="text-align:center">DONE</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="kanbanBody">
-						<td width="33%" id="kanbanTodo">
-							<ul id="todo">
-								<c:forEach var="row" items="${kanbanList}">	
-									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
-									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
-									<c:if test="${row.kanbanState == 'TODO'}">
-										<li class="todoList" data-importance="${row.kanbanImportance}">
-											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDoing">
-												<span class="glyphicon glyphicon-hand-right"></span>
-											</button><br/><br/>
-											<c:if test="${row.kanbanBoardNum eq ''}"> 
-												${row.kanbanContent} <br/>
-											</c:if>
-											<c:if test="${row.kanbanBoardNum ne ''}"> 
-												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
-											</c:if>
-											<c:if test="${today >= deadline}"> 
-												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
-											</c:if>
-											<c:if test="${today < deadline}"> 
-												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
-											</c:if>
-										</li>
-									</c:if>
-								</c:forEach>			
-							</ul>
-						</td>
-						<td width="33%" id="kanbanDoing">
-							<ul id="doing">
-								<c:forEach var="row" items="${kanbanList}">	
-									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
-									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
-									<c:if test="${row.kanbanState == 'DOING'}">
-										<li class="doingList" data-importance="${row.kanbanImportance}">
-											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDone">
-												<span class="glyphicon glyphicon-hand-right"></span>
-											</button><br/><br/>
-											<c:if test="${row.kanbanBoardNum eq ''}"> 
-												${row.kanbanContent} <br/>
-											</c:if>
-											<c:if test="${row.kanbanBoardNum ne ''}"> 
-												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
-											</c:if>
-											<c:if test="${today >= deadline}"> 
-												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
-											</c:if>
-											<c:if test="${today < deadline}"> 
-												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
-											</c:if>
-										</li>
-									</c:if>
-								</c:forEach>			
-							</ul>
-						</td>
-						<td width="33%" id="kanbanDone">
-							<ul id="done">
-								<c:forEach var="row" items="${kanbanList}">
-									<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
-									<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	
-									<c:if test="${row.kanbanState == 'DONE'}">
-										<li class="doneList" data-importance="${row.kanbanImportance}">
-											<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm moveDelete">
-												<span class="glyphicon glyphicon-remove"></span>
-											</button><br/><br/>
-											<c:if test="${row.kanbanBoardNum eq ''}"> 
-												${row.kanbanContent} <br/>
-											</c:if>
-											<c:if test="${row.kanbanBoardNum ne ''}"> 
-												<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
-											</c:if>
-											<c:if test="${today >= deadline}"> 
-												<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
-											</c:if>
-											<c:if test="${today < deadline}"> 
-												<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
-											</c:if>
-										</li>
-									</c:if>
-								</c:forEach>			
-							</ul>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<div id="kanbanBoard"></div>
 	</div>
-	<div id="dialog" title="해당 게시물 내용"></div> 
+	<div id="dialog" title="해당 게시물 내용"></div>
+
 </body>
 </html>

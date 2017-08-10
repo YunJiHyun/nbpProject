@@ -31,11 +31,21 @@ public class KanbanController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/mainList")
+	@RequestMapping(value = "/mainList", method = RequestMethod.GET)
 	public String goKanbanMainPage(Authentication auth, Model model) throws Exception {
+		return "kanban/kanbanMain";
+	}
+
+	@RequestMapping(value = "/mainList", method = RequestMethod.POST)
+	public String goKanbanPage(Authentication auth, Model model) throws Exception {
+		return "redirect:mainList";
+	}
+
+	@RequestMapping(value = "/kanbanList", method = RequestMethod.GET)
+	public String getKanbanlist(Authentication auth, Model model) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		model.addAttribute("kanbanList", kanbanService.kanbanListAll(userId));
-		return "kanban/kanbanMain";
+		return "kanban/kanbanList";
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
@@ -45,14 +55,13 @@ public class KanbanController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/insert", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	public int insertKanbanData(Kanban kanban, Authentication auth) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		int todoNum = kanbanService.getStateNum(kanban, userId);
 
 		if (todoNum < 10) {
 			kanbanService.insertKanban(kanban, userId);
-			return todoNum;
 		}
 		return todoNum;
 	}
@@ -62,14 +71,7 @@ public class KanbanController {
 	public int updateKanbanData(Kanban kanban, Authentication auth) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		int stateNum = kanbanService.getStateNum(kanban, userId);
-
-		if (kanban.getKanbanState().equals("DOING") && stateNum < 6) {
-			kanbanService.updateKanban(kanban);
-			return stateNum;
-		} else if (kanban.getKanbanState().equals("DONE") && stateNum < 8) {
-			kanbanService.updateKanban(kanban);
-			return stateNum;
-		}
+		kanbanService.updateKanban(kanban, stateNum);
 		return stateNum;
 	}
 

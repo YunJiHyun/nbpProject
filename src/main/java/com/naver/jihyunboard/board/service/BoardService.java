@@ -42,7 +42,8 @@ public class BoardService {
 		throws Exception {
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
 		List<Integer> bookmarkListForLoginId = bookmarkRepository.checkBookmark(Integer.parseInt(authUserId(auth)));
-
+		System.out.println("djkljljjfffffffffffffflffffffffffff" + boardList);
+		System.out.println("dwwwwwwwwwwwwwwfffffff" + bookmarkListForLoginId);
 		for (Board list : boardList) {
 			for (int i = 0; i < bookmarkListForLoginId.size(); i++) {
 				if (list.getBoardNum() == bookmarkListForLoginId.get(i)) {

@@ -1,112 +1,17 @@
 /**
  * kanbanMain.jsp의 javascript 파일입니다.
  */
-$(document).ready(function() {
-	$("input[name='kanbanDeadline']").datepicker('disable').removeAttr("readonly",true);
-	
-	$( "#kanbanDeadline" ).datepicker({
-		dateFormat : "yy-mm-dd", 
-		minDate: 0, 
-		maxDate: "+1M"
-	});
-	
-	dialog = $( "#dialog" ).dialog({
-		autoOpen: false,
-		height: 700,
-		width: 600,
-		position:{ my: "center", at: "center", of: window }
-	});
-	
-	$("#goBoardMain").click(function() {
-		alert("게시판 화면으로 돌아갑니다");
-		location.href = "/jihyunboard/board/list";
-	});
-	
-	$("#btnSave").click(function() {
-		var kanbanContent = $("#kanbanContent").val();
-		var kanbanImportance = $("select[name='kanbanImportance']").val();
-		var kanbanDeadline = $("#kanbanDeadline").val();
-		var kanbanBoardNum = 0;
-		if (kanbanContent == "") {
-			alert("할 일을 입력하세요");
-			document.kanbanWriteForm.kanbanContent.focus();
-			return false;
-		}								
-		if (kanbanImportance == "checking") {
-			alert("중요도를 선택하세요");
-			document.kanbanWriteForm.kanbanImportance.focus();
-			return false;
-		}								
-		if (kanbanDeadline == "") {
-			alert("마감날짜를 입력하세요");
-			document.kanbanWriteForm.kanbanDeadline.focus();
-			return false;
+
+
+function kanbanList(){
+	$.ajax({
+		type: "GET",
+		url: "/jihyunboard/kanban/kanbanList",
+		success: function(result){
+			$("#kanbanBoard").html(result);
 		}
-		
-		if (kanbanContent == "") {
-			alert("마감날짜를 입력하세요");
-			document.kanbanWriteForm.kanbanDeadline.focus();
-			return false;
-		}
-		$.ajax({
-			type: "POST",
-			url: "/jihyunboard/kanban/insert?kanbanBoardNum="+ kanbanBoardNum +"&kanbanState=TODO",
-			data : { 
-				kanbanContent : kanbanContent,
-				kanbanImportance : kanbanImportance,
-				kanbanDeadline : kanbanDeadline
-			},
-			success: function(todoNum){
-				if(todoNum >= 10){
-					alert("TODO는 10개까지만 가능합니다");
-				}
-				window.location.reload(true);
-			}
-		});
 	});
-	
-	
-	var movingUrl = "/jihyunboard/kanban/update?kanbanNum=";
-	
-	$(".moveDoing").click(function() {
-		var kanbanNum = this.id;
-		$.ajax({
-			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=DOING",
-			success: function(doingNum){
-				if(doingNum >= 6){
-					alert("DOING은 6개까지만 가능합니다");
-				}
-				window.location.reload(true);
-			} 
-		});
-	});
-			
-	$(".moveDone").click(function() {
-		var kanbanNum = this.id;
-		$.ajax({
-			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=DONE",
-			success: function(doneNum){
-				if(doneNum >= 8){
-					alert("DONE은 6개까지만 가능합니다");
-				}
-				window.location.reload(true);
-			} 
-		});
-	});
-			
-	$(".moveDelete").click(function() {
-		var kanbanNum = this.id;
-		$.ajax({
-			type: "POST",
-			url: movingUrl + kanbanNum + "&kanbanState=DELETE",
-			success: function(){
-				window.location.reload(true);   
-			} 
-		});
-	});
-});
+}
 
 function checkWord(obj, maxByte) {
 	var strValue = obj.value;
