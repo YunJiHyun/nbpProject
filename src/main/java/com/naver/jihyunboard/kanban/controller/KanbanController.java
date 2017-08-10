@@ -66,6 +66,13 @@ public class KanbanController {
 		return todoNum;
 	}
 
+	/**
+	 * TODO : kanban 수정, 삭제 권한 추가
+	 * @param kanban
+	 * @param auth
+	 * @return
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
 	public int updateKanbanData(Kanban kanban, Authentication auth) throws Exception {

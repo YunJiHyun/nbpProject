@@ -11,7 +11,16 @@
 	<script>
 	$(document).ready(function() {
 		var movingUrl = "/jihyunboard/kanban/update?kanbanNum=";
-	
+		
+		var checkTodoNum = $(".todoList").length;
+		$("#todoNum").text(" "+"["+checkTodoNum+"/10]");
+		
+		var checkDoingNum = $(".doingList").length;
+		$("#doingNum").text(" "+"["+checkDoingNum+"/6]");
+		
+		var checkDoneNum = $(".doneList").length;
+		$("#doneNum").text(" "+"["+checkDoneNum+"/8]");
+		
 		$(".moveDoing").click(function() {
 			var kanbanNum = this.id;
 			$.ajax({
@@ -50,6 +59,7 @@
 				} 
 			});
 		});
+		
 	});
 	</script>
 </head>
@@ -57,9 +67,9 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th style="text-align:center" >TODO</th>
-				<th style="text-align:center">DOING</th>
-				<th style="text-align:center">DONE</th>
+				<th style="text-align:center" >TODO<span id="todoNum" style="color:blue"></span></th>
+				<th id="doingTh" style="text-align:center">DOING<span id="doingNum" style="color:blue"></span></th>
+				<th id="doneTh" style="text-align:center">DONE<span id="doneNum" style="color:blue"></span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -139,14 +149,14 @@
 									</c:if>
 									<c:if test="${today < deadline}"> 
 										<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
-											</c:if>
-										</li>
 									</c:if>
-								</c:forEach>			
-							</ul>
-						</td>
-					</tr>
-				</tbody>
+								</li>
+							</c:if>
+						</c:forEach>			
+					</ul>
+				</td>
+			</tr>
+		</tbody>
 	</table>
 </body>
 </html>

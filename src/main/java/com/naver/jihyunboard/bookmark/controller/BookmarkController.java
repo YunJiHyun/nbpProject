@@ -49,6 +49,12 @@ public class BookmarkController {
 		bookmarkService.insertBookmark(bookmark);
 	}
 
+	/**
+	 * TODO 삭제 권한 추가
+	 * @param bookmark
+	 * @param auth
+	 * @throws Exception
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public void deleteBookmarkData(Bookmark bookmark, Authentication auth) throws Exception {
