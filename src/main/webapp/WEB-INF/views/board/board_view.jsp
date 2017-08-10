@@ -177,7 +177,12 @@
 				<table style="width : 100%">
 					<tr>
 						<td id="kanbanTd">
-							<input type="button" class="btn btn-warning" id="addMyKanban" value="kanban board에 추가" onclick="addMyKanban()"/>
+							<c:if test="${alreadyKanban == 0}">
+								<input type="button" class="btn btn-warning" id="addMyKanban" value="kanban board에 추가" onclick="addMyKanban()"/>
+							</c:if>
+							<c:if test="${alreadyKanban != 0}">
+								<input type="button" class="btn btn-warning" value="kanban board에 이미 추가된 게시글입니다." disabled="disabled"/>
+							</c:if>
 						</td>
 						<td align="right">
 							조회수 <span class="badge">${BoardDTO.boardReadCount}</span>
@@ -201,7 +206,7 @@
 					<a href="${path }/board/modify?boardNum=${BoardDTO.boardNum}&currentPage=${currentPage}
 							&searchOption=${searchPageHelper.searchOption}&keyword=${searchPageHelper.keyword}">수정하기
 					</a>&nbsp;&nbsp;	
-			     	<a href="javascript:deleteBoard()">삭제하기</a>
+					<a href="javascript:deleteBoard()">삭제하기</a>
 					<br />
 				</c:if>
 			</div>

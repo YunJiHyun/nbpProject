@@ -19,4 +19,6 @@ public interface KanbanRepository {
 
 	public int getStateNum(Kanban kanban);
 
+	public int checkAddedKanban(Kanban kanban);
+
 }

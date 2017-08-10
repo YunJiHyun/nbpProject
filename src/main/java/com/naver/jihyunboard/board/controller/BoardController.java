@@ -21,6 +21,7 @@ import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.service.BoardService;
+import com.naver.jihyunboard.kanban.service.KanbanService;
 import com.naver.jihyunboard.reply.service.ReplyService;
 
 @Controller
@@ -32,6 +33,9 @@ public class BoardController {
 
 	@Autowired
 	ReplyService replyService;
+
+	@Autowired
+	KanbanService kanbanService;
 
 	/**
 	 * 검색기능과 페이징 기능을 포함한 게시글 가져오기
@@ -87,13 +91,14 @@ public class BoardController {
 		@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
+		int userId = Integer.parseInt(boardService.authUserId(auth));
 		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
 		model.addAttribute("userId", boardService.authUserId(auth));
 		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
-
+		model.addAttribute("alreadyKanban", kanbanService.checkAddedKanban(userId, board.getBoardNum()));
 		return "/board/board_view";
 	}
 

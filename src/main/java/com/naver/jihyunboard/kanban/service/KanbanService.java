@@ -54,4 +54,11 @@ public class KanbanService {
 		kanban.setKanbanUserId(userId);
 		return kanbanRepository.getStateNum(kanban);
 	}
+
+	public int checkAddedKanban(int userId, int boardNum) {
+		Kanban kanban = new Kanban();
+		kanban.setKanbanBoardNum(boardNum);
+		kanban.setKanbanUserId(userId);
+		return kanbanRepository.checkAddedKanban(kanban);
+	}
 }

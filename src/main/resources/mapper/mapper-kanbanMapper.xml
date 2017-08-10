@@ -64,4 +64,10 @@
 			kanban_num = #{kanbanNum}
 	</delete>
 	
+	<select id="checkAddedKanban" resultType="int">
+		SELECT COUNT(1)
+		FROM kanban
+		WHERE kanban_userId= #{kanbanUserId}
+		AND kanban_boardNum = #{kanbanBoardNum}
+	</select>
 </mapper>
