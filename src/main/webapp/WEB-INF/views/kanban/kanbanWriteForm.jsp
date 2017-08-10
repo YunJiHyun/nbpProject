@@ -4,7 +4,7 @@
 <head>
 	<%@ include file="kanban_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script src="<c:url value='/resources/js/kanbanWriteForm.js'></c:url>"></script>
+	<script src="<c:url value='/resources/js/kanbanMain.js'></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
 	<title>칸반</title>
 	<script>
