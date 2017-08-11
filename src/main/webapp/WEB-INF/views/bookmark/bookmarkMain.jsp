@@ -41,7 +41,7 @@
 	</script>
 </head>
 <body>
-<div id="wrapper">
+	<div id="wrapper">
 		<ul class="nav nav-tabs nav-justified">
 			<li><a href="${path }/board/list" id="boardTitle">학교 게시판</a></li> 
 			<li><a href="${path }/kanban/mainList" id="goKanbanMain">Kanban</a></li>	

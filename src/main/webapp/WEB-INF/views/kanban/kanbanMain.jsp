@@ -131,6 +131,5 @@
 		<div id="kanbanBoard"></div>
 	</div>
 	<div id="dialog" title="해당 게시물 내용"></div>
-
 </body>
 </html>
