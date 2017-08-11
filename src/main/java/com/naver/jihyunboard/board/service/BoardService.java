@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.jdbc.StringUtils;
 
+import com.nhncorp.lucy.security.xss.XssFilter;
+
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
@@ -31,6 +33,8 @@ public class BoardService {
 
 	@Autowired
 	BookmarkRepository bookmarkRepository;
+
+	XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
 
 	public int listCount(SearchPageHelper searchPageHelper)
 		throws Exception {
@@ -56,7 +60,8 @@ public class BoardService {
 	@Transactional
 	public void insertBoard(Board dto, Authentication auth) throws Exception {
 		dto.setBoardUserId(Integer.parseInt(authUserId(auth)));
-
+		String requestedString = dto.getBoardTitle();
+		dto.setBoardTitle(filter.doFilter(requestedString));
 		boardRepository.insertBoard(dto); //호출한 후 파일 이름을 추가
 
 		String[] files = dto.getFiles();

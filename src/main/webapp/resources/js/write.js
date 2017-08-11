@@ -65,7 +65,7 @@ $(document).ready( function() {
 		$('#boardWriteForm').attr({ 
 			action : "/jihyunboard/board/insert", 
 			method : 'post' 
-		}).submit();				
+		}).submit();
 	});
 
 	$("#btnBack").click(function() {
