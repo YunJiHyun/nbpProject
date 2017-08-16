@@ -111,7 +111,7 @@
 						</td>
 						<td style="width: 750; text-align: left">
 							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}"><c:out value='${row.boardTitle}'/>&nbsp;</a>
+									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}&category=${boardPageHelper.category}"><c:out value='${row.boardTitle}'/>&nbsp;</a>
 							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>
 							</c:if> 

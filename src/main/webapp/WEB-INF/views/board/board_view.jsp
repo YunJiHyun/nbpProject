@@ -27,7 +27,7 @@
 				var params = getParams();
 				if(params["dateKeyword"] == undefined){
 					location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
-									+"&keyword=${searchPageHelper.keyword}";
+									+"&keyword=${searchPageHelper.keyword}&category=${searchPageHelper.category}";
 				}else {
 					location.href = "${path}/board/myList?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
 									+"&keyword=${searchPageHelper.keyword}&dateKeyword=${searchPageHelper.dateKeyword}";
