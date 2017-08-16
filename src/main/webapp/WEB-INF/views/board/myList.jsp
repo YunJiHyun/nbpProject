@@ -73,7 +73,7 @@
 						<td width="150">${row.userName}</td>
 						<td style="width: 750; text-align: left">
 							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=<c:out value='${boardPageHelper.keyword}'/>&dateKeyword=${boardPageHelper.dateKeyword}">${row.boardTitle}&nbsp;
+									&searchOption=${boardPageHelper.searchOption}&keyword=<c:out value='${boardPageHelper.keyword}'/>&dateKeyword=${boardPageHelper.dateKeyword}"><c:out value='${row.boardTitle}'/>&nbsp;
 							</a> 
 							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>

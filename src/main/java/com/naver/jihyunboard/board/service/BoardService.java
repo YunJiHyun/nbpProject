@@ -60,8 +60,8 @@ public class BoardService {
 	@Transactional
 	public void insertBoard(Board dto, Authentication auth) throws Exception {
 		dto.setBoardUserId(Integer.parseInt(authUserId(auth)));
-		String requestedString = dto.getBoardTitle();
-		dto.setBoardTitle(filter.doFilter(requestedString));
+		/*String requestedString = dto.getBoardTitle();
+		dto.setBoardTitle(filter.doFilter(requestedString));*/
 		boardRepository.insertBoard(dto); //호출한 후 파일 이름을 추가
 
 		String[] files = dto.getFiles();

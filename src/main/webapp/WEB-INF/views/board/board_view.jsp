@@ -161,7 +161,7 @@
 					<img class="bookmarkgoldStar" src="<c:url value="/resources/img/goldstar.png"></c:url>" width="50" height="50"/>
 				</div>
 			</c:if>
-			<div style="width: 900px" id="boardTitle">${BoardDTO.boardTitle }</div>
+			<div style="width: 900px" id="boardTitle"><c:out value='${BoardDTO.boardTitle }'/></div>
 			<div id="idDiv">
 				<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
 					<b><sec:authentication property="principal.userName" /></b> 님 반갑습니다. 
