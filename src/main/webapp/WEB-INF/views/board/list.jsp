@@ -5,10 +5,12 @@
 	<%@ include file="board_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>게시글 목록</title>
-	<script src="<c:url value="/resources/js/list.js"></c:url>"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="<c:url value="/resources/js/jquery.easydropdown.js"></c:url>"></script>
+	<script src="<c:url value="/resources/js/list.js"></c:url>"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<link rel="stylesheet" href="<c:url value="/resources/css/list.css"></c:url>" />
+	<link rel="stylesheet" href="<c:url value="/resources/css/easydropdown.css"></c:url>" />
 	<script>
 		function viewUserInfo(userId) {
 			$.ajax({
@@ -20,12 +22,27 @@
 			});
 			$("#dialog").dialog("open");
 		}
-	
+		var searchParam = "&searchOption=${boardPageHelper.searchOption}"
+						+ "&keyword=<c:out value='${boardPageHelper.keyword}'/>";
+		var categoryParam = "&category=${boardPageHelper.category}";
+		var pageScaleParam = "&pageScale=${boardPageHelper.pageScale}" ;
+		
 		function list(page) {
-			location.href = "/jihyunboard/board/list?currentPage=" + page
-							+ "&searchOption=${boardPageHelper.searchOption}"
-							+ "&keyword=<c:out value='${boardPageHelper.keyword}'/>"
-							+ "&category=${boardPageHelper.category}";
+			location.href = "${path}/board/list?currentPage=" + page + searchParam 
+							+ categoryParam + pageScaleParam;
+		}
+		function changeCategory(category){
+			location.href = "${path}/board/list?currentPage=1"+ searchParam 
+							+ "&category=" + category + pageScaleParam ;
+		}
+		function changePageScale(value){
+			location.href = "${path}/board/list?currentPage=1" + searchParam 
+							+ categoryParam + "&pageScale=" + value;
+		}
+		
+		function goBoardView(boardNum, page){
+			location.href="${path}/board/view?boardNum=" + boardNum +"&currentPage=" + page
+						+ searchParam + categoryParam + pageScaleParam ;
 		}
 	</script>
 </head>
@@ -56,21 +73,37 @@
 				</tr>
 			</table>
 		</div>
-		<form class="form-inline" name="searchForm" method="get" action="${path }/board/list">
-			<div id="searchDiv" class="form-group">
-				<select name="searchOption" class="form-control" style="width: 100pt">
-					<option value="all" <c:out value="${boardPageHelper.searchOption == 'all'?'selected':''}"/>>전체</option>
-					<option value="userName" <c:out value="${boardPageHelper.searchOption == 'userName'?'selected':''}"/>>작성자</option>
-					<option value="boardTitle" <c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
-				</select>
-				<div class="col-xs-2">
-					<input class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="${path}/board/list">처음으로</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<form class="navbar-form navbar-left" name="searchForm" method="get" action="${path }/board/list">
+						<div id="searchDiv" class="form-group">
+							<select name="searchOption" class="form-control" style="width: 100pt">
+								<option value="all" <c:out value="${boardPageHelper.searchOption == 'all'?'selected':''}"/>>전체</option>
+								<option value="userName" <c:out value="${boardPageHelper.searchOption == 'userName'?'selected':''}"/>>작성자</option>
+								<option value="boardTitle" <c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
+							</select>
+							<div class="col-xs-2">
+								<input class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>">
+							</div>
+						</div>
+						<input type="submit" class="btn btn-success" value="조회"> &nbsp; &nbsp; &nbsp;
+						<input type="hidden" name="category" value="${boardPageHelper.category}"/>
+						<div class="form-group">					
+							<select name="pageScale" class="dropdown" onchange="changePageScale(this.value)">
+								<option value="10" <c:out value="${boardPageHelper.pageScale == '10'?'selected':''}"/>>10개씩</option>
+								<option value="20" <c:out value="${boardPageHelper.pageScale == '20'?'selected':''}"/>>20개씩</option>
+								<option value="30" <c:out value="${boardPageHelper.pageScale == '30'?'selected':''}"/>>30개씩</option>
+							</select>
+						</div>
+					</form>
 				</div>
 			</div>
-			<input type="submit" class="btn btn-success" value="조회">
-			<input type="hidden" name="category" value="${boardPageHelper.category}"/>
-		</form>
-		<br/>
+		</nav>
 		<%@ include file="boardCategory.jsp"%>
 		<div id="listCount" style="textalign: right">
 			<table style="width: 100%">
@@ -110,8 +143,7 @@
 							<a href='javascript:viewUserInfo("${row.boardUserId}")'>${row.userName}</a>
 						</td>
 						<td style="width: 750; text-align: left">
-							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}&category=${boardPageHelper.category}"><c:out value='${row.boardTitle}'/>&nbsp;</a>
+							<a href="javascript:goBoardView('${row.boardNum}','${boardPageHelper.currentPage }')"><c:out value='${row.boardTitle}'/>&nbsp;</a>
 							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>
 							</c:if> 

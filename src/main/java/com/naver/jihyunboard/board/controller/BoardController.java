@@ -47,11 +47,19 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String getBoardList(@RequestParam(defaultValue = "1") int currentPage,
+		@RequestParam(defaultValue = "10") int pageScale,
 		SearchPageHelper searchPageHelper, Authentication auth, Model model)
 		throws Exception {
 		int count = boardService.listCount(searchPageHelper); //갯수
+		BoardPageHelper boardPageHelper;
 
-		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 10);
+		if (pageScale != 10) {
+			int selectedPageScale = pageScale;
+			boardPageHelper = new BoardPageHelper(count, currentPage, selectedPageScale);
+		} else {
+			boardPageHelper = new BoardPageHelper(count, currentPage, 10);
+		}
+
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 		boardPageHelper.setCategory(searchPageHelper.getCategory());
@@ -88,7 +96,8 @@ public class BoardController {
 	//글 읽기 (게시글 상세보기)
 	@RequestMapping(value = "/view")
 	public String viewBoardDetail(Board board,
-		@RequestParam(defaultValue = "1") int currentPage, SearchPageHelper searchPageHelper,
+		@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "10") int pageScale,
+		SearchPageHelper searchPageHelper,
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
@@ -97,6 +106,7 @@ public class BoardController {
 		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
 		model.addAttribute("alreadyKanban", kanbanService.checkAddedKanban(userId, board.getBoardNum()));
 		return "/board/board_view";

@@ -23,14 +23,15 @@
 				position:{ my: "center", at: "center", of: window }
 			});
 			
+			 var backParam = "currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
+					+"&keyword=${searchPageHelper.keyword}&category=${searchPageHelper.category}";
+					
 			$("#btnBack").click(function() {
 				var params = getParams();
 				if(params["dateKeyword"] == undefined){
-					location.href = "${path}/board/list?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
-									+"&keyword=${searchPageHelper.keyword}&category=${searchPageHelper.category}";
+					location.href = "${path}/board/list?"+ backParam + "&pageScale=${pageScale}";
 				}else {
-					location.href = "${path}/board/myList?currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
-									+"&keyword=${searchPageHelper.keyword}&dateKeyword=${searchPageHelper.dateKeyword}";
+					location.href = "${path}/board/myList?" + backParam;
 				}
 			});
 			

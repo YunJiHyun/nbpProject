@@ -3,12 +3,10 @@
 		<div id="categoryDiv">
 			<ul class="nav nav-pills">
 				<li role="presentation" class="active">	
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}">전체</a>
+					<a href="javascript:changeCategory('')">전체</a>
 				</li>
 				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=공지">
+					<a href="javascript:changeCategory('공지')">
 						<c:if test="${boardPageHelper.category ne '공지'}">
 							<span style="color:gray">공지</span>
 						</c:if>
@@ -18,8 +16,7 @@
 					</a>
 				</li>
 				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=학사">
+					<a href="javascript:changeCategory('학사')">
 						<c:if test="${boardPageHelper.category ne '학사'}">
 							<span style="color:gray">학사</span>
 						</c:if>
@@ -29,8 +26,7 @@
 					</a>
 				</li>
 				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=장학">
+					<a href="javascript:changeCategory('장학')">
 						<c:if test="${boardPageHelper.category ne '장학'}">
 							<span style="color:gray">장학</span>
 						</c:if>
@@ -40,8 +36,7 @@
 					</a>
 				</li>
 				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=졸업">
+					<a href="javascript:changeCategory('졸업')">
 						<c:if test="${boardPageHelper.category ne '졸업'}">
 							<span style="color:gray">졸업</span>
 						</c:if>
@@ -51,8 +46,7 @@
 					</a>
 				</li>
 				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=모집">
+					<a href="javascript:changeCategory('모집')">
 						<c:if test="${boardPageHelper.category ne '모집'}">
 							<span style="color:gray">모집</span>
 						</c:if>
