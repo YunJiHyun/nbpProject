@@ -4,34 +4,61 @@
 <head>
 	<%@ include file="bookmark_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script src="<c:url value="/resources/js/bookmarkMain.js"></c:url>" ></script>
+	<script src="<c:url value="/resources/js/jquery-ui.js"></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/bookmarkMain.css"></c:url>" />
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<title>즐겨찾기 페이지</title>
 	<script>
+		var dialog;
+		
 		$(document).ready(function() {
+			dialog = $("#dialog").dialog({
+				modal: true,
+				autoOpen: false,
+				title: "즐겨찾기 해제",
+				width: 350,
+				height: 170,
+				buttons: [
+					{
+						id: "Yes",
+						text: "Yes",
+						click: function () {
+							var markBoardNum = $(this).data('markBoardNum');
+							$.ajax({
+								type: "POST",
+								url:  "/jihyunboard/bookmark/delete",
+								data : {
+									markBoardNum:markBoardNum 
+								},
+								success: function(){
+									alert("즐겨찾기가 해제되었습니다.")
+									var count ="${count}";
+									var pageScale="${pageScale}";
+									var currentPage ="${boardPageHelper.currentPage}";
+									var totalPage = "${boardPageHelper.totalPage}";
+									
+									if((count % pageScale == 1) && (currentPage == totalPage)){
+										list(currentPage-1);
+									} else {
+										location.reload();
+									} 
+								} 
+							});
+						}
+					},
+					{
+						id: "No",
+						text: "No",
+						click: function () {
+							$(this).dialog('close');
+						}
+					}
+				]
+			});
+			
 			$(".bookmarkTd").click(function() {
 				var markBoardNum =this.id;
-				$.ajax({
-					type: "POST",
-					url:  "/jihyunboard/bookmark/delete",
-					data : {
-						markBoardNum:markBoardNum 
-					},
-					success: function(){
-						alert("즐겨찾기 해제");
-						var count ="${count}";
-						var pageScale="${pageScale}";
-						
-						var currentPage ="${boardPageHelper.currentPage}";
-						var totalPage = "${boardPageHelper.totalPage}";
-						
-						if((count % pageScale == 1) && (currentPage == totalPage)){
-							list(currentPage-1);
-						} else {
-							location.reload();
-						}
-					} 
-				});
+				$('#dialog').data('markBoardNum',markBoardNum).dialog('open');
 			});
 		});
 	
@@ -87,7 +114,7 @@
 						</td>
 						<td style="width: 750; text-align: left">
 							<a href="${path}/board/view?boardNum=${row.boardNum }&currentPage=${boardPageHelper.currentPage}
-									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}">${row.boardTitle}&nbsp;</a>
+									&searchOption=${boardPageHelper.searchOption}&keyword=${boardPageHelper.keyword}"><c:out value='${row.boardTitle}'/>&nbsp;</a>
 							<c:if test="${row.replyCount > 0}">
 								<span class="label label-danger">댓글:${row.replyCount}</span>
 							</c:if> 
@@ -142,6 +169,9 @@
 				</ul>
 			</nav>
 		</div>	
+	</div>
+	<div id="dialog" style="display: none" align="center">
+		즐겨찾기를 해제하시겠습니까?
 	</div>
 </body>
 </html>
