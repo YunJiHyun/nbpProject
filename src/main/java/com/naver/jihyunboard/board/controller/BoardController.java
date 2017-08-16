@@ -102,7 +102,7 @@ public class BoardController {
 		throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
-		model.addAttribute("userId", boardService.authUserId(auth));
+		model.addAttribute("userId", userId);
 		model.addAttribute("searchPageHelper", searchPageHelper);
 
 		model.addAttribute("currentPage", currentPage);
@@ -194,12 +194,13 @@ public class BoardController {
 		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
+
 		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
 		model.addAttribute("userId", boardService.authUserId(auth));
-
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
 		model.addAttribute("alreadyKanban", kanbanService.checkAddedKanban(userId, board.getBoardNum()));
+
 		return "/board/board_viewFromMark";
 	}
 }

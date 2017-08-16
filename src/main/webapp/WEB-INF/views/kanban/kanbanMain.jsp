@@ -122,7 +122,7 @@
 						<div id="btnDivInner">
 							<button type="submit" id="btnSave" class="btn btn-success">등록</button>
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="reset" id="btnReset" class="btn btn-danger">다시작성</button>
+							<button type="reset" id="btnReset" class="btn btn-danger">내용 지우기</button>
 						</div>
 					</div>
 				</form>

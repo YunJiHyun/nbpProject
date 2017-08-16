@@ -21,4 +21,6 @@ public interface KanbanRepository {
 
 	public int checkAddedKanban(Kanban kanban);
 
+	public void updateKanbanForDeleteBoard(int boardNum);
+
 }

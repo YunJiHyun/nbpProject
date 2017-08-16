@@ -23,7 +23,9 @@ import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
 import com.naver.jihyunboard.board.model.UploadFile;
 import com.naver.jihyunboard.board.repository.BoardRepository;
+import com.naver.jihyunboard.bookmark.model.Bookmark;
 import com.naver.jihyunboard.bookmark.repository.BookmarkRepository;
+import com.naver.jihyunboard.kanban.repository.KanbanRepository;
 
 @Service
 public class BoardService {
@@ -33,6 +35,9 @@ public class BoardService {
 
 	@Autowired
 	BookmarkRepository bookmarkRepository;
+
+	@Autowired
+	KanbanRepository kanbanRepository;
 
 	XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
 
@@ -83,27 +88,14 @@ public class BoardService {
 	public Board viewBoard(Board board, HttpServletRequest request, HttpServletResponse response, Authentication auth)
 		throws Exception {
 
-		Cookie[] cookies = request.getCookies();
-		Map<String, Object> mapCookie = new HashMap<String, Object>();
-		if (request.getCookies() != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				Cookie obj = cookies[i];
-				mapCookie.put(obj.getName(), obj.getValue());
-			}
-		}
-		String cookieReadCount = (String)mapCookie.get("read_count");
-		String newCookieReadCount = "|" + board.getBoardNum();
-
-		if (StringUtils.indexOfIgnoreCase(cookieReadCount, newCookieReadCount) == -1) {
-			Cookie cookie = new Cookie("read_count", cookieReadCount + newCookieReadCount);
-			cookie.setMaxAge(6 * 60 * 60); //6시간
-			response.addCookie(cookie);
-			boardRepository.increaseReadCount(board.getBoardNum());
-		}
+		deduplicationBoardView(board, request, response);
 
 		board = boardRepository.viewBoard(board.getBoardNum());
-		board.setBoardUserId(Integer.parseInt(authUserId(auth)));
-		if (bookmarkRepository.isBookmark(board) != null) {
+		Bookmark bookmark = new Bookmark();
+		bookmark.setMarkBoardNum(board.getBoardNum());
+		bookmark.setMarkUserId(Integer.parseInt(authUserId(auth)));
+
+		if (bookmarkRepository.isBookmark(bookmark) != null) {
 			board.setBoardBookmark("Y");
 		}
 
@@ -137,6 +129,7 @@ public class BoardService {
 		if (replyCount > 0) {
 			return "no";
 		} else {
+			kanbanRepository.updateKanbanForDeleteBoard(boardNum);
 			boardRepository.deleteFile(boardNum);
 			boardRepository.deleteBoard(boardNum);
 			return "ok";
@@ -160,6 +153,27 @@ public class BoardService {
 	public List<Board> listMyBoard(BoardPageHelper boardPageHelper) throws Exception {
 		List<Board> boardMyList = boardRepository.listAll(boardPageHelper);
 		return boardMyList;
+	}
+
+	public void deduplicationBoardView(Board board, HttpServletRequest request, HttpServletResponse response)
+		throws Exception {
+		Cookie[] cookies = request.getCookies();
+		Map<String, Object> mapCookie = new HashMap<String, Object>();
+		if (request.getCookies() != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				Cookie obj = cookies[i];
+				mapCookie.put(obj.getName(), obj.getValue());
+			}
+		}
+		String cookieReadCount = (String)mapCookie.get("read_count");
+		String newCookieReadCount = "|" + board.getBoardNum();
+
+		if (StringUtils.indexOfIgnoreCase(cookieReadCount, newCookieReadCount) == -1) {
+			Cookie cookie = new Cookie("read_count", cookieReadCount + newCookieReadCount);
+			cookie.setMaxAge(6 * 60 * 60); //6시간
+			response.addCookie(cookie);
+			boardRepository.increaseReadCount(board.getBoardNum());
+		}
 	}
 
 	public String authUserId(Authentication auth) {

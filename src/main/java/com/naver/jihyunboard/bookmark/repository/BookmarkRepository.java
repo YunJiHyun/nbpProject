@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.bookmark.model.Bookmark;
 
 @Repository
@@ -16,7 +15,7 @@ public interface BookmarkRepository {
 
 	public List<Integer> checkBookmark(int userId);
 
-	public Bookmark isBookmark(Board board);
+	public Bookmark isBookmark(Bookmark bookmark);
 
 	public void deleteBookmark(Bookmark bookmark);
 

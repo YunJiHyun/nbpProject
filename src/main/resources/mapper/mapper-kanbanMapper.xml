@@ -70,4 +70,13 @@
 		WHERE kanban_userId= #{kanbanUserId}
 		AND kanban_boardNum = #{kanbanBoardNum}
 	</select>
+	
+	<update id="updateKanbanForDeleteBoard">
+		UPDATE kanban
+		SET
+			kanban_boardNum = null,
+			kanban_content = CONCAT(kanban_content, '[원글삭제됨]')
+		WHERE 
+			kanban_boardNum = #{boardNum}
+	</update>
 </mapper>

@@ -34,7 +34,7 @@
 </head>
 <body>
 	<div class="page-header">
-  		<h2><small>제목 : </small> ${board.boardTitle }</h2>
+  		<h2><small>제목 : </small> <c:out value="${board.boardTitle }"/></h2>
 	</div>
 	<div>
 		${board.boardContent}

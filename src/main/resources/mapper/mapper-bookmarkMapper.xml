@@ -37,8 +37,8 @@
 		SELECT 
 			mark_boardNum AS markBoardNum
 		From bookmark
-		WHERE mark_userId = #{boardUserId}
-		AND mark_boardNum = #{boardNum}
+		WHERE mark_userId = #{markUserId}
+		AND mark_boardNum = #{markBoardNum}
 	</select>
 	
 	<delete id="deleteBookmark">
@@ -47,4 +47,5 @@
 		AND	mark_userId = #{markUserId}
 	</delete>
 	
+
 </mapper>
