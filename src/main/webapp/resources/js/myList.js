@@ -2,6 +2,7 @@
  * myList.jsp의 javascript 파일
  */
 $(document).ready(function() {
+	var urlLast = getUrl();
 	$("select").change(function() {
 		var selectSearchOption = $("select option:selected").val();
 		if(selectSearchOption == "boardDate"){

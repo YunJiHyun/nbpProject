@@ -2,6 +2,7 @@
  * 
  */
 $(document).ready(function() {
+	getUrl();
 	$( "#dialog" ).dialog({
 		autoOpen: false,
 		modal: true,

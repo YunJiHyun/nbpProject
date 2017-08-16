@@ -23,4 +23,31 @@ function getParams() {
 	}
 	return param;	
 }
-	
+
+function getUrl() {
+	// 파라미터 배열
+	var param = new Array();
+
+	var url = decodeURIComponent(location.href);
+		url = decodeURIComponent(url);
+	 
+	var urlparams;
+		urlparams = url.substring(0 , url.length);
+		urlparams = urlparams.split("/");
+
+	var size = urlparams.length;
+	return urlparams[size-1];
+}
+
+function modifyBoard(boardNum, currentPage, searchOption, keyword, category, pageScale){
+	var params = getParams();
+	if(params["dateKeyword"] == undefined){
+		location.href="/jihyunboard/board/modify?boardNum=" +boardNum+ "&currentPage="+currentPage 
+					+"&searchOption="+ searchOption
+					+"&keyword=" + keyword + "&category=" + category + "&pageScale=" + pageScale;
+	}else {
+		location.href = "/jihyunboard/board/modify?boardNum=" +boardNum+ "&currentPage="+ currentPage 
+					+"&searchOption="+ searchOption
+					+"&keyword=" + keyword + "&dateKeyword=" + params["dateKeyword"];
+	}
+}

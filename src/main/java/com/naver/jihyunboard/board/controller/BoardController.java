@@ -136,10 +136,15 @@ public class BoardController {
 		SearchPageHelper searchPageHelper) throws Exception {
 		boardService.updateBoard(dto);
 
-		return "redirect:view?boardNum=" + dto.getBoardNum()
-			+ "&currentPage=" + currentPage
+		String backAfterUpdate = "redirect:view?boardNum=" + dto.getBoardNum() + "&currentPage=" + currentPage
 			+ "&searchOption=" + searchPageHelper.getSearchOption()
 			+ "&keyword=" + searchPageHelper.getKeyword();
+
+		if (searchPageHelper.getDateKeyword() == "") {
+			return backAfterUpdate;
+		} else {
+			return backAfterUpdate + "&dateKeyword=" + searchPageHelper.getDateKeyword();
+		}
 	}
 
 	//삭제하기 해당 board테이블의 게시글 DELETE
@@ -183,4 +188,18 @@ public class BoardController {
 		return "/board/myList";
 	}
 
+	@RequestMapping(value = "/viewFromMark")
+	public String viewBoardDetailFromMark(Board board,
+		@RequestParam(defaultValue = "1") int currentPage,
+		Model model, Authentication auth, HttpServletRequest request, HttpServletResponse response)
+		throws Exception {
+		int userId = Integer.parseInt(boardService.authUserId(auth));
+		model.addAttribute("BoardDTO", boardService.viewBoard(board, request, response, auth));
+		model.addAttribute("userId", boardService.authUserId(auth));
+
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("replyCount", replyService.listCount(board.getBoardNum()));
+		model.addAttribute("alreadyKanban", kanbanService.checkAddedKanban(userId, board.getBoardNum()));
+		return "/board/board_viewFromMark";
+	}
 }

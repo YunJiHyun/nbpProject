@@ -15,6 +15,7 @@
 		$(document).ready(function() {
 			viewFileList();
 			replyList("1");
+			var params = getParams();
 			
 			 dialog = $( "#dialog" ).dialog({
 				autoOpen: false,
@@ -23,16 +24,10 @@
 				position:{ my: "center", at: "center", of: window }
 			});
 			
-			 var backParam = "currentPage=${currentPage}&searchOption=${searchPageHelper.searchOption}"
-					+"&keyword=${searchPageHelper.keyword}&category=${searchPageHelper.category}";
+			 var backParam = "currentPage=${currentPage}";
 					
 			$("#btnBack").click(function() {
-				var params = getParams();
-				if(params["dateKeyword"] == undefined){
-					location.href = "${path}/board/list?"+ backParam + "&pageScale=${pageScale}";
-				}else {
-					location.href = "${path}/board/myList?" + backParam;
-				}
+					location.href = "${path}/bookmark/mainList?" + backParam;
 			});
 			
 			$("#btnReply").click(function(){
@@ -101,6 +96,11 @@
 			});
 			
 		});
+		
+		function modifyBoard(boardNum, currentPage, searchOption, keyword, category, pageScale){
+			location.href="${path }/board/modify?boardNum=" +boardNum+ "&currentPage=${currentPage}" +"&searchOption="+ searchOption
+						+"&keyword=" + keyword + "&category=" + category + "&pageScale=" + pageScale;
+		}
 		
 		function deleteBoard(){
 			var replyCount = "${replyCount}";
@@ -201,16 +201,6 @@
 		<div id="uploadedList"></div>
 		<br /> <br />
 		<div id="btnOuter">
-			<div id="btnhidden">
-				<input type="hidden" name="boardNum" value="${BoardDTO.boardNum}">
-				<c:if test="${BoardDTO.boardUserId eq userId}">
-					<a href="javascript:modifyBoard('${BoardDTO.boardNum}','${currentPage}','${searchPageHelper.searchOption}',
-							'${searchPageHelper.keyword}','${searchPageHelper.category}','${pageScale}')">수정하기
-					</a>&nbsp;&nbsp;	
-					<a href="javascript:deleteBoard()">삭제하기</a>
-					<br />
-				</c:if>
-			</div>
 			<br /> <br />
 			<div id="replyOuter">
 				<button type="button" id="btnShowRelpy" class="btn btn-default ">

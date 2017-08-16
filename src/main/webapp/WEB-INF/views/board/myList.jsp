@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>내가 쓴 게시물</title>
 	<script src="<c:url value="/resources/js/myList.js"></c:url>"></script>
+	<script src="<c:url value="/resources/js/board_view.js"></c:url>"></script>
 	<link rel="stylesheet" href="<c:url value="/resources/css/list.css"></c:url>" />
 	<script>
 		function list(page) {
