@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,34 +70,7 @@
 			<input type="submit" class="btn btn-success" value="조회">
 		</form>
 		<br/>
-		<div id="categoryDiv">
-			<ul class="nav nav-pills">
-				<li role="presentation" class="active">	
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}">전체</a>
-				</li>
-				<li role="presentation" class=>
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=공지">공지</a>
-				</li>
-				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=학사">학사</a>
-				</li>
-				<li role="presentation">
-					<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=장학">장학</a>
-				</li>
-				<li role="presentation">
-				<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=졸업">졸업</a>
-				</li>
-				<li role="presentation">
-				<a href="${path}/board/list?currentPage=1&searchOption=${boardPageHelper.searchOption}
-							&keyword=${boardPageHelper.keyword}&category=모집">모집</a>
-				</li>
-			</ul>
-		</div>
+		<%@ include file="boardCategory.jsp"%>
 		<div id="listCount" style="textalign: right">
 			<table style="width: 100%">
 				<tr>
