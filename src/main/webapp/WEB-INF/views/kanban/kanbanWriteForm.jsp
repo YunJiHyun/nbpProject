@@ -60,7 +60,7 @@
 				<br/>
 				<div>
 					게시글 번호 : ${board.boardNum } <br/>
-					게시글 제목 : ${board.boardTitle }
+					게시글 제목 : <c:out value='${board.boardTitle }'></c:out>
 				</div>
 				<br/>
 				<form class="form-inline" id="kanbanWriteForm" name="kanbanWriteForm" method="post">

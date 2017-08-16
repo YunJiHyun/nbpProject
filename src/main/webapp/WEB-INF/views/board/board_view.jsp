@@ -103,13 +103,13 @@
 		});
 		
 		function deleteBoard(){
-			var replyCount = "${replyCount}";
+			var replyCount = $(".replyTr").length
 			if(replyCount >0){
 				alert("댓글이 있는 게시물은 삭제할 수 없습니다.");
 				return;
 			} else {
 				location.href= "${path }/board/delete?boardNum=${BoardDTO.boardNum}";
-			}
+			} 
 		}
 		
 		function viewFileList() {

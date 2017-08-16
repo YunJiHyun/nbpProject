@@ -39,7 +39,7 @@
 <body>
 	<table style="width: 700px">
 		<c:forEach var="row" items="${replyList}">
-			<tr>
+			<tr class="replyTr">
 				<td>
 					<b>${row.replyUserName}</b> &nbsp;&nbsp; 
 					<fmt:formatDate value="${row.replyDate}" pattern="yyyy-MM-dd  HH:mm" /> &nbsp;&nbsp;&nbsp; 
