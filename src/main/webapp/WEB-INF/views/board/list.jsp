@@ -68,6 +68,7 @@
 				</div>
 			</div>
 			<input type="submit" class="btn btn-success" value="조회">
+			<input type="hidden" name="category" value="${boardPageHelper.category}"/>
 		</form>
 		<br/>
 		<%@ include file="boardCategory.jsp"%>
