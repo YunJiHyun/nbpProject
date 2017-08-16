@@ -49,12 +49,12 @@ public class BoardController {
 	public String getBoardList(@RequestParam(defaultValue = "1") int currentPage,
 		SearchPageHelper searchPageHelper, Authentication auth, Model model)
 		throws Exception {
-
 		int count = boardService.listCount(searchPageHelper); //갯수
 
 		BoardPageHelper boardPageHelper = new BoardPageHelper(count, currentPage, 10);
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
+		boardPageHelper.setCategory(searchPageHelper.getCategory());
 
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper, auth));

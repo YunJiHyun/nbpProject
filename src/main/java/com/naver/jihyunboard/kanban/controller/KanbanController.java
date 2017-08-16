@@ -79,6 +79,7 @@ public class KanbanController {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		int stateNum = kanbanService.getStateNum(kanban, userId);
 		kanbanService.updateKanban(kanban, stateNum);
+
 		return stateNum;
 	}
 

@@ -139,10 +139,16 @@
 					OR
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 				)
+				<if test="category != ''">
+					AND b.boardCategory = #{category}
+				</if>
 			</when>
 			<otherwise>
 				WHERE b.boardUserId = u.userId
 				AND ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
+				<if test="category != ''">
+					AND b.boardCategory = #{category}
+				</if>
 			</otherwise>
 		</choose>
 	</sql>
