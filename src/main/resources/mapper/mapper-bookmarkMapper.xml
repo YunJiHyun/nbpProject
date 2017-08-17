@@ -35,8 +35,10 @@
 	<delete id="deleteBookmark">
 		DELETE FROM bookmark
 		WHERE mark_boardNum = #{markBoardNum}
-		AND	mark_userId = #{markUserId}
+		<if test="markUserId == null">
+			AND	mark_userId = #{markUserId}
+		</if>
 	</delete>
-	
+
 
 </mapper>

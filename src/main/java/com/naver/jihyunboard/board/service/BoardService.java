@@ -124,6 +124,9 @@ public class BoardService {
 		} else {
 			kanbanRepository.updateKanbanForDeleteBoard(boardNum);
 			boardRepository.deleteFile(boardNum);
+			Bookmark bookmark = new Bookmark();
+			bookmark.setMarkBoardNum(boardNum);
+			bookmarkRepository.deleteBookmark(bookmark);
 			boardRepository.deleteBoard(boardNum);
 			return "ok";
 		}
