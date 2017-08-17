@@ -9,6 +9,7 @@ import lombok.Data;
 @Alias("bookmark")
 @Data
 public class Bookmark {
+	private int markNum;
 	private int markBoardNum;
 	private char bookMark;
 	private int markUserId;

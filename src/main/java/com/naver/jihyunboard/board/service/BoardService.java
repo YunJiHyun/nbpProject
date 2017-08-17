@@ -49,16 +49,9 @@ public class BoardService {
 
 	public List<Board> listAll(BoardPageHelper boardPageHelper, Authentication auth)
 		throws Exception {
+		boardPageHelper.setLoginUserId(Integer.parseInt(authUserId(auth)));
 		List<Board> boardList = boardRepository.listAll(boardPageHelper);
-		List<Integer> bookmarkListForLoginId = bookmarkRepository.checkBookmark(Integer.parseInt(authUserId(auth)));
 
-		for (Board list : boardList) {
-			for (int i = 0; i < bookmarkListForLoginId.size(); i++) {
-				if (list.getBoardNum() == bookmarkListForLoginId.get(i)) {
-					list.setBoardBookmark("Y");
-				}
-			}
-		}
 		return boardList;
 	}
 
@@ -95,7 +88,7 @@ public class BoardService {
 		bookmark.setMarkBoardNum(board.getBoardNum());
 		bookmark.setMarkUserId(Integer.parseInt(authUserId(auth)));
 
-		if (bookmarkRepository.isBookmark(bookmark) != null) {
+		if (bookmarkRepository.getBookmarkForLoginUser(bookmark) != null) {
 			board.setBoardBookmark("Y");
 		}
 

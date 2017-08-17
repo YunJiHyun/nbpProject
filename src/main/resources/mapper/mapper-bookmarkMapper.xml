@@ -24,16 +24,7 @@
 		AND bookmark = 'Y'
 	</select>
 	
-	<select id="checkBookmark" resultType="int">
-		SELECT 
-			bm.mark_boardNum AS markBoardNum 
-		FROM board b, bookmark bm
-		WHERE bm.mark_userId = #{userId}
-		AND b.boardNum = bm.mark_boardNum
-		AND bookmark = 'Y'
-	</select>
-	
-	<select id="isBookmark" resultType="Bookmark">
+	<select id="getBookmarkForLoginUser" resultType="Bookmark">
 		SELECT 
 			mark_boardNum AS markBoardNum
 		From bookmark

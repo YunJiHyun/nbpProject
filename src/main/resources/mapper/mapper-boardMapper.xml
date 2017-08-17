@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.jihyunboard.board.repository.BoardRepository">
+	
+	<resultMap id="boardResult" type="boardDto">
+		<result property="boardNum" column="boardNum"/>
+		<result property="boardUserId" column="boardUserId"/>
+		<result property="boardTitle" column="boardTitle"/>
+		<result property="boardContent" column="boardContent"/>
+		<result property="boardCategory" column="boardCategory"/>
+		<result property="boardDate" column="boardDate"/>
+	</resultMap>
+	
 	<!-- 게시글 전체 목록 조회 -->
-	<select id="listAll" resultType="boardDto">
+	<select id="listAll" resultMap="boardResult">
 		SELECT 
 			boardNum,
 			boardUserId, 
-			userName, 
+			u.userName, 
 			boardTitle, 
+			boardContent,
 			boardCategory, 
 			boardDate,
+			bm.bookmark AS boardBookmark,
 		<include refid="replyCount"></include>
 		<include refid="fileCount"></include>
-		FROM 
-			board b, user u
+		FROM board b 
+		INNER JOIN user u ON u.userId = b.boardUserId
+		LEFT OUTER JOIN bookmark bm ON bm.mark_boardNum = b.boardNum
+		AND mark_userId = #{loginUserId}
+		<where> 
 		<if test="searchUserId != 0">
 			<include refid="searchInMyList"></include>
-  		</if>
-  		<if test="searchUserId == 0">
-    		<include refid="search"></include>
-  		</if>
+		</if>
+		<if test="searchUserId == 0">
+			<include refid="search"></include>
+		</if>
+		</where>
 		ORDER BY boardNum DESC
 		LIMIT #{startRow} ,#{pageScale}
 	</select>
@@ -112,13 +128,16 @@
 
 	<select id="listCount" resultType="int">
 		SELECT COUNT(boardNum) AS count
-		FROM board b, user u
-		<if test="searchUserId != 0">
-			<include refid="searchInMyList"></include>
-  		</if>
-  		<if test="searchUserId == 0">
-    		<include refid="search"></include>
-  		</if> 
+		FROM board b
+		INNER JOIN user u ON u.userId = b.boardUserId
+		<where>
+			<if test="searchUserId != 0">
+				<include refid="searchInMyList"></include>
+	  		</if>
+	  		<if test="searchUserId == 0">
+	    		<include refid="search"></include>
+	  		</if> 
+  		</where>
 	</select>
 
 	<update id="increaseReadCount">
@@ -128,11 +147,9 @@
 		WHERE boardNum = #{boardNum}
 	</update>
 
-
 	<sql id="search">
 		<choose>
 			<when test="searchOption == 'all'">
-				WHERE b.boardUserId = u.userId
 				AND 
 				(
 					u.userName LIKE CONCAT('%' ,#{keyword},'%')
@@ -144,7 +161,6 @@
 				</if>
 			</when>
 			<otherwise>
-				WHERE b.boardUserId = u.userId
 				AND ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
 				<if test="category != ''">
 					AND b.boardCategory = #{category}
@@ -155,8 +171,7 @@
 	
 	<sql id="searchInMyList">
 		<choose>
-			<when test="searchOption == 'all'">
-				WHERE b.boardUserId = u.userId
+			<when test="searchOption == 'all'">		
 				AND boardUserId = #{searchUserId}
 				AND 
 				(
@@ -165,19 +180,25 @@
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
 				)
 			</when>
-			<when test="searchOption == 'boardDate'">
-				WHERE b.boardUserId = u.userId
+			<when test="searchOption == 'boardDate'">	
 				AND boardUserId = #{searchUserId}
 				AND boardDate LIKE CONCAT( #{dateKeyword},'%')
 			</when>
 			<otherwise>
-				WHERE b.boardUserId = u.userId
 				AND boardUserId = #{searchUserId}
 				AND ${searchOption} LIKE CONCAT('%' ,#{keyword},'%')
 			</otherwise>
 		</choose>
 	</sql>
 	
+	<sql id="getBookmark">
+		(
+			SELECT bookmark
+			FROM bookmark bm 
+			WHERE bm.mark_boardNum = boardNum
+			AND bm.mark_userId = #{loginUserId}
+		) AS boardBookmark,
+	</sql>
 	
 	<sql id="replyCount">
 		(

@@ -1,7 +1,5 @@
 package com.naver.jihyunboard.bookmark.repository;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import com.naver.jihyunboard.bookmark.model.Bookmark;
@@ -13,9 +11,7 @@ public interface BookmarkRepository {
 
 	public int bookmarkListCount(Bookmark bookmark);
 
-	public List<Integer> checkBookmark(int userId);
-
-	public Bookmark isBookmark(Bookmark bookmark);
+	public Bookmark getBookmarkForLoginUser(Bookmark bookmark);
 
 	public void deleteBookmark(Bookmark bookmark);
 

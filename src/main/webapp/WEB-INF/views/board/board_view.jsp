@@ -62,11 +62,11 @@
 				if($("#replyDiv").hasClass("view")){
 					$("#replyDiv").show();
 					$("#replyDiv").removeClass('view')
-					$("#btnShowRelpy span").attr("class","glyphicon glyphicon-chevron-up");
+					$("#btnShowRelpy span").addClass("glyphicon glyphicon-chevron-up");
 				}else{
 					$("#replyDiv").hide();
 					$("#replyDiv").addClass("view");
-					$("#btnShowRelpy span").attr("class","glyphicon glyphicon-chevron-down");
+					$("#btnShowRelpy span").addClass("glyphicon glyphicon-chevron-down");
 				}		 	
 			});
 			

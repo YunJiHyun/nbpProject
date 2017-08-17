@@ -11,4 +11,5 @@ public class SearchPageHelper extends Bookmark {
 	private String category = "";
 	private String dateKeyword = "1";
 	private int searchUserId;
+	private int loginUserId;
 }
