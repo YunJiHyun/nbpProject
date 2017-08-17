@@ -64,7 +64,7 @@ public class BoardPageHelper extends SearchPageHelper {
 	}
 
 	public void setTotalBlock() {
-		totalBlock = (int)Math.ceil(totalPage / BLOCK_SCALE);
+		totalBlock = (int)Math.ceil(totalPage * 1.0 / BLOCK_SCALE);
 	}
 
 }

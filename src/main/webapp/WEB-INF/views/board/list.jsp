@@ -187,7 +187,7 @@
 						</c:forEach>
 					</li>
 					<li>
-						<c:if test="${boardPageHelper.curBlock <= boardPageHelper.totalBlock}">
+						<c:if test="${boardPageHelper.curBlock < boardPageHelper.totalBlock}">
 							<a href="javascript:list('${boardPageHelper.nextPage}')" aria-label="Next"> 
 								<span aria-hidden="true">&gt;</span>
 							</a>
@@ -199,11 +199,9 @@
 				</ul>
 			</nav>
 		</div>
-		
 		<div id="btnWriteDiv">
 			<button type="button" class="btn btn-primary" id="btnWrite">글쓰기</button>
 		</div>
-		
 		<div id="dialog" title="사용자 정보 보기"></div>
 	</div>
 </body>
