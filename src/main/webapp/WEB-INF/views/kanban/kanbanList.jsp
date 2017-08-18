@@ -20,7 +20,7 @@
 		<tbody>
 			<tr id="kanbanBody"> 
 				<td width="33%" id="kanbanTodo">
-					<ul id="todo">
+					<ul id="todo" class="connectedSortable">
 						<c:forEach var="row" items="${kanbanList}">	
 							<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
 							<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
@@ -46,7 +46,7 @@
 					</ul>
 				</td> 
 				<td width="33%" id="kanbanDoing">
-					<ul id="doing">
+					<ul id="doing" class="connectedSortable">
 						<c:forEach var="row" items="${kanbanList}">	
 							<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
 							<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>
@@ -72,7 +72,7 @@
 					</ul>
 				</td>
 				<td width="33%" id="kanbanDone">
-					<ul id="done">
+					<ul id="done" class="connectedSortable">
 						<c:forEach var="row" items="${kanbanList}">
 							<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
 							<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	

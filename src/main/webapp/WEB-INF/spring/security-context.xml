@@ -15,8 +15,6 @@
 		<intercept-url pattern="/reply/**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/kanban/**" access="hasRole('ROLE_USER')" />
 		<intercept-url pattern="/bookmark/**" access="hasRole('ROLE_USER')" />
-		
-		<intercept-url pattern="/board/delete" access="hasRoleCheck(authentication,request)" />
 
 		<form-login login-page="/login" username-parameter="userId"
 			password-parameter="userPw" 
