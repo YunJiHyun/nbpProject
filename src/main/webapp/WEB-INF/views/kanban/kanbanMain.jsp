@@ -4,9 +4,6 @@
 <head>
 	<%@ include file="kanban_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
-	<link rel="stylesheet" href="<c:url value='/resources/css/kanbanMain.css'></c:url>"/>
-	<script src="<c:url value="/resources/js/kanbanMain.js"></c:url>"></script>
 	<title>kanban</title>
 	<script>
 		$(document).ready(function() {

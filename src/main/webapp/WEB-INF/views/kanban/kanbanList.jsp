@@ -4,9 +4,6 @@
 <head>
 	<%@ include file="kanban_header.jsp"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="<c:url value='/resources/css/kanban.css'></c:url>"/>
-	<link rel="stylesheet" href="<c:url value='/resources/css/kanbanMain.css'></c:url>"/>
-	<script src="<c:url value="/resources/js/kanbanMain.js"></c:url>"></script>
 	<script src="<c:url value="/resources/js/kanbanList.js"></c:url>"></script>
 	<title>칸반테이블</title>
 	
@@ -21,7 +18,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr id="kanbanBody">
+			<tr id="kanbanBody"> 
 				<td width="33%" id="kanbanTodo">
 					<ul id="todo">
 						<c:forEach var="row" items="${kanbanList}">	
@@ -47,7 +44,7 @@
 							</c:if>
 						</c:forEach>			
 					</ul>
-				</td>
+				</td> 
 				<td width="33%" id="kanbanDoing">
 					<ul id="doing">
 						<c:forEach var="row" items="${kanbanList}">	
@@ -80,7 +77,7 @@
 							<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
 							<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	
 							<c:if test="${row.kanbanState == 'DONE'}">
-								<li class="doneList ui-state-default" data-importance="${row.kanbanImportance}">
+								<li class="doneList ui-state-default" id="${row.kanbanNum}" data-importance="${row.kanbanImportance}">
 									<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm btnKanbanDelete">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button><br/><br/>
@@ -105,6 +102,6 @@
 				</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> 
 </body>
 </html>

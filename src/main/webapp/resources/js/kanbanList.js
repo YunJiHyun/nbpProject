@@ -20,33 +20,35 @@
 			connectWith: "ul",
 			containment: "tbody", 
 			scroll: false,
-			revert : "invalid", 
+			revert : "invalid",
 			cursor: "move"
 		});
 		
 		$( "#todo, #doing, #done").disableSelection();
 		
+		
+		$("#kanbanTodo").droppable({
+			accept:".doingList, .doneList",
+			drop: function( event, ui ) {
+				updateTodo(ui.draggable, movingUrl);
+			}
+		});
+		
 		$("#kanbanDoing").droppable({
-			accept: todoList,
-			classes: {
-				"ui-droppable-active": "ui-state-highlight"
-			},
+			accept: ".todoList, .doneList",
 			drop: function( event, ui ) {
 				updateDoing(ui.draggable, movingUrl);
 			}
 		});
 		
 		$("#kanbanDone").droppable({
-			accept: doingList,
-			classes: {
-				"ui-droppable-active": "ui-state-highlight"
-			},
+			accept:".todoList, .doingList",
 			drop: function( event, ui ) {
 				updateDone(ui.draggable, movingUrl);
 			}
 		});
 		
-		$(".btnKanbanDelete").click(function() {
+		$(".btnKanbanDelete").click(function() {	
 			var kanbanNum = this.id;
 			$.ajax({
 				type: "POST",
@@ -57,8 +59,25 @@
 			});
 		}); 
 	});
+	
+	function updateTodo(item , movingUrl){
+		item.fadeOut('fast',function(){
+			var kanbanNum = item.prop("id");
+			 $.ajax({
+				type: "POST",
+				url: movingUrl + kanbanNum + "&kanbanState=TODO",
+				success: function(todoNum){
+					if(todoNum >= 10){
+						alert("TODO은 10개까지만 가능합니다");
+					}
+					
+				} 	
+			});
+		});
+	}
+	
 	function updateDoing(item , movingUrl){
-		item.fadeOut(function(){
+		item.fadeOut('fast',function(){
 			var kanbanNum = item.prop("id");
 			 $.ajax({
 				type: "POST",
@@ -70,11 +89,11 @@
 					kanbanList();
 				} 	
 			});
-		});
+		}); 
 	}
 	
 	function updateDone(item , movingUrl){
-		item.fadeOut(function(){
+		item.fadeOut('fast',function(){
 			var kanbanNum = item.prop("id");
 			 $.ajax({
 				type: "POST",
@@ -86,6 +105,19 @@
 					kanbanList();
 				} 	
 			});
+		});
+	}
+	
+	function kanbanThisList(partition){
+		$.ajax({
+			type: "GET",
+			url: "/jihyunboard/kanban/kanbanPartList?partition=" + partition,
+			success: function(result){
+				if(partition == "TODO"){
+					alert("성공");
+					//$("#kanbanBoard").html(result);
+				}
+			}
 		});
 	}
 	
