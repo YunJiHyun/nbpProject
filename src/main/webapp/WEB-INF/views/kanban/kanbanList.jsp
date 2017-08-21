@@ -35,10 +35,10 @@
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
-										<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-danger">마감날짜 : <span>${deadline}</span></span>
 									</c:if>
 									<c:if test="${today < deadline}"> 
-										<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-default">마감날짜 :<span>${deadline}</span></span>
 									</c:if>
 								</li>
 							</c:if>
@@ -61,10 +61,10 @@
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
-										<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-danger">마감날짜 : <span>${deadline}</span></span>
 									</c:if>
 									<c:if test="${today < deadline}"> 
-										<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-default">마감날짜 : <span>${deadline}</span></span>
 									</c:if>
 								</li>
 							</c:if>
@@ -90,10 +90,10 @@
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
-										<span class="doingDeadline label label-danger">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-danger">마감날짜 : <span>${deadline}</span></span>
 									</c:if>
 									<c:if test="${today < deadline}"> 
-										<span class="doingDeadline label label-default">마감날짜 : ${deadline}</span>
+										<span class="doingDeadline label label-default">마감날짜 : <span>${deadline}</span></span>
 									</c:if>
 								</li>
 							</c:if>
@@ -108,12 +108,15 @@
 		해야할 일
 		<br/><br/>
 		<input id="dialogContent" type="text" size="80" onkeyup="checkWord(this, 60)" value=""/>
+		<br/><br/>
+		<label>마감날짜 : </label> 
+		<input type="date" id="kanbanModifyDeadline" min="${today}" size="20" >
 	</div>
 	<div id="kanbanDeleteDialog" style="display: none" align="center">
 		<br/>
 		해야할 일 :
 		<span id="deleteKanbanContent"></span>
-		<br/><br/>
+		<br/>
 		<span style="color:red">정말 삭제하시겠습니까?</span>
 	</div>
 </body>

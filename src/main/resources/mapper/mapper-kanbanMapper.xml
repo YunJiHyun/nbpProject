@@ -109,7 +109,8 @@
 	<update id="updateKanbanContent">
 		UPDATE kanban
 		SET 
-			kanban_content = #{kanbanContent}
+			kanban_content = #{kanbanContent},
+			kanban_deadline = #{kanbanDeadline}
 		WHERE kanban_userId= #{kanbanUserId}
 		AND kanban_num = #{kanbanNum}
 	</update>

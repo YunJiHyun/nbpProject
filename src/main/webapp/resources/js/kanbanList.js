@@ -10,7 +10,7 @@
 			autoOpen: false,
 			title: "칸반보드 내용 수정",
 			width: 700,
-			height: 250,
+			height: 300,
 			buttons: [
 				{
 					id: "Yes",
@@ -18,16 +18,19 @@
 					click: function () {
 						var kanbanNum = $(this).data('kanbanNum');
 						var kanbanContent = $("#dialogContent").val(); 
+						var kanbanDeadline = $("#kanbanModifyDeadline").val()
 						$.ajax({
 							type: "POST",
 							url:  "/jihyunboard/kanban/updateKanbanContent",
 							data : {
 								kanbanNum : kanbanNum,
-								kanbanContent : kanbanContent
+								kanbanContent : kanbanContent,
+								kanbanDeadline : kanbanDeadline
 							},
 							success: function(){
 								alert("내용이 수정되었습니다.");
 								$("li[id="+kanbanNum+"]").children('div').html(kanbanContent+"<span class='glyphicon glyphicon-pencil'></span>");
+								$("li[id="+kanbanNum+"]").children('span').removeClass('label-danger').addClass('label-default').children('span').text(kanbanDeadline);
 								modifyDialog.dialog('close');
 							}
 						});
@@ -40,7 +43,7 @@
 						$(this).dialog('close');
 					}
 				}
-			]
+			],
 		});
 		
 		deleteDialog = $("#kanbanDeleteDialog").dialog({
@@ -146,7 +149,9 @@
 	$(document).on("click",".glyphicon-pencil",(function() {	
 		var kanbanNum = $(this).closest('li').prop('id');
 		var kanbanContent = $(this).parent('div').text();
+		var kanbanDeadline = $(this).parent('div').siblings('span').children('span').text();
 		$("#dialogContent").val(kanbanContent.trim());
+		$("#kanbanModifyDeadline").val(kanbanDeadline);
 		modifyDialog.data('kanbanNum',kanbanNum).dialog("open");
 	}));
 	
@@ -161,16 +166,14 @@
 		movingLiElement.remove();
 		$("#todo").append(changeElement);
 			
-		$($("li[id="+kanbanNum+"] button")).remove();
-		$($("li[id="+kanbanNum+"] br")).remove();
+		$("li[id="+kanbanNum+"] button").remove();
+		$("li[id="+kanbanNum+"] br").remove();
 			
 		changeElement.removeAttr("style");
 		var checkTodoNum = $(".todoList").length;
 		$.ajax({
 			type: "GET",
-			url: movingUrl + kanbanNum + "&kanbanState=TODO&kanbanOrder="+checkTodoNum,
-			success: function(){
-			} 	
+			url: movingUrl + kanbanNum + "&kanbanState=TODO&kanbanOrder="+checkTodoNum	
 		});
 	
 	}
@@ -187,16 +190,14 @@
 		movingLiElement.remove();
 		$("#doing").append(changeElement);
 			
-		$($("li[id="+kanbanNum+"] button")).remove();
-		$($("li[id="+kanbanNum+"] br")).remove();
+		$("li[id="+kanbanNum+"] button").remove();
+		$("li[id="+kanbanNum+"] br").remove();
 			
 		changeElement.removeAttr("style");
 		var checkDoingNum = $(".doingList").length;
 		$.ajax({
 			type: "GET",
-			url: movingUrl + kanbanNum + "&kanbanState=DOING&kanbanOrder=" + checkDoingNum,
-			success: function(){
-			} 	
+			url: movingUrl + kanbanNum + "&kanbanState=DOING&kanbanOrder=" + checkDoingNum
 		});
 	}
 	
@@ -221,9 +222,7 @@
 		var checkDoneNum =  $(".doneList").length;
 		$.ajax({
 			type: "GET",
-			url: movingUrl + kanbanNum + "&kanbanState=DONE&kanbanOrder=" + checkDoneNum,
-			success: function(){
-			} 	
+			url: movingUrl + kanbanNum + "&kanbanState=DONE&kanbanOrder=" + checkDoneNum
 		});
 	}
 	
