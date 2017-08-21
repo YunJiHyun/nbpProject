@@ -103,11 +103,18 @@
 			</tr>
 		</tbody>
 	</table>
-	<div id="dialog" style="display: none" align="center">
+	<div id="kanbanModifyDialog" style="display: none" align="center">
 		<br/>
 		해야할 일
 		<br/><br/>
 		<input id="dialogContent" type="text" size="80" onkeyup="checkWord(this, 60)" value=""/>
+	</div>
+	<div id="kanbanDeleteDialog" style="display: none" align="center">
+		<br/>
+		해야할 일 :
+		<span id="deleteKanbanContent"></span>
+		<br/><br/>
+		<span style="color:red">정말 삭제하시겠습니까?</span>
 	</div>
 </body>
 </html>

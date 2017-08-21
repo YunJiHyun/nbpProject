@@ -2,10 +2,11 @@
  * 
  */
 	var movingUrl = "/jihyunboard/kanban/update?kanbanNum=";
-	var dialog;
+	var modifyDialog;
+	var deleteDialog;
 	
 	$(document).ready(function() {
-		dialog = $("#dialog").dialog({
+		modifyDialog = $("#kanbanModifyDialog").dialog({
 			autoOpen: false,
 			title: "칸반보드 내용 수정",
 			width: 700,
@@ -27,8 +28,39 @@
 							success: function(){
 								alert("내용이 수정되었습니다.");
 								$("li[id="+kanbanNum+"]").children('div').html(kanbanContent+"<span class='glyphicon glyphicon-pencil'></span>");
-								dialog.dialog('close');
+								modifyDialog.dialog('close');
 							}
+						});
+					}
+				},
+				{
+					id: "No",
+					text: "cancel",
+					click: function () {
+						$(this).dialog('close');
+					}
+				}
+			]
+		});
+		
+		deleteDialog = $("#kanbanDeleteDialog").dialog({
+			autoOpen: false,
+			title: "칸반보드 삭제",
+			width: 500,
+			height: 200,
+			buttons: [
+				{
+					id: "Yes",
+					text: "Yes",
+					click: function () {
+						var kanbanNum = $(this).data('kanbanNum'); 
+						$.ajax({
+							type: "GET",
+							url: movingUrl + kanbanNum + "&kanbanState=DELETE",
+							success: function(){
+								deleteDialog.dialog('close');
+								$("li[id="+kanbanNum+"]").remove();
+							} 
 						});
 					}
 				},
@@ -106,20 +138,16 @@
 	// kanbanList() 호출 후 db갔다오지 말고 front-end단에서 삭제하기  + 다이얼로그 추가 
 	$(document).on("click",".btnKanbanDelete",(function() {	
 		var kanbanNum = this.id;
-		$.ajax({
-			type: "GET",
-			url: movingUrl + kanbanNum + "&kanbanState=DELETE",
-			success: function(){
-				kanbanList();
-			} 
-		});
+		var kanbanContent = $(this).siblings('div').text();
+		$("#deleteKanbanContent").text(kanbanContent.trim());
+		deleteDialog.data('kanbanNum',kanbanNum).dialog("open");
 	}));
 	
 	$(document).on("click",".glyphicon-pencil",(function() {	
 		var kanbanNum = $(this).closest('li').prop('id');
 		var kanbanContent = $(this).parent('div').text();
 		$("#dialogContent").val(kanbanContent.trim());
-		dialog.data('kanbanNum',kanbanNum).dialog("open");
+		modifyDialog.data('kanbanNum',kanbanNum).dialog("open");
 	}));
 	
 	function updateTodo(item , movingUrl){

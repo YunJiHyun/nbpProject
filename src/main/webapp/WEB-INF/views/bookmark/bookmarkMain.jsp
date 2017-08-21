@@ -156,7 +156,7 @@
 						</c:forEach>
 					</li>
 					<li>
-						<c:if test="${boardPageHelper.curBlock <= boardPageHelper.totalBlock}">
+						<c:if test="${boardPageHelper.curBlock < boardPageHelper.totalBlock}">
 							<a href="javascript:list('${boardPageHelper.nextPage}')" aria-label="Next"> 
 								<span aria-hidden="true">&gt;</span>
 							</a>
