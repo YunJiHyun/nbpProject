@@ -47,6 +47,7 @@ public class KanbanController {
 	public String getKanbanlist(Authentication auth, Model model) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		model.addAttribute("kanbanList", kanbanService.kanbanListAll(userId));
+		System.out.println(kanbanService.kanbanListAll(userId));
 		return "kanban/kanbanList";
 	}
 

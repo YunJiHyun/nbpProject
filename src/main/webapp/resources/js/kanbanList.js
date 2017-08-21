@@ -18,13 +18,10 @@
 					click: function () {
 						var kanbanNum = $(this).data('kanbanNum');
 						var deleteBoardClass = $(this).data('deleteBoardClass');
-						if(deleteBoardClass != 0){ //원글 삭제된 칸반보드 내용수정이라면
-							tempContent = $("#dialogContent").val();
-							kanbanContent = tempContent + "<br/><span class='deletedBoard' style='color:red'>[원글삭제됨]</span>";
-						} else {
-							kanbanContent = $("#dialogContent").val();
-						}
+						var boardLink = $(this).data('boardLink');
+						kanbanContent = $("#dialogContent").val();
 						var kanbanDeadline = $("#kanbanModifyDeadline").val()
+						
 						$.ajax({
 							type: "POST",
 							url:  "/jihyunboard/kanban/updateKanbanContent",
@@ -34,6 +31,14 @@
 								kanbanDeadline : kanbanDeadline
 							},
 							success: function(){
+								
+								if(deleteBoardClass != 0){ 
+									tempContent = $("#dialogContent").val();
+									kanbanContent = tempContent + "<br/><span class='deletedBoard' style='color:red'>[원글삭제됨]</span>";
+								}
+								if(boardLink != 0){
+									kanbanContent = '<a href="javascript:viewDetailDialog(' + kanbanNum + ')">' + $("#dialogContent").val() + '</a>';
+								} 
 								alert("내용이 수정되었습니다.");
 								$("li[id="+kanbanNum+"]").children('div').html(kanbanContent+"<span class='glyphicon glyphicon-pencil'></span>");
 								$("li[id="+kanbanNum+"]").children('span').removeClass('label-danger').addClass('label-default').children('span').text(kanbanDeadline);
@@ -160,7 +165,9 @@
 		} 
 		$("#dialogContent").val(kanbanContent);
 		$("#kanbanModifyDeadline").val(kanbanDeadline);
-		modifyDialog.data('kanbanNum',kanbanNum).data('deleteBoardClass',$(this).siblings('.deletedBoard').length).dialog("open");
+		modifyDialog.data('kanbanNum',kanbanNum);
+		modifyDialog.data('deleteBoardClass',$(this).siblings('.deletedBoard').length);
+		modifyDialog.data('boardLink',$(this).siblings('a').length).dialog("open");
 	}));
 	
 	function updateTodo(item , movingUrl){
