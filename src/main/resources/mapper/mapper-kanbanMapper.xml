@@ -92,7 +92,7 @@
 		UPDATE kanban
 		SET
 			kanban_boardNum = null,
-			kanban_content = CONCAT(kanban_content, '[원글삭제됨]')
+			kanban_content = CONCAT(kanban_content, '<![CDATA[<span style="color:red">[원글삭제됨]</span>]]>')
 		WHERE 
 			kanban_boardNum = #{boardNum}
 	</update>
