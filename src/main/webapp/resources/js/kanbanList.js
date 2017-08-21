@@ -17,7 +17,13 @@
 					text: "Yes",
 					click: function () {
 						var kanbanNum = $(this).data('kanbanNum');
-						var kanbanContent = $("#dialogContent").val(); 
+						var deleteBoardClass = $(this).data('deleteBoardClass');
+						if(deleteBoardClass != 0){ //원글 삭제된 칸반보드 내용수정이라면
+							tempContent = $("#dialogContent").val();
+							kanbanContent = tempContent + "<br/><span class='deletedBoard' style='color:red'>[원글삭제됨]</span>";
+						} else {
+							kanbanContent = $("#dialogContent").val();
+						}
 						var kanbanDeadline = $("#kanbanModifyDeadline").val()
 						$.ajax({
 							type: "POST",
@@ -138,7 +144,6 @@
 		});
 	});
 	
-	// kanbanList() 호출 후 db갔다오지 말고 front-end단에서 삭제하기  + 다이얼로그 추가 
 	$(document).on("click",".btnKanbanDelete",(function() {	
 		var kanbanNum = this.id;
 		var kanbanContent = $(this).siblings('div').text();
@@ -148,11 +153,14 @@
 	
 	$(document).on("click",".glyphicon-pencil",(function() {	
 		var kanbanNum = $(this).closest('li').prop('id');
-		var kanbanContent = $(this).parent('div').text();
+		var kanbanContent = $(this).parent('div').text().trim();
 		var kanbanDeadline = $(this).parent('div').siblings('span').children('span').text();
-		$("#dialogContent").val(kanbanContent.trim());
+		if($(this).siblings('.deletedBoard').length != 0){
+			kanbanContent=kanbanContent.replace('[원글삭제됨]','');
+		} 
+		$("#dialogContent").val(kanbanContent);
 		$("#kanbanModifyDeadline").val(kanbanDeadline);
-		modifyDialog.data('kanbanNum',kanbanNum).dialog("open");
+		modifyDialog.data('kanbanNum',kanbanNum).data('deleteBoardClass',$(this).siblings('.deletedBoard').length).dialog("open");
 	}));
 	
 	function updateTodo(item , movingUrl){

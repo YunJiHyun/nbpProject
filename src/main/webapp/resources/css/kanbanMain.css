@@ -56,6 +56,7 @@ li[data-importance='3'] {
 }
 
 .todoContentDiv, .doingContentDiv {
+	margin-left : 5px;
 	margin-top : 30px; 
 	width : 110px;
 	height :100px;
@@ -63,6 +64,7 @@ li[data-importance='3'] {
 	word-break:break-all;
 }
 .doneContentDiv {
+	margin-left : 5px;
 	width : 110px;
 	height :100px;
 	word-wrap:break-word; 
