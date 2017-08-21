@@ -13,7 +13,7 @@ public interface KanbanRepository {
 
 	public void insertKanban(Kanban kanban);
 
-	public void updateKanban(Kanban kanban);
+	public void updateKanbanState(Kanban kanban);
 
 	public void deleteKanban(Kanban kanban);
 
@@ -22,5 +22,9 @@ public interface KanbanRepository {
 	public int checkAddedKanban(Kanban kanban);
 
 	public void updateKanbanForDeleteBoard(int boardNum);
+
+	public void sortKanbanList(Kanban kanban);
+
+	public void updateKanbanContent(Kanban kanban);
 
 }

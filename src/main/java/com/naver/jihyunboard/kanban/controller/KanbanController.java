@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.kanban.model.Kanban;
+import com.naver.jihyunboard.kanban.model.SortKanban;
 import com.naver.jihyunboard.kanban.service.KanbanService;
 
 @Controller
@@ -74,18 +76,29 @@ public class KanbanController {
 	 * @throws Exception
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-	public int updateKanbanData(Kanban kanban, Authentication auth) throws Exception {
+	@RequestMapping(value = "/update", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public void updateKanbanStateData(Kanban kanban, Authentication auth) throws Exception {
 		int userId = Integer.parseInt(boardService.authUserId(auth));
 		int stateNum = kanbanService.getStateNum(kanban, userId);
-		kanbanService.updateKanban(kanban, stateNum);
+		kanbanService.updateKanbanState(kanban, stateNum);
 
-		return stateNum;
 	}
 
 	@RequestMapping(value = "/viewDetailDialog", method = RequestMethod.POST)
 	public String viewDetailDialog(Board board, Model model) throws Exception {
 		model.addAttribute("board", kanbanService.viewDetailDialog(board));
 		return "kanban/viewDetailDialog";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/sortList", method = RequestMethod.POST)
+	public void sortKanbanList(@RequestBody SortKanban sortKanban, Authentication auth) throws Exception {
+		kanbanService.sortKanbanList(sortKanban, Integer.parseInt(boardService.authUserId(auth)));
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/updateKanbanContent", method = RequestMethod.POST)
+	public void updateKanbanContent(Kanban kanban, Authentication auth) throws Exception {
+		kanbanService.updateKanbanContent(kanban, Integer.parseInt(boardService.authUserId(auth)));
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.repository.BoardRepository;
 import com.naver.jihyunboard.kanban.model.Kanban;
+import com.naver.jihyunboard.kanban.model.SortKanban;
 import com.naver.jihyunboard.kanban.repository.KanbanRepository;
 
 @Service
@@ -33,12 +34,12 @@ public class KanbanService {
 		return kanbanRepository.kanbanListAll(userId);
 	}
 
-	public void updateKanban(Kanban kanban, int stateNum) {
+	public void updateKanbanState(Kanban kanban, int stateNum) {
 
 		String kanbanState = kanban.getKanbanState();
 		if ((kanbanState.equals("TODO") && stateNum < 10) || (kanbanState.equals("DOING") && stateNum < 6)
 			|| (kanbanState.equals("DONE") && stateNum < 8)) {
-			kanbanRepository.updateKanban(kanban);
+			kanbanRepository.updateKanbanState(kanban);
 		}
 		if (kanbanState.equals("DELETE")) {
 			kanbanRepository.deleteKanban(kanban);
@@ -61,6 +62,24 @@ public class KanbanService {
 		kanban.setKanbanBoardNum(boardNum);
 		kanban.setKanbanUserId(userId);
 		return kanbanRepository.checkAddedKanban(kanban);
+	}
+
+	public void sortKanbanList(SortKanban sortKanban, int userId) {
+		Kanban sortingKanban = new Kanban();
+		sortingKanban.setKanbanState(sortKanban.getSortState());
+		sortingKanban.setKanbanUserId(userId);
+		int order = 1;
+		for (int list : sortKanban.getSortedList()) {
+			sortingKanban.setKanbanNum(list);
+			sortingKanban.setKanbanOrder(order++);
+			kanbanRepository.sortKanbanList(sortingKanban);
+		}
+	}
+
+	public void updateKanbanContent(Kanban kanban, int userId) {
+		kanban.setKanbanUserId(userId);
+		kanbanRepository.updateKanbanContent(kanban);
+
 	}
 
 }

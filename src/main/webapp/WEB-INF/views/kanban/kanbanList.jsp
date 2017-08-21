@@ -12,9 +12,9 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th style="text-align:center" >TODO<span id="todoNum" style="color:blue"></span></th>
-				<th id="doingTh" style="text-align:center">DOING<span id="doingNum" style="color:blue"></span></th>
-				<th id="doneTh" style="text-align:center">DONE<span id="doneNum" style="color:blue"></span></th>
+				<th id="todoTh" >TODO<span id="todoNum" style="color:blue"></span></th>
+				<th id="doingTh">DOING<span id="doingNum" style="color:blue"></span></th>
+				<th id="doneTh">DONE<span id="doneNum" style="color:blue"></span></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,10 +28,10 @@
 								<li class="todoList"  id="${row.kanbanNum}"  data-importance="${row.kanbanImportance}">
 									<div class="todoContentDiv">
 										<c:if test="${row.kanbanBoardNum eq ''}"> 
-											${row.kanbanContent} <br/>
+											${row.kanbanContent} <span class="glyphicon glyphicon-pencil"></span><br/>
 										</c:if>
 										<c:if test="${row.kanbanBoardNum ne ''}"> 
-											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a><span class="glyphicon glyphicon-pencil"></span> <br/>
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
@@ -54,10 +54,10 @@
 								<li class="doingList" id="${row.kanbanNum}" data-importance="${row.kanbanImportance}">
 									<div class="doingContentDiv">
 										<c:if test="${row.kanbanBoardNum eq ''}"> 
-											${row.kanbanContent} <br/>
+											${row.kanbanContent} <span class="glyphicon glyphicon-pencil"></span><br/>
 										</c:if>
 										<c:if test="${row.kanbanBoardNum ne ''}"> 
-											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <span class="glyphicon glyphicon-pencil"></span><br/>
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
@@ -83,10 +83,10 @@
 									</button><br/><br/>
 									<div class="doneContentDiv">
 										<c:if test="${row.kanbanBoardNum eq ''}"> 
-											${row.kanbanContent} <br/>
+											${row.kanbanContent} <span class="glyphicon glyphicon-pencil"></span><br/>
 										</c:if>
 										<c:if test="${row.kanbanBoardNum ne ''}"> 
-											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <br/>
+											<a href="javascript:viewDetailDialog('${row.kanbanBoardNum}')">${row.kanbanContent}</a> <span class="glyphicon glyphicon-pencil"></span><br/>
 										</c:if>
 									</div>
 									<c:if test="${today >= deadline}"> 
@@ -102,6 +102,12 @@
 				</td>
 			</tr>
 		</tbody>
-	</table> 
+	</table>
+	<div id="dialog" style="display: none" align="center">
+		<br/>
+		해야할 일
+		<br/><br/>
+		<input id="dialogContent" type="text" size="80" onkeyup="checkWord(this, 60)" value=""/>
+	</div>
 </body>
 </html>

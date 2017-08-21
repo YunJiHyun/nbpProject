@@ -9,6 +9,7 @@
 		<result property="kanbanDeadline" column="kanban_deadline"/>
 		<result property="kanbanBoardNum" column="kanban_boardNum"/>
 		<result property="kanbanModifyTime" column="kanban_modifyTime"/>
+		<result property="kanbanOrder" column="kanban_order"/>
 	</resultMap>
 	
 	<select id="kanbanListAll" resultMap="kanbanResultMap">
@@ -22,6 +23,7 @@
 			kanban_modifyTime
 		FROM kanban
 		WHERE kanban_userId = #{userId}
+		ORDER BY kanban_order ASC
 	</select>
 	
 	<select id="getStateNum" resultType="int">
@@ -40,21 +42,24 @@
 			kanban_userId,
 			kanban_content,
 			kanban_importance,
-			kanban_deadline
+			kanban_deadline,
+			kanban_order
 		)
-		VALUES 
-		(
+		SELECT 
 			<if test="kanbanBoardNum != 0" >
 				#{kanbanBoardNum},
 			</if>
 			#{kanbanUserId},
 			#{kanbanContent},
 			#{kanbanImportance},
-			#{kanbanDeadline}
-		)
+			#{kanbanDeadline},
+			COUNT(#{kanbanUserId}) + 1
+			FROM kanban
+			WHERE kanban_state = "TODO"
 	</insert>
 	
-	<update id="updateKanban">
+	
+	<update id="updateKanbanState">
 		UPDATE kanban
 		<if test="kanbanState == 'TODO'">
 			SET kanban_State = "TODO",
@@ -65,7 +70,8 @@
 		<if test="kanbanState == 'DONE'">
 			SET kanban_State = "DONE",
 		</if>
-		 		kanban_modifyTime = CURRENT_TIMESTAMP
+		 		kanban_modifyTime = CURRENT_TIMESTAMP,
+		 		kanban_order = #{kanbanOrder}
 		WHERE kanban_num = #{kanbanNum}
 	</update>
 	
@@ -89,6 +95,23 @@
 			kanban_content = CONCAT(kanban_content, '[원글삭제됨]')
 		WHERE 
 			kanban_boardNum = #{boardNum}
+	</update>
+	
+	<update id="sortKanbanList">
+		UPDATE kanban
+		SET 
+			kanban_order = #{kanbanOrder}
+		WHERE kanban_userId= #{kanbanUserId}
+		AND kanban_State = #{kanbanState}
+		AND kanban_num = #{kanbanNum}
+	</update>
+	
+	<update id="updateKanbanContent">
+		UPDATE kanban
+		SET 
+			kanban_content = #{kanbanContent}
+		WHERE kanban_userId= #{kanbanUserId}
+		AND kanban_num = #{kanbanNum}
 	</update>
 	
 </mapper>

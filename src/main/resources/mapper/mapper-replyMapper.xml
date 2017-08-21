@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.jihyunboard.reply.repository.ReplyRepository">
-
+	<resultMap id="replyResultMap" type="reply">
+		<id property="replyNum" column="reply_num"/>
+		<result property="boardNum" column="reply_board_num"/>
+		<result property="replyContent" column="reply_content"/>
+		<result property="replyer" column="replyer"/>
+		<result property="replyDate" column="reply_Date"/>
+	</resultMap>
 
 	<insert id="insertReply">
 		INSERT INTO reply 
@@ -18,13 +24,13 @@
 		)
 	</insert>
 	
-	 <select id="replyList" resultType="reply">
+	 <select id="replyList" resultMap="replyResultMap">
 		SELECT 
-			reply_num AS replyNum, 
-			reply_board_num AS boardNum, 
-			reply_content AS replyContent, 
-			replyer AS replyer, 
-			reply_Date AS replyDate,
+			reply_num, 
+			reply_board_num, 
+			reply_content, 
+			replyer, 
+			reply_Date,
 			userName AS replyUserName
 		FROM reply r, user u
 		WHERE r.replyer = u.userId
@@ -39,13 +45,13 @@
 		WHERE reply_board_num = #{boardNum}
 	</select>
 	
-	<select id="detailReply" resultType="reply">
+	<select id="detailReply" resultMap="replyResultMap">
 		SELECT 
-			reply_num AS replyNum, 
-			reply_board_num AS boardNum, 
-			reply_content AS replyContent, 
-			replyer AS replyer, 
-			reply_Date AS replyDate
+			reply_num, 
+			reply_board_num, 
+			reply_content, 
+			replyer, 
+			reply_Date
 		FROM reply 
 		WHERE 
 			reply_num = #{replyNum}

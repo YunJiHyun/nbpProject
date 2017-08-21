@@ -82,7 +82,7 @@
 					</c:forEach>
 				</li>
 				<li>
-					<c:if test="${replyPageHelper.curBlock <= replyPageHelper.totalBlock}">
+					<c:if test="${replyPageHelper.curBlock < replyPageHelper.totalBlock}">
 						<a href="javascript:replyList('${replyPageHelper.nextPage}')" aria-label="Next"> 
 							<span aria-hidden="true">&gt;</span>
 						</a>

@@ -49,7 +49,7 @@
 					document.kanbanWriteForm.kanbanDeadline.focus();
 					return false;
 				}
-				
+	
 				$.ajax({
 					type: "GET",
 					url: "/jihyunboard/kanban/insert?kanbanBoardNum="+ kanbanBoardNum +"&kanbanState=TODO",

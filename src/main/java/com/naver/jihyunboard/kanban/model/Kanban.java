@@ -23,4 +23,5 @@ public class Kanban {
 	private String kanbanState;
 	private Date kanbanDeadline;
 	private Timestamp kanbanModifyTime;
+	private int kanbanOrder;
 }
