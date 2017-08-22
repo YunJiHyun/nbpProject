@@ -1,5 +1,7 @@
 package com.naver.jihyunboard.board.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
