@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.extern.slf4j.Slf4j;
+
 import com.naver.jihyunboard.board.model.Board;
 import com.naver.jihyunboard.board.model.BoardPageHelper;
 import com.naver.jihyunboard.board.model.SearchPageHelper;
@@ -24,6 +26,7 @@ import com.naver.jihyunboard.board.service.BoardService;
 import com.naver.jihyunboard.kanban.service.KanbanService;
 import com.naver.jihyunboard.reply.service.ReplyService;
 
+@Slf4j
 @Controller
 @RequestMapping("/board/")
 public class BoardController {
@@ -63,7 +66,7 @@ public class BoardController {
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 		boardPageHelper.setCategory(searchPageHelper.getCategory());
-		System.out.println(boardPageHelper);
+		log.debug("boardPageHelper======================>>" + boardPageHelper);
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper, auth));
 		model.addAttribute("count", count);

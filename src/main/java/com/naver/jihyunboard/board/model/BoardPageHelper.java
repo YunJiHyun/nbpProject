@@ -1,8 +1,12 @@
 package com.naver.jihyunboard.board.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class BoardPageHelper extends SearchPageHelper {
 	private int pageScale = 10; // 10개씩 게시물
 	public static final int BLOCK_SCALE = 5; // 페이징 번호 5개씩
