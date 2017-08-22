@@ -24,7 +24,7 @@
 			$("#dialog").dialog("open");
 		}
 		var searchParam = "&searchOption=${boardPageHelper.searchOption}"
-						+ "&keyword=<c:out value='${boardPageHelper.keyword}'/>";
+			searchParam	+= "&keyword=<c:out value='${boardPageHelper.keyword}'/>";
 		var categoryParam = "&category=${boardPageHelper.category}";
 		var pageScaleParam = "&pageScale=${boardPageHelper.pageScale}" ;
 		
@@ -87,6 +87,7 @@
 								<option value="all" <c:out value="${boardPageHelper.searchOption == 'all'?'selected':''}"/>>전체</option>
 								<option value="userName" <c:out value="${boardPageHelper.searchOption == 'userName'?'selected':''}"/>>작성자</option>
 								<option value="boardTitle" <c:out value="${boardPageHelper.searchOption == 'boardTitle'?'selected':''}"/>>제목</option>
+								<option value="boardContent" <c:out value="${boardPageHelper.searchOption == 'boardContent'?'selected':''}"/>>내용</option>
 							</select>
 							<div class="col-xs-2">
 								<input class="form-control" name="keyword" value="<c:out value='${boardPageHelper.keyword}'/>">

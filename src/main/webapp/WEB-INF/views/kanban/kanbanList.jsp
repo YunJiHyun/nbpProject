@@ -77,7 +77,7 @@
 							<fmt:formatDate var="deadline" value="${row.kanbanDeadline }" pattern="yyyy-MM-dd" />
 							<fmt:formatDate  var="today" value="${now}" pattern="yyyy-MM-dd"/>	
 							<c:if test="${row.kanbanState == 'DONE'}">
-								<li class="doneList ui-state-default" id="${row.kanbanNum}" data-importance="${row.kanbanImportance}">
+								<li class="doneList" id="${row.kanbanNum}" data-importance="${row.kanbanImportance}">
 									<button id="${row.kanbanNum}" class="btn btn-default navbar-btn btn-sm btnKanbanDelete">
 										<span class="glyphicon glyphicon-remove"></span>
 									</button><br/><br/>

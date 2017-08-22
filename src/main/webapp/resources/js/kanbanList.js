@@ -19,7 +19,7 @@
 						var kanbanNum = $(this).data('kanbanNum');
 						var deleteBoardClass = $(this).data('deleteBoardClass');
 						var boardLink = $(this).data('boardLink');
-						kanbanContent = $("#dialogContent").val();
+						var kanbanContent = $("#dialogContent").val();
 						var kanbanDeadline = $("#kanbanModifyDeadline").val()
 						
 						$.ajax({
@@ -90,7 +90,7 @@
 		
 		updateStateNum();
 		//영역 못 벗어나게 draggable
-		 $( "ul" ).sortable({
+		 $( "#todo, #doing, #done" ).sortable({
 			connectWith: "ul",
 			containment: "tbody", 
 			scroll: false,
@@ -165,9 +165,10 @@
 		} 
 		$("#dialogContent").val(kanbanContent);
 		$("#kanbanModifyDeadline").val(kanbanDeadline);
+		
+		modifyDialog.data('boardLink',$(this).siblings('a').length).dialog("open");
 		modifyDialog.data('kanbanNum',kanbanNum);
 		modifyDialog.data('deleteBoardClass',$(this).siblings('.deletedBoard').length);
-		modifyDialog.data('boardLink',$(this).siblings('a').length).dialog("open");
 	}));
 	
 	function updateTodo(item , movingUrl){
@@ -186,6 +187,7 @@
 			
 		changeElement.removeAttr("style");
 		var checkTodoNum = $(".todoList").length;
+		updateStateNum();
 		$.ajax({
 			type: "GET",
 			url: movingUrl + kanbanNum + "&kanbanState=TODO&kanbanOrder="+checkTodoNum	
@@ -209,6 +211,7 @@
 		$("li[id="+kanbanNum+"] br").remove();
 			
 		changeElement.removeAttr("style");
+		updateStateNum();
 		var checkDoingNum = $(".doingList").length;
 		$.ajax({
 			type: "GET",
@@ -220,11 +223,10 @@
 		var kanbanNum = item.prop("id");
 		var movingLiElement = $("li[id="+kanbanNum+"]");
 			
-		movingLiElement.removeClass().addClass('doneList ui-state-default ui-sortable-handle');
+		movingLiElement.removeClass().addClass('doneList ui-sortable-handle');
 		movingLiElement.children('div').removeClass().addClass('doneContentDiv');
 
 		var changeElement = movingLiElement.clone();
-		
 		movingLiElement.remove();
 			
 		$("#done").append(changeElement);
@@ -234,6 +236,7 @@
 			
 		$(btnHtml).prependTo($("li[id="+kanbanNum+"]"));
 		changeElement.removeAttr("style");
+		updateStateNum();
 		var checkDoneNum =  $(".doneList").length;
 		$.ajax({
 			type: "GET",

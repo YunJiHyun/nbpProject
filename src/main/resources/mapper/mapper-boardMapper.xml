@@ -155,6 +155,8 @@
 					u.userName LIKE CONCAT('%' ,#{keyword},'%')
 					OR
 					boardTitle LIKE CONCAT('%' ,#{keyword},'%')
+					OR
+					boardContent LIKE CONCAT('%' ,#{keyword},'%')
 				)
 				<if test="category != ''">
 					AND b.boardCategory = #{category}
