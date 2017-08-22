@@ -24,8 +24,8 @@
 			$("#dialog").dialog("open");
 		}
 		var searchParam = "&searchOption=${boardPageHelper.searchOption}";
-			searchParam	+= "&keyword=<c:out value='${boardPageHelper.keyword}'/>";
-		var categoryParam = "&category=<c:out value='${boardPageHelper.category}'/>";
+			searchParam	+= "&keyword=${boardPageHelper.keyword}";
+		var categoryParam = "&category=${boardPageHelper.category}";
 		var pageScaleParam = "&pageScale=${boardPageHelper.pageScale}" ;
 		
 		function list(page) {
