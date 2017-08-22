@@ -1,10 +1,12 @@
 package com.naver.jihyunboard.board.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import com.naver.jihyunboard.bookmark.model.Bookmark;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class SearchPageHelper extends Bookmark {
 	private String searchOption = "all";
 	private String keyword = "";

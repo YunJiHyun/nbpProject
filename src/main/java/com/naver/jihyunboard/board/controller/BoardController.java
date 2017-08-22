@@ -63,7 +63,7 @@ public class BoardController {
 		boardPageHelper.setSearchOption(searchPageHelper.getSearchOption());
 		boardPageHelper.setKeyword(searchPageHelper.getKeyword());
 		boardPageHelper.setCategory(searchPageHelper.getCategory());
-
+		System.out.println(boardPageHelper);
 		model.addAttribute("boardPageHelper", boardPageHelper);
 		model.addAttribute("boardList", boardService.listAll(boardPageHelper, auth));
 		model.addAttribute("count", count);

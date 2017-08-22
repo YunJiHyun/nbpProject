@@ -23,6 +23,8 @@
 			});
 			$("#dialog").dialog("open");
 		}
+		
+		
 		var searchParam = "&searchOption=${boardPageHelper.searchOption}";
 			searchParam	+= "&keyword=${boardPageHelper.keyword}";
 		var categoryParam = "&category=${boardPageHelper.category}";
