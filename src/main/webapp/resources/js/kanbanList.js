@@ -88,7 +88,7 @@
 			]
 		});
 		
-		updateStateNum();
+		displayStateNum();
 		//영역 못 벗어나게 draggable
 		 $( "#todo, #doing, #done" ).sortable({
 			connectWith: "ul",
@@ -99,7 +99,6 @@
 			update: function( event, ui ){
 				var ulList = this.id;
 				var data = $(this).sortable('toArray');
-			
 				$.ajax({
 					type: "POST",
 					url:  "/jihyunboard/kanban/sortList",
@@ -122,7 +121,9 @@
 					alert("todo상태는 10개까지만 가능합니다.")
 					return false;
 				}
+				updateStateNum(ui.draggable, this.id);
 				updateTodo(ui.draggable, movingUrl);
+				//여기에 updateState를 썼더니 이미 class명이 바뀐상태라 생각한대로 안나옴
 			}
 		});
 		
@@ -133,6 +134,7 @@
 					alert("doing상태는 6개까지만 가능합니다.")
 					return false;
 				}
+				updateStateNum(ui.draggable, this.id);
 				updateDoing(ui.draggable, movingUrl);
 			}
 		});
@@ -144,6 +146,7 @@
 					alert("done상태는 8개까지만 가능합니다.");
 					return false;
 				}
+				updateStateNum(ui.draggable, this.id);
 				updateDone(ui.draggable, movingUrl);
 			}
 		});
@@ -174,7 +177,7 @@
 	function updateTodo(item , movingUrl){
 		var kanbanNum = item.prop("id");
 		var movingLiElement =$("li[id="+kanbanNum+"]");
-			
+		
 		movingLiElement.removeClass().addClass('todoList ui-sortable-handle');
 		movingLiElement.children('div').removeClass().addClass('todoContentDiv');
 
@@ -187,7 +190,6 @@
 			
 		changeElement.removeAttr("style");
 		var checkTodoNum = $(".todoList").length;
-		updateStateNum();
 		$.ajax({
 			type: "GET",
 			url: movingUrl + kanbanNum + "&kanbanState=TODO&kanbanOrder="+checkTodoNum	
@@ -211,7 +213,6 @@
 		$("li[id="+kanbanNum+"] br").remove();
 			
 		changeElement.removeAttr("style");
-		updateStateNum();
 		var checkDoingNum = $(".doingList").length;
 		$.ajax({
 			type: "GET",
@@ -236,15 +237,18 @@
 			
 		$(btnHtml).prependTo($("li[id="+kanbanNum+"]"));
 		changeElement.removeAttr("style");
-		updateStateNum();
+		
 		var checkDoneNum =  $(".doneList").length;
 		$.ajax({
 			type: "GET",
-			url: movingUrl + kanbanNum + "&kanbanState=DONE&kanbanOrder=" + checkDoneNum
+			url: movingUrl + kanbanNum + "&kanbanState=DONE&kanbanOrder=" + checkDoneNum,
+			success : function (){
+			}
+		
 		});
 	}
 	
-	function updateStateNum(){
+	function displayStateNum(){
 		var checkTodoNum = $(".todoList").length;
 		$("#todoNum").text(" "+"["+checkTodoNum+"/10]");
 		
@@ -259,6 +263,32 @@
 		console.log("doingNum" + checkDoingNum);
 		console.log("doneNum" + checkDoneNum);
 		
+	}
+	
+	function updateStateNum(item, dropTd){
+		var checkTodoNum = $(".todoList").length;
+		var checkDoingNum = $(".doingList").length;
+		var checkDoneNum =  $(".doneList").length;
+	
+		if(dropTd =="kanbanTodo"){
+			checkTodoNum = checkTodoNum + 1;
+		} else if(dropTd == "kanbanDoing"){
+			checkDoingNum = checkDoingNum +1  ;
+		} else if(dropTd == "kanbanDone"){
+			checkDoneNum = checkDoneNum + 1 ;
+		}
+		
+		if(item.hasClass('todoList')){
+			checkTodoNum = checkTodoNum - 2;
+		} else if(item.hasClass('doingList')){
+			checkDoingNum = checkDoingNum  -2  ;
+		} else if(item.hasClass('doneList')){
+			checkDoneNum = checkDoneNum - 2 ;
+		}
+		
+		$("#todoNum").text(" "+"["+checkTodoNum+"/10]");
+		$("#doingNum").text(" "+"["+checkDoingNum+"/6]");
+		$("#doneNum").text(" "+"["+checkDoneNum+"/8]");
 	}
 
 	
