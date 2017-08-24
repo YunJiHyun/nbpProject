@@ -23,7 +23,11 @@ h1 {
 #mark {
 	text-decoration: underline;
 }
-
+#findMark {
+	text-decoration: underline;
+	color : blue;
+	weight : bold;
+}
 .description {
 	color: gray
 }

@@ -167,7 +167,7 @@
 			kanbanContent=kanbanContent.replace('[원글삭제됨]','');
 		} 
 		$("#dialogContent").val(kanbanContent);
-		$("#kanbanModifyDeadline").val(kanbanDeadline);
+			$("#kanbanModifyDeadline").val(kanbanDeadline);
 		
 		modifyDialog.data('boardLink',$(this).siblings('a').length).dialog("open");
 		modifyDialog.data('kanbanNum',kanbanNum);
@@ -257,11 +257,6 @@
 		
 		var checkDoneNum =  $(".doneList").length;
 		$("#doneNum").text(" "+"["+checkDoneNum+"/8]");
-		
-		
-		console.log("todoNum" + checkTodoNum);
-		console.log("doingNum" + checkDoingNum);
-		console.log("doneNum" + checkDoneNum);
 		
 	}
 	

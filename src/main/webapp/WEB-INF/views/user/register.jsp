@@ -5,8 +5,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>회원가입</title>
-	<link rel="stylesheet" href="<c:url value='/resources/bootstrap/css/styleSignUp.css'></c:url>" media="screen" title="no title" charset="utf-8">
-<script src="<c:url value="/resources/js/register.js"></c:url>"></script>
+	<link rel="stylesheet" href="<c:url value='/resources/bootstrap/css/styleSignUp.css'></c:url>" media="screen" title="no title">
+	<script src="<c:url value="/resources/js/register.js"></c:url>"></script>
 </head>
 <body>
 	<article class="container">

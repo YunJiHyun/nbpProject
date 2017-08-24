@@ -53,4 +53,9 @@ public class UserController {
 		return "user/userInfo";
 	}
 
+	@RequestMapping(value = "/findPassword", method = RequestMethod.POST)
+	public String gofindPasswordPage() {
+		return "user/findPassword";
+	}
+
 }

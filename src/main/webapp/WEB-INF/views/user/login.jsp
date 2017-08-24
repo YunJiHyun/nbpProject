@@ -78,7 +78,10 @@
 						</c:if>
 						<c:if test="${not empty msg}">
 							<div class="msg">${msg}</div>
-						</c:if>						
+						</c:if>
+						<div class="findPassword">
+							비민번호를 잊어버리셨나요?&nbsp;&nbsp; <a href="${path }/user/findPassword" id="findMark">비밀번호 찾기</a>
+						</div>						
 					</div>
 				</div>
 			</div>

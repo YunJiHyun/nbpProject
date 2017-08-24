@@ -110,7 +110,7 @@
 		<input id="dialogContent" type="text" size="80" onkeyup="checkWord(this, 60)" value=""/>
 		<br/><br/>
 		<label>마감날짜 : </label> 
-		<input type="date" id="kanbanModifyDeadline" min="${today}" size="20" >
+		<input type="text" id="kanbanModifyDeadline" min="${today}" size="20" >
 	</div>
 	<div id="kanbanDeleteDialog" style="display: none" align="center">
 		<br/>

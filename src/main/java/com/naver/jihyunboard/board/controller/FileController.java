@@ -28,8 +28,8 @@ import com.naver.jihyunboard.board.service.BoardService;
 @RequestMapping("/upload/*")
 public class FileController {
 
-	//public static final String BASE_PATH = "D:/fileUpload";
-	public static final String BASE_PATH = "/home1/irteam/fileUpload";
+	public static final String BASE_PATH = "D:/fileUpload";
+	//public static final String BASE_PATH = "/home1/irteam/fileUpload";
 
 	@Autowired
 	BoardService boardService;
